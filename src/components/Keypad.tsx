@@ -1,3 +1,5 @@
+import { Button } from "@/components/Button";
+
 interface KeypadProps {
   label?: string;
   // value: string;
@@ -51,20 +53,22 @@ export function Keypad({
       {(onClear || onToggleSign) && (
         <div className="grid grid-cols-2 gap-1">
           {onClear && (
-            <button
+            <Button
               onClick={onClear}
-              className={`${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"} text-sm font-semibold rounded bg-red-500 hover:bg-red-600 text-white shadow-[0_3px_0_0_#b91c1c] active:translate-y-[2px] active:shadow-[0_1px_0_0_#b91c1c] transition-all ${onToggleSign ? "" : "col-span-2"}`}
+              color="red"
+              className={`${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"} text-sm font-semibold ${onToggleSign ? "" : "col-span-2"}`}
             >
               C
-            </button>
+            </Button>
           )}
           {onToggleSign && (
-            <button
+            <Button
               onClick={onToggleSign}
-              className={`${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"} text-sm font-semibold rounded bg-blue-500 hover:bg-blue-600 text-white shadow-[0_3px_0_0_#1d4ed8] active:translate-y-[2px] active:shadow-[0_1px_0_0_#1d4ed8] transition-all ${onClear ? "" : "col-span-2"}`}
+              color="blue"
+              className={`${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"} text-sm font-semibold ${onClear ? "" : "col-span-2"}`}
             >
               +/−
-            </button>
+            </Button>
           )}
         </div>
       )}
@@ -72,25 +76,20 @@ export function Keypad({
         className={`grid gap-x-1 gap-y-2 ${canShrink ? "grid-cols-2 md:grid-cols-3" : "grid-cols-3"}`}
       >
         {buttons.map((btn) => (
-          <button
+          <Button
             key={btn}
             onClick={() => handleClick(btn)}
+            color={btn === "⌫" ? "light-red" : "gray"}
             className={`
-              text-lg font-semibold rounded
-              ${
-                btn === "⌫"
-                  ? "bg-red-100 hover:bg-red-200 text-red-700 col-span-1 shadow-[0_3px_0_0_#f87171]"
-                  : "bg-gray-200 hover:bg-gray-300 text-gray-800 shadow-[0_3px_0_0_#9ca3af]"
-              }
+              text-lg font-semibold
               ${btn === "0" ? "col-span-1" : ""}
-              ${btn === "⌫" ? "active:shadow-[0_1px_0_0_#f87171] col-span-2" : "active:shadow-[0_1px_0_0_#9ca3af]"}
-              active:translate-y-[2px] transition-all
+              ${btn === "⌫" ? "col-span-2" : ""}
               ${canShrink ? twoColOrder[btn] : ""}
               ${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"}
             `}
           >
             {btn}
-          </button>
+          </Button>
         ))}
       </div>
     </div>

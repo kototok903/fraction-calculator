@@ -1,3 +1,5 @@
+import { Button } from "@/components/Button";
+
 interface OpButtonsProps {
   onOperation: (op: "+" | "-" | "*" | "/") => void;
   onEquals: () => void;
@@ -19,28 +21,18 @@ export function OpButtons({
   return (
     <div className="flex gap-2 w-full min-h-10">
       {operations.map((op) => (
-        <button
+        <Button
           key={op.value}
           onClick={() => onOperation(op.value)}
-          className={`
-            flex-1 text-2xl font-bold rounded
-            ${
-              selectedOp === op.value
-                ? "bg-blue-600 text-white shadow-[0_3px_0_0_#1d4ed8] active:shadow-[0_1px_0_0_#1d4ed8]"
-                : "bg-gray-200 hover:bg-gray-300 text-gray-800 shadow-[0_3px_0_0_#9ca3af] active:shadow-[0_1px_0_0_#9ca3af]"
-            }
-            active:translate-y-[2px] transition-all
-          `}
+          color={selectedOp === op.value ? "blue" : "gray"}
+          className="flex-1"
         >
           {op.symbol}
-        </button>
+        </Button>
       ))}
-      <button
-        onClick={onEquals}
-        className="flex-1 text-2xl font-bold rounded bg-orange-500 hover:bg-orange-600 text-white shadow-[0_3px_0_0_#c2410c] active:translate-y-[2px] active:shadow-[0_1px_0_0_#c2410c] transition-all"
-      >
+      <Button onClick={onEquals} color="orange" className="flex-1">
         =
-      </button>
+      </Button>
     </div>
   );
 }
