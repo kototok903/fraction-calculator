@@ -80,7 +80,7 @@ export function Keypad({
           <Button
             key={btn}
             onClick={() => handleClick(btn)}
-            color={btn === "⌫" ? "light-red" : buttonColor}
+            color={buttonColor}
             className={`
               text-lg font-semibold
               ${btn === "0" ? "col-span-1" : ""}
