@@ -49,38 +49,42 @@ export function Display({
         : null;
 
   return (
-    <div className="relative bg-linear-to-br from-blue-50 to-blue-100 py-2 rounded-lg border-2 border-blue-200 shadow-md">
+    <div className="bg-linear-to-br from-blue-50 to-blue-100 py-2 rounded-lg border-2 border-blue-200 shadow-md">
       {memory && (
         <div className="absolute bottom-0 left-0 bg-blue-200 text-gray-900 text-sm px-2 pt-0.5 rounded-bl-md rounded-tr-lg">
           M {formatFraction(memory)}
         </div>
       )}
-      <div className="flex flex-row-reverse items-center gap-2 text-4xl px-2 overflow-x-auto overflow-y-hidden scrollbar-hide">
-        {result ? (
-          <>
-            <span className="text-gray-900">
-              <DisplayFraction fraction={result} />
-            </span>
-            <span className="text-gray-500">=</span>
-            {expression
+      <div className="relative">
+        <div className="flex flex-row-reverse items-center gap-2 text-4xl px-2 overflow-x-auto overflow-y-hidden scrollbar-hide">
+          {result ? (
+            <>
+              <span className="text-gray-900">
+                <DisplayFraction fraction={result} />
+              </span>
+              <span className="text-gray-500">=</span>
+              {expression
+                .slice()
+                .reverse()
+                .map((part, index) => (
+                  <span key={index} className="text-gray-500">
+                    {part}
+                  </span>
+                ))}
+            </>
+          ) : (
+            expression
               .slice()
               .reverse()
               .map((part, index) => (
-                <span key={index} className="text-gray-500">
+                <span key={index} className="text-gray-900">
                   {part}
                 </span>
-              ))}
-          </>
-        ) : (
-          expression
-            .slice()
-            .reverse()
-            .map((part, index) => (
-              <span key={index} className="text-gray-900">
-                {part}
-              </span>
-            ))
-        )}
+              ))
+          )}
+        </div>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-blue-50 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-3 bg-linear-to-l from-blue-100 to-transparent" />
       </div>
       <div className="text-right text-sm text-gray-500 px-2">
         {decimalResult ? `≈ ${decimalResult.toFixed(4)}` : "\u00A0"}
