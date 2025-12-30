@@ -111,14 +111,9 @@ export function Button({
 }: ButtonProps) {
   const styles = colorStyles[color];
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.currentTarget.blur();
-    onClick?.();
-  };
-
   return (
     <button
-      onClick={handleClick}
+      onClick={onClick}
       className={`
         text-2xl font-bold rounded
         ${styles.bg} ${styles.hover} ${styles.text}
