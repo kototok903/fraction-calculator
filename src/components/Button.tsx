@@ -9,11 +9,11 @@ const colorStyles = {
     activeShadow: "active:shadow-[0_1px_0_0_#9ca3af]",
   },
   slate: {
-    bg: "bg-slate-200",
-    hover: "hover:bg-slate-300",
+    bg: "bg-slate-300",
+    hover: "hover:bg-slate-400",
     text: "text-slate-800",
-    shadow: "shadow-[0_3px_0_0_#94a3b8]",
-    activeShadow: "active:shadow-[0_1px_0_0_#94a3b8]",
+    shadow: "shadow-[0_3px_0_0_#64748b]",
+    activeShadow: "active:shadow-[0_1px_0_0_#64748b]",
   },
   stone: {
     bg: "bg-stone-200",
@@ -94,10 +94,12 @@ const colorStyles = {
   },
 };
 
+export type ButtonColor = keyof typeof colorStyles;
+
 interface ButtonProps {
   children: ReactNode;
   onClick?: () => void;
-  color?: keyof typeof colorStyles;
+  color?: ButtonColor;
   className?: string;
 }
 

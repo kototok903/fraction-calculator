@@ -1,9 +1,9 @@
-import { Button } from "@/components/Button";
+import { Button, type ButtonColor } from "@/components/Button";
 
 interface KeypadProps {
   label?: string;
-  // value: string;
   canShrink?: boolean;
+  buttonColor?: ButtonColor;
   onInput: (digit: string) => void;
   onBackspace: () => void;
   onClear?: () => void;
@@ -13,6 +13,7 @@ interface KeypadProps {
 export function Keypad({
   label,
   canShrink,
+  buttonColor = "gray",
   onInput,
   onBackspace,
   onClear,
@@ -64,7 +65,7 @@ export function Keypad({
           {onToggleSign && (
             <Button
               onClick={onToggleSign}
-              color="blue"
+              color="slate"
               className={`${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"} text-sm font-semibold ${onClear ? "" : "col-span-2"}`}
             >
               +/−
@@ -79,7 +80,7 @@ export function Keypad({
           <Button
             key={btn}
             onClick={() => handleClick(btn)}
-            color={btn === "⌫" ? "light-red" : "zinc"}
+            color={btn === "⌫" ? "light-red" : buttonColor}
             className={`
               text-lg font-semibold
               ${btn === "0" ? "col-span-1" : ""}

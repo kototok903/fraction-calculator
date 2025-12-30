@@ -192,11 +192,17 @@ export function Calculator() {
         />
 
         <div className="flex-[1.5] md:flex-[1.8] px-2 md:px-0 flex flex-col md:flex-row items-center gap-3 overflow-visible">
-          <Keypad onInput={handleNumInput} onBackspace={handleNumBackspace} />
-
-          <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-gray-200 shadow-[0_3px_0_0_#9ca3af]" />
-
-          <Keypad onInput={handleDenInput} onBackspace={handleDenBackspace} />
+          <Keypad
+            buttonColor="stone"
+            onInput={handleNumInput}
+            onBackspace={handleNumBackspace}
+          />
+          <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-stone-200 shadow-[0_3px_0_0_#a8a29e]" />
+          <Keypad
+            buttonColor="stone"
+            onInput={handleDenInput}
+            onBackspace={handleDenBackspace}
+          />
         </div>
       </div>
 

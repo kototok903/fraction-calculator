@@ -22,7 +22,7 @@ export function OpButtons({
         <Button
           key={op}
           onClick={() => onOperation(op)}
-          color={selectedOp === op ? "blue" : "gray"}
+          color={selectedOp === op ? "blue" : "slate"}
           className="flex-1"
         >
           {OPERATOR_SYMBOLS[op]}
