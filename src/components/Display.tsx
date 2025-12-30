@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Fraction, Operator } from "@/utils/fractionUtils";
 import {
+  formatFraction,
   isCompleteFraction,
   OPERATOR_SYMBOLS,
   toDecimal,
@@ -11,6 +12,7 @@ interface DisplayProps {
   operator: Operator | null;
   currOperand: Fraction;
   result: Fraction | null;
+  memory: Fraction | null;
 }
 
 export function Display({
@@ -18,6 +20,7 @@ export function Display({
   operator,
   currOperand,
   result,
+  memory,
 }: DisplayProps) {
   const getExpression = () => {
     const parts: ReactNode[] = [];
@@ -46,7 +49,12 @@ export function Display({
         : null;
 
   return (
-    <div className="bg-linear-to-br from-blue-50 to-blue-100 px-4 py-2 rounded-lg border-2 border-blue-300 shadow-md">
+    <div className="relative bg-linear-to-br from-blue-50 to-blue-100 px-4 py-2 rounded-lg border-2 border-blue-200 shadow-md">
+      {memory && (
+        <div className="absolute bottom-0 left-0 bg-blue-200 text-gray-900 text-sm px-2 rounded-bl-md rounded-tr-lg">
+          M {formatFraction(memory)}
+        </div>
+      )}
       <div className="flex items-center justify-end gap-2 flex-wrap text-4xl">
         {result ? (
           <>
@@ -91,7 +99,7 @@ export function DisplayFraction({
         (showZero &&
           fraction.numerator === 0 &&
           fraction.denominator === 0)) && (
-        <span className="text-4xl">{fraction.whole}</span>
+        <span className="text-4xl leading-tight">{fraction.whole}</span>
       )}
       {(fraction.numerator > 0 || fraction.denominator > 0) && (
         <span className="text-xl leading-[1.1] flex flex-col items-center">

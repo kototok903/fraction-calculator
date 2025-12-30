@@ -8,12 +8,26 @@ const colorStyles = {
     shadow: "shadow-[0_3px_0_0_#9ca3af]",
     activeShadow: "active:shadow-[0_1px_0_0_#9ca3af]",
   },
+  "dark-gray": {
+    bg: "bg-gray-500",
+    hover: "hover:bg-gray-600",
+    text: "text-white",
+    shadow: "shadow-[0_3px_0_0_#374151]",
+    activeShadow: "active:shadow-[0_1px_0_0_#374151]",
+  },
   slate: {
     bg: "bg-slate-300",
     hover: "hover:bg-slate-400",
     text: "text-slate-800",
     shadow: "shadow-[0_3px_0_0_#64748b]",
     activeShadow: "active:shadow-[0_1px_0_0_#64748b]",
+  },
+  "dark-slate": {
+    bg: "bg-slate-500",
+    hover: "hover:bg-slate-600",
+    text: "text-white",
+    shadow: "shadow-[0_3px_0_0_#334155]",
+    activeShadow: "active:shadow-[0_1px_0_0_#334155]",
   },
   stone: {
     bg: "bg-stone-200",
@@ -56,6 +70,13 @@ const colorStyles = {
     text: "text-white",
     shadow: "shadow-[0_3px_0_0_#0e7490]",
     activeShadow: "active:shadow-[0_1px_0_0_#0e7490]",
+  },
+  "dark-cyan": {
+    bg: "bg-cyan-700",
+    hover: "hover:bg-cyan-800",
+    text: "text-white",
+    shadow: "shadow-[0_3px_0_0_#155e75]",
+    activeShadow: "active:shadow-[0_1px_0_0_#155e75]",
   },
   "light-cyan": {
     bg: "bg-cyan-100",

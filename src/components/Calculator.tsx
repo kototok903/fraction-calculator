@@ -13,6 +13,7 @@ import {
 import { Display } from "@/components/Display";
 import { Keypad } from "@/components/Keypad";
 import { OpButtons } from "@/components/OpButtons";
+import { MemButtons } from "@/components/MemButtons";
 
 const DEFAULT_FRACTION: Fraction = {
   sign: 1,
@@ -26,6 +27,7 @@ export function Calculator() {
   const [operator, setOperator] = useState<Operator | null>(null);
   const [currOperand, setCurrOperand] = useState<Fraction>(DEFAULT_FRACTION);
   const [result, setResult] = useState<Fraction | null>(null);
+  const [memory, setMemory] = useState<Fraction | null>(null);
 
   const handleClear = () => {
     const isCurrFractionDefault =
@@ -176,6 +178,27 @@ export function Calculator() {
     });
   };
 
+  const handleClearMemory = () => {
+    setMemory(null);
+  };
+  const handleRecallMemory = () => {
+    if (memory) {
+      clearFinishedCalculation();
+      setCurrOperand(memory);
+    }
+  };
+  const handleAddToMemory = () => {
+    const newMemory = addFractions(memory ?? DEFAULT_FRACTION, currOperand);
+    setMemory(newMemory);
+  };
+  const handleSubtractFromMemory = () => {
+    const newMemory = subtractFractions(
+      memory ?? DEFAULT_FRACTION,
+      currOperand
+    );
+    setMemory(newMemory);
+  };
+
   return (
     <div className="bg-white px-3 py-4 md:rounded-xl shadow-2xl md:max-w-2xl w-full min-w-0">
       <div className="text-center mb-2">
@@ -189,7 +212,17 @@ export function Calculator() {
         operator={operator}
         currOperand={currOperand}
         result={result}
+        memory={memory}
       />
+
+      <div className="mt-4">
+        <MemButtons
+          onClearMemory={handleClearMemory}
+          onRecallMemory={handleRecallMemory}
+          onAddToMemory={handleAddToMemory}
+          onSubtractFromMemory={handleSubtractFromMemory}
+        />
+      </div>
 
       <div className="w-full flex items-center gap-3 mt-4">
         <Keypad
