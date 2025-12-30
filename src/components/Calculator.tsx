@@ -49,6 +49,10 @@ export function Calculator() {
       setCurrOperand(DEFAULT_FRACTION);
       return;
     }
+
+    setPrevOperand(currOperand);
+    setCurrOperand(DEFAULT_FRACTION);
+    setOperator(op);
   };
 
   const handleEquals = () => {

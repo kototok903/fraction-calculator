@@ -29,7 +29,7 @@ export function Display({ prevOperand, operator, currOperand, result }: DisplayP
       <div className="text-right text-3xl font-bold">
         {result ? (
           <>
-            <span className="text-gray-600">{expression} = </span>
+            <span className="text-gray-500">{expression} = </span>
             <span className="text-gray-900">{formatFraction(result)}</span>
           </>
         ) : (
