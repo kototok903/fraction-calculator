@@ -1,29 +1,6 @@
 import type { ReactNode } from "react";
 
-interface ButtonProps {
-  children: ReactNode;
-  onClick?: () => void;
-  color?: "blue" | "gray" | "orange" | "light-red" | "red";
-  className?: string;
-}
-
-const colorStyles: Record<
-  NonNullable<ButtonProps["color"]>,
-  {
-    bg: string;
-    hover: string;
-    text: string;
-    shadow: string;
-    activeShadow: string;
-  }
-> = {
-  blue: {
-    bg: "bg-blue-500",
-    hover: "hover:bg-blue-600",
-    text: "text-white",
-    shadow: "shadow-[0_3px_0_0_#1d4ed8]",
-    activeShadow: "active:shadow-[0_1px_0_0_#1d4ed8]",
-  },
+const colorStyles = {
   gray: {
     bg: "bg-gray-200",
     hover: "hover:bg-gray-300",
@@ -31,12 +8,75 @@ const colorStyles: Record<
     shadow: "shadow-[0_3px_0_0_#9ca3af]",
     activeShadow: "active:shadow-[0_1px_0_0_#9ca3af]",
   },
+  slate: {
+    bg: "bg-slate-200",
+    hover: "hover:bg-slate-300",
+    text: "text-slate-800",
+    shadow: "shadow-[0_3px_0_0_#94a3b8]",
+    activeShadow: "active:shadow-[0_1px_0_0_#94a3b8]",
+  },
+  stone: {
+    bg: "bg-stone-200",
+    hover: "hover:bg-stone-300",
+    text: "text-stone-800",
+    shadow: "shadow-[0_3px_0_0_#a8a29e]",
+    activeShadow: "active:shadow-[0_1px_0_0_#a8a29e]",
+  },
+  teal: {
+    bg: "bg-teal-100",
+    hover: "hover:bg-teal-200",
+    text: "text-teal-800",
+    shadow: "shadow-[0_3px_0_0_#5eead4]",
+    activeShadow: "active:shadow-[0_1px_0_0_#5eead4]",
+  },
+  zinc: {
+    bg: "bg-zinc-200",
+    hover: "hover:bg-zinc-300",
+    text: "text-zinc-800",
+    shadow: "shadow-[0_3px_0_0_#a1a1aa]",
+    activeShadow: "active:shadow-[0_1px_0_0_#a1a1aa]",
+  },
+  blue: {
+    bg: "bg-blue-500",
+    hover: "hover:bg-blue-600",
+    text: "text-white",
+    shadow: "shadow-[0_3px_0_0_#1d4ed8]",
+    activeShadow: "active:shadow-[0_1px_0_0_#1d4ed8]",
+  },
+  "light-blue": {
+    bg: "bg-blue-100",
+    hover: "hover:bg-blue-200",
+    text: "text-blue-700",
+    shadow: "shadow-[0_3px_0_0_#60a5fa]",
+    activeShadow: "active:shadow-[0_1px_0_0_#60a5fa]",
+  },
+  cyan: {
+    bg: "bg-cyan-500",
+    hover: "hover:bg-cyan-600",
+    text: "text-white",
+    shadow: "shadow-[0_3px_0_0_#0e7490]",
+    activeShadow: "active:shadow-[0_1px_0_0_#0e7490]",
+  },
+  "light-cyan": {
+    bg: "bg-cyan-100",
+    hover: "hover:bg-cyan-200",
+    text: "text-cyan-700",
+    shadow: "shadow-[0_3px_0_0_#22d3ee]",
+    activeShadow: "active:shadow-[0_1px_0_0_#22d3ee]",
+  },
   orange: {
     bg: "bg-orange-500",
     hover: "hover:bg-orange-600",
     text: "text-white",
     shadow: "shadow-[0_3px_0_0_#c2410c]",
     activeShadow: "active:shadow-[0_1px_0_0_#c2410c]",
+  },
+  "light-orange": {
+    bg: "bg-orange-100",
+    hover: "hover:bg-orange-200",
+    text: "text-orange-700",
+    shadow: "shadow-[0_3px_0_0_#fb923c]",
+    activeShadow: "active:shadow-[0_1px_0_0_#fb923c]",
   },
   "light-red": {
     bg: "bg-red-100",
@@ -53,6 +93,13 @@ const colorStyles: Record<
     activeShadow: "active:shadow-[0_1px_0_0_#b91c1c]",
   },
 };
+
+interface ButtonProps {
+  children: ReactNode;
+  onClick?: () => void;
+  color?: keyof typeof colorStyles;
+  className?: string;
+}
 
 export function Button({
   children,
