@@ -28,7 +28,10 @@ export function Display({
       parts.push(<span>{formatOperator(operator)}</span>);
     }
     parts.push(
-      <DisplayFraction fraction={currOperand} showZero={parts.length === 0} />
+      <DisplayFraction
+        fraction={currOperand}
+        showZero={parts.length === 0 || !!result}
+      />
     );
     return parts;
   };
