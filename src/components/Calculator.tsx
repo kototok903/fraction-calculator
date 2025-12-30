@@ -27,11 +27,20 @@ export function Calculator() {
   const [currOperand, setCurrOperand] = useState<Fraction>(DEFAULT_FRACTION);
   const [result, setResult] = useState<Fraction | null>(null);
 
-  const clearAll = () => {
-    setPrevOperand(null);
-    setOperator(null);
-    setCurrOperand(DEFAULT_FRACTION);
-    setResult(null);
+  const handleClear = () => {
+    const isCurrFractionDefault =
+      currOperand.whole === DEFAULT_FRACTION.whole &&
+      currOperand.numerator === DEFAULT_FRACTION.numerator &&
+      currOperand.denominator === DEFAULT_FRACTION.denominator &&
+      currOperand.sign === DEFAULT_FRACTION.sign;
+    if (result || isCurrFractionDefault) {
+      setPrevOperand(null);
+      setOperator(null);
+      setCurrOperand(DEFAULT_FRACTION);
+      setResult(null);
+    } else {
+      setCurrOperand(DEFAULT_FRACTION);
+    }
   };
 
   const clearFinishedCalculation = () => {
@@ -187,7 +196,7 @@ export function Calculator() {
           canShrink
           onInput={handleWholeInput}
           onBackspace={handleWholeBackspace}
-          onClear={clearAll}
+          onClear={handleClear}
           onToggleSign={handleToggleSign}
         />
 
