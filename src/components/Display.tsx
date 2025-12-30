@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import type { Fraction, Operator } from "@/utils/fractionUtils";
 import {
-  formatOperator,
   isCompleteFraction,
+  OPERATOR_SYMBOLS,
   toDecimal,
 } from "@/utils/fractionUtils";
 
@@ -25,7 +25,7 @@ export function Display({
       parts.push(<DisplayFraction fraction={prevOperand} />);
     }
     if (operator) {
-      parts.push(<span>{formatOperator(operator)}</span>);
+      parts.push(<span>{OPERATOR_SYMBOLS[operator]}</span>);
     }
     parts.push(
       <DisplayFraction

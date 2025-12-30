@@ -7,7 +7,16 @@ export interface Fraction {
   denominator: number;
 }
 
-export type Operator = "+" | "-" | "*" | "/";
+export const OPERATOR_VALUES = ["+", "-", "*", "/"] as const;
+
+export type Operator = (typeof OPERATOR_VALUES)[number];
+
+export const OPERATOR_SYMBOLS: Record<Operator, string> = {
+  "+": "+",
+  "-": "−",
+  "*": "×",
+  "/": "÷",
+};
 
 /**
  * Calculate the Greatest Common Divisor using Euclidean algorithm
@@ -205,30 +214,4 @@ export function clearIncompleteFraction(frac: Fraction): Fraction {
     };
   }
   return frac;
-}
-
-/**
- * Format fraction for display
- */
-export function formatFraction(
-  frac: Fraction,
-  showZero: boolean = true
-): string {
-  if (frac.numerator === 0 && frac.denominator === 0) {
-    if (frac.whole === 0) {
-      return `${frac.sign < 0 ? "-" : ""}${showZero ? "0" : ""}`;
-    }
-    return (frac.sign * frac.whole).toString();
-  }
-  if (frac.whole === 0) {
-    return `${frac.sign < 0 ? "-" : ""}${frac.numerator || " "}/${frac.denominator || " "}`;
-  }
-  return `${frac.sign * frac.whole} ${frac.numerator || " "}/${frac.denominator || " "}`;
-}
-
-/**
- * Format operator for display
- */
-export function formatOperator(op: Operator): string {
-  return op === "*" ? "×" : op === "/" ? "÷" : op;
 }

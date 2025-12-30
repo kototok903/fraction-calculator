@@ -1,9 +1,14 @@
 import { Button } from "@/components/Button";
+import {
+  OPERATOR_SYMBOLS,
+  OPERATOR_VALUES,
+  type Operator,
+} from "@/utils/fractionUtils";
 
 interface OpButtonsProps {
-  onOperation: (op: "+" | "-" | "*" | "/") => void;
+  onOperation: (op: Operator) => void;
   onEquals: () => void;
-  selectedOp: string | null;
+  selectedOp: Operator | null;
 }
 
 export function OpButtons({
@@ -11,23 +16,16 @@ export function OpButtons({
   onEquals,
   selectedOp,
 }: OpButtonsProps) {
-  const operations: Array<{ symbol: string; value: "+" | "-" | "*" | "/" }> = [
-    { symbol: "+", value: "+" },
-    { symbol: "−", value: "-" },
-    { symbol: "×", value: "*" },
-    { symbol: "÷", value: "/" },
-  ];
-
   return (
     <div className="flex gap-2 w-full min-h-10">
-      {operations.map((op) => (
+      {OPERATOR_VALUES.map((op) => (
         <Button
-          key={op.value}
-          onClick={() => onOperation(op.value)}
-          color={selectedOp === op.value ? "blue" : "gray"}
+          key={op}
+          onClick={() => onOperation(op)}
+          color={selectedOp === op ? "blue" : "gray"}
           className="flex-1"
         >
-          {op.symbol}
+          {OPERATOR_SYMBOLS[op]}
         </Button>
       ))}
       <Button onClick={onEquals} color="orange" className="flex-1">
