@@ -140,7 +140,7 @@ export function Button({
         ${styles.bg} ${styles.hover} ${styles.text}
         ${styles.shadow} ${styles.activeShadow}
         active:translate-y-[2px] transition-all
-        touch-manipulation
+        select-none touch-manipulation
         ${className}
       `}
     >
