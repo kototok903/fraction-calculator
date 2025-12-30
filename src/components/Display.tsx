@@ -49,34 +49,40 @@ export function Display({
         : null;
 
   return (
-    <div className="relative bg-linear-to-br from-blue-50 to-blue-100 px-4 py-2 rounded-lg border-2 border-blue-200 shadow-md">
+    <div className="relative bg-linear-to-br from-blue-50 to-blue-100 py-2 rounded-lg border-2 border-blue-200 shadow-md">
       {memory && (
-        <div className="absolute bottom-0 left-0 bg-blue-200 text-gray-900 text-sm px-2 rounded-bl-md rounded-tr-lg">
+        <div className="absolute bottom-0 left-0 bg-blue-200 text-gray-900 text-sm px-2 pt-0.5 rounded-bl-md rounded-tr-lg">
           M {formatFraction(memory)}
         </div>
       )}
-      <div className="flex items-center justify-end gap-2 flex-wrap text-4xl">
+      <div className="flex flex-row-reverse items-center gap-2 text-4xl px-2 overflow-x-auto overflow-y-hidden scrollbar-hide">
         {result ? (
           <>
-            {expression.map((part, index) => (
-              <span key={index} className="text-gray-500">
-                {part}
-              </span>
-            ))}
-            <span className="text-gray-500">=</span>
             <span className="text-gray-900">
               <DisplayFraction fraction={result} />
             </span>
+            <span className="text-gray-500">=</span>
+            {expression
+              .slice()
+              .reverse()
+              .map((part, index) => (
+                <span key={index} className="text-gray-500">
+                  {part}
+                </span>
+              ))}
           </>
         ) : (
-          expression.map((part, index) => (
-            <span key={index} className="text-gray-900">
-              {part}
-            </span>
-          ))
+          expression
+            .slice()
+            .reverse()
+            .map((part, index) => (
+              <span key={index} className="text-gray-900">
+                {part}
+              </span>
+            ))
         )}
       </div>
-      <div className="text-right text-sm text-gray-500">
+      <div className="text-right text-sm text-gray-500 px-2">
         {decimalResult ? `≈ ${decimalResult.toFixed(4)}` : "\u00A0"}
       </div>
     </div>
