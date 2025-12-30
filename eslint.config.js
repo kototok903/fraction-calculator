@@ -21,5 +21,18 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      "@typescript-eslint/no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [".*", "./*", "../*"],
+              message: "Use absolute imports instead of relative imports",
+            },
+          ],
+        },
+      ],
+    },
   },
 ]);

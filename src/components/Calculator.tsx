@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Fraction, Operator, Sign } from "../utils/fractionUtils";
+import type { Fraction, Operator, Sign } from "@/utils/fractionUtils";
 import {
   addFractions,
   subtractFractions,
@@ -9,10 +9,10 @@ import {
   clearIncompleteFraction,
   simplifyProperFraction,
   areFractionsEqual,
-} from "../utils/fractionUtils";
-import { Display } from "./Display";
-import { Keypad } from "./Keypad";
-import { OpButtons } from "./OpButtons";
+} from "@/utils/fractionUtils";
+import { Display } from "@/components/Display";
+import { Keypad } from "@/components/Keypad";
+import { OpButtons } from "@/components/OpButtons";
 
 const DEFAULT_FRACTION: Fraction = {
   sign: 1,

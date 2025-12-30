@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
-import type { Fraction, Operator } from "../utils/fractionUtils";
+import type { Fraction, Operator } from "@/utils/fractionUtils";
 import {
   formatFraction,
   formatOperator,
   isCompleteFraction,
   toDecimal,
-} from "../utils/fractionUtils";
+} from "@/utils/fractionUtils";
 
 interface DisplayProps {
   prevOperand: Fraction | null;
