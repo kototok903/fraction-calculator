@@ -1,11 +1,25 @@
-import { useState } from 'react';
-import type { Fraction, Operator, Sign } from '../utils/fractionUtils';
-import { addFractions, subtractFractions, multiplyFractions, divideFractions, isZero, clearIncompleteFraction, simplifyProperFraction, areFractionsEqual } from '../utils/fractionUtils';
-import { Display } from './Display';
-import { Keypad } from './Keypad';
-import { OpButtons } from './OpButtons';
+import { useState } from "react";
+import type { Fraction, Operator, Sign } from "../utils/fractionUtils";
+import {
+  addFractions,
+  subtractFractions,
+  multiplyFractions,
+  divideFractions,
+  isZero,
+  clearIncompleteFraction,
+  simplifyProperFraction,
+  areFractionsEqual,
+} from "../utils/fractionUtils";
+import { Display } from "./Display";
+import { Keypad } from "./Keypad";
+import { OpButtons } from "./OpButtons";
 
-const DEFAULT_FRACTION: Fraction = { sign: 1, whole: 0, numerator: 0, denominator: 0 };
+const DEFAULT_FRACTION: Fraction = {
+  sign: 1,
+  whole: 0,
+  numerator: 0,
+  denominator: 0,
+};
 
 export function Calculator() {
   const [prevOperand, setPrevOperand] = useState<Fraction | null>(null);
@@ -92,17 +106,17 @@ export function Calculator() {
 
   const calculate = (f1: Fraction, op: Operator, f2: Fraction) => {
     switch (op) {
-      case '+':
+      case "+":
         return addFractions(f1, f2);
-      case '-':
+      case "-":
         return subtractFractions(f1, f2);
-      case '*':
+      case "*":
         return multiplyFractions(f1, f2);
-      case '/':
+      case "/":
         return divideFractions(f1, f2);
     }
   };
-  
+
   const handleToggleSign = () => {
     clearFinishedCalculation();
     setCurrOperand({ ...currOperand, sign: (currOperand.sign * -1) as Sign });
@@ -110,44 +124,64 @@ export function Calculator() {
 
   const handleWholeInput = (digit: string) => {
     clearFinishedCalculation();
-    setCurrOperand({ ...currOperand, whole: currOperand.whole * 10 + parseInt(digit) });
+    setCurrOperand({
+      ...currOperand,
+      whole: currOperand.whole * 10 + parseInt(digit),
+    });
   };
   const handleWholeBackspace = () => {
     clearFinishedCalculation();
-    setCurrOperand({ ...currOperand, whole: Math.floor(currOperand.whole / 10) });
+    setCurrOperand({
+      ...currOperand,
+      whole: Math.floor(currOperand.whole / 10),
+    });
   };
 
   const handleNumInput = (digit: string) => {
     clearFinishedCalculation();
-    setCurrOperand({ ...currOperand, numerator: currOperand.numerator * 10 + parseInt(digit) });
+    setCurrOperand({
+      ...currOperand,
+      numerator: currOperand.numerator * 10 + parseInt(digit),
+    });
   };
   const handleNumBackspace = () => {
     clearFinishedCalculation();
-    setCurrOperand({ ...currOperand, numerator: Math.floor(currOperand.numerator / 10) });
+    setCurrOperand({
+      ...currOperand,
+      numerator: Math.floor(currOperand.numerator / 10),
+    });
   };
 
   const handleDenInput = (digit: string) => {
     clearFinishedCalculation();
-    setCurrOperand({ ...currOperand, denominator: currOperand.denominator * 10 + parseInt(digit) });
+    setCurrOperand({
+      ...currOperand,
+      denominator: currOperand.denominator * 10 + parseInt(digit),
+    });
   };
   const handleDenBackspace = () => {
     clearFinishedCalculation();
-    setCurrOperand({ ...currOperand, denominator: Math.floor(currOperand.denominator / 10) });
+    setCurrOperand({
+      ...currOperand,
+      denominator: Math.floor(currOperand.denominator / 10),
+    });
   };
 
   return (
     <div className="bg-white px-3 py-4 md:rounded-xl shadow-2xl md:max-w-2xl w-full min-w-0">
       <div className="text-center mb-2">
-        <h1 className="text-xl font-bold text-gray-800">FRACTION<span className="text-blue-600">MINUS</span></h1>
+        <h1 className="text-xl font-bold text-gray-800">
+          FRACTION<span className="text-blue-600">MINUS</span>
+        </h1>
       </div>
-      
+
       <Display
         prevOperand={prevOperand}
         operator={operator}
         currOperand={currOperand}
         result={result}
       />
-      
+
       <div className="w-full flex items-center gap-3 mt-4">
         <Keypad
           canShrink
@@ -156,19 +190,13 @@ export function Calculator() {
           onClear={clearAll}
           onToggleSign={handleToggleSign}
         />
-        
+
         <div className="flex-[1.5] md:flex-[1.8] px-2 md:px-0 flex flex-col md:flex-row items-center gap-3 md:gap-4 overflow-visible">
-          <Keypad
-            onInput={handleNumInput}
-            onBackspace={handleNumBackspace}
-          />
+          <Keypad onInput={handleNumInput} onBackspace={handleNumBackspace} />
 
           <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-gray-200 shadow-[0_3px_0_0_#9ca3af]" />
-          
-          <Keypad
-            onInput={handleDenInput}
-            onBackspace={handleDenBackspace}
-          />
+
+          <Keypad onInput={handleDenInput} onBackspace={handleDenBackspace} />
         </div>
       </div>
 
@@ -182,4 +210,3 @@ export function Calculator() {
     </div>
   );
 }
-

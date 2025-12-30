@@ -7,7 +7,7 @@ export interface Fraction {
   denominator: number;
 }
 
-export type Operator = '+' | '-' | '*' | '/';
+export type Operator = "+" | "-" | "*" | "/";
 
 /**
  * Calculate the Greatest Common Divisor using Euclidean algorithm
@@ -27,7 +27,10 @@ export function gcd(a: number, b: number): number {
  * Convert mixed number to improper fraction
  * Example: 3 5/8 -> 29/8
  */
-export function toImproperFraction(frac: Fraction): { num: number; den: number } {
+export function toImproperFraction(frac: Fraction): {
+  num: number;
+  den: number;
+} {
   // If either numerator or denominator is 0, ignore them
   if (frac.numerator * frac.denominator === 0) {
     return { num: frac.sign * frac.whole, den: 1 };
@@ -39,19 +42,22 @@ export function toImproperFraction(frac: Fraction): { num: number; den: number }
 /**
  * Simplify a fraction to lowest terms
  */
-export function simplify(num: number, den: number): { num: number; den: number } {
+export function simplify(
+  num: number,
+  den: number
+): { num: number; den: number } {
   if (den === 0) return { num: 0, den: 1 };
-  
+
   const divisor = gcd(num, den);
   let simplifiedNum = num / divisor;
   let simplifiedDen = den / divisor;
-  
+
   // Keep denominator positive
   if (simplifiedDen < 0) {
     simplifiedNum = -simplifiedNum;
     simplifiedDen = -simplifiedDen;
   }
-  
+
   return { num: simplifiedNum, den: simplifiedDen };
 }
 
@@ -61,16 +67,16 @@ export function simplify(num: number, den: number): { num: number; den: number }
  */
 export function toProperFraction(num: number, den: number): Fraction {
   if (den === 0) return { sign: 1, whole: 0, numerator: 0, denominator: 1 };
-  
+
   const simplified = simplify(num, den);
   const absNum = Math.abs(simplified.num);
   const absDen = Math.abs(simplified.den);
-  
+
   const whole = Math.floor(absNum / absDen);
   const remainder = absNum % absDen;
   const denominator = remainder === 0 ? 0 : absDen;
   const sign = simplified.num < 0 ? -1 : 1;
-  
+
   return {
     sign,
     whole,
@@ -94,11 +100,11 @@ export function simplifyProperFraction(frac: Fraction): Fraction {
 export function addFractions(f1: Fraction, f2: Fraction): Fraction {
   const imp1 = toImproperFraction(f1);
   const imp2 = toImproperFraction(f2);
-  
+
   // a/b + c/d = (ad + bc) / bd
   const num = imp1.num * imp2.den + imp2.num * imp1.den;
   const den = imp1.den * imp2.den;
-  
+
   const simplified = simplify(num, den);
   return toProperFraction(simplified.num, simplified.den);
 }
@@ -109,11 +115,11 @@ export function addFractions(f1: Fraction, f2: Fraction): Fraction {
 export function subtractFractions(f1: Fraction, f2: Fraction): Fraction {
   const imp1 = toImproperFraction(f1);
   const imp2 = toImproperFraction(f2);
-  
+
   // a/b - c/d = (ad - bc) / bd
   const num = imp1.num * imp2.den - imp2.num * imp1.den;
   const den = imp1.den * imp2.den;
-  
+
   const simplified = simplify(num, den);
   return toProperFraction(simplified.num, simplified.den);
 }
@@ -124,11 +130,11 @@ export function subtractFractions(f1: Fraction, f2: Fraction): Fraction {
 export function multiplyFractions(f1: Fraction, f2: Fraction): Fraction {
   const imp1 = toImproperFraction(f1);
   const imp2 = toImproperFraction(f2);
-  
+
   // a/b * c/d = ac / bd
   const num = imp1.num * imp2.num;
   const den = imp1.den * imp2.den;
-  
+
   const simplified = simplify(num, den);
   return toProperFraction(simplified.num, simplified.den);
 }
@@ -139,16 +145,16 @@ export function multiplyFractions(f1: Fraction, f2: Fraction): Fraction {
 export function divideFractions(f1: Fraction, f2: Fraction): Fraction {
   const imp1 = toImproperFraction(f1);
   const imp2 = toImproperFraction(f2);
-  
+
   if (imp2.num === 0) {
     // Division by zero
     return { sign: 1, whole: 0, numerator: 0, denominator: 1 };
   }
-  
+
   // a/b ÷ c/d = a/b * d/c = ad / bc
   const num = imp1.num * imp2.den;
   const den = imp1.den * imp2.num;
-  
+
   const simplified = simplify(num, den);
   return toProperFraction(simplified.num, simplified.den);
 }
@@ -175,7 +181,7 @@ export function toDecimal(frac: Fraction): number {
  */
 export function isZero(frac: Fraction): boolean {
   // If either numerator or denominator is 0, they are ignored
-  return (frac.numerator * frac.denominator === 0) && frac.whole === 0;
+  return frac.numerator * frac.denominator === 0 && frac.whole === 0;
 }
 
 /**
@@ -204,23 +210,25 @@ export function clearIncompleteFraction(frac: Fraction): Fraction {
 /**
  * Format fraction for display
  */
-export function formatFraction(frac: Fraction, showZero: boolean = true): string {
+export function formatFraction(
+  frac: Fraction,
+  showZero: boolean = true
+): string {
   if (frac.numerator === 0 && frac.denominator === 0) {
     if (frac.whole === 0) {
-      return `${frac.sign < 0 ? '-' : ''}${showZero ? '0' : ''}`;
+      return `${frac.sign < 0 ? "-" : ""}${showZero ? "0" : ""}`;
     }
     return (frac.sign * frac.whole).toString();
   }
   if (frac.whole === 0) {
-    return `${frac.sign < 0 ? '-' : ''}${frac.numerator || ' '}/${frac.denominator || ' '}`;
+    return `${frac.sign < 0 ? "-" : ""}${frac.numerator || " "}/${frac.denominator || " "}`;
   }
-  return `${frac.sign * frac.whole} ${frac.numerator || ' '}/${frac.denominator || ' '}`;
+  return `${frac.sign * frac.whole} ${frac.numerator || " "}/${frac.denominator || " "}`;
 }
 
 /**
  * Format operator for display
  */
 export function formatOperator(op: Operator): string {
-  return op === '*' ? '×' : op === '/' ? '÷' : op;
+  return op === "*" ? "×" : op === "/" ? "÷" : op;
 }
-

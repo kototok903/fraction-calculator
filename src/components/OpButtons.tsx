@@ -1,15 +1,19 @@
 interface OpButtonsProps {
-  onOperation: (op: '+' | '-' | '*' | '/') => void;
+  onOperation: (op: "+" | "-" | "*" | "/") => void;
   onEquals: () => void;
   selectedOp: string | null;
 }
 
-export function OpButtons({ onOperation, onEquals, selectedOp }: OpButtonsProps) {
-  const operations: Array<{ symbol: string; value: '+' | '-' | '*' | '/' }> = [
-    { symbol: '+', value: '+' },
-    { symbol: '−', value: '-' },
-    { symbol: '×', value: '*' },
-    { symbol: '÷', value: '/' },
+export function OpButtons({
+  onOperation,
+  onEquals,
+  selectedOp,
+}: OpButtonsProps) {
+  const operations: Array<{ symbol: string; value: "+" | "-" | "*" | "/" }> = [
+    { symbol: "+", value: "+" },
+    { symbol: "−", value: "-" },
+    { symbol: "×", value: "*" },
+    { symbol: "÷", value: "/" },
   ];
 
   return (
@@ -20,9 +24,10 @@ export function OpButtons({ onOperation, onEquals, selectedOp }: OpButtonsProps)
           onClick={() => onOperation(op.value)}
           className={`
             flex-1 text-2xl font-bold rounded
-            ${selectedOp === op.value 
-              ? 'bg-blue-600 text-white shadow-[0_3px_0_0_#1d4ed8] active:shadow-[0_1px_0_0_#1d4ed8]' 
-              : 'bg-gray-200 hover:bg-gray-300 text-gray-800 shadow-[0_3px_0_0_#9ca3af] active:shadow-[0_1px_0_0_#9ca3af]'
+            ${
+              selectedOp === op.value
+                ? "bg-blue-600 text-white shadow-[0_3px_0_0_#1d4ed8] active:shadow-[0_1px_0_0_#1d4ed8]"
+                : "bg-gray-200 hover:bg-gray-300 text-gray-800 shadow-[0_3px_0_0_#9ca3af] active:shadow-[0_1px_0_0_#9ca3af]"
             }
             active:translate-y-[2px] transition-all
           `}
@@ -39,4 +44,3 @@ export function OpButtons({ onOperation, onEquals, selectedOp }: OpButtonsProps)
     </div>
   );
 }
-
