@@ -51,7 +51,7 @@ export function Keypad({
         </div>
       )}
       {(onClear || onToggleSign) && (
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-2 gap-2 md:gap-1">
           {onClear && (
             <Button
               onClick={onClear}
@@ -73,13 +73,13 @@ export function Keypad({
         </div>
       )}
       <div
-        className={`grid gap-x-1 gap-y-2 ${canShrink ? "grid-cols-2 md:grid-cols-3" : "grid-cols-3"}`}
+        className={`grid gap-x-2 md:gap-x-1 gap-y-2 ${canShrink ? "grid-cols-2 md:grid-cols-3" : "grid-cols-3"}`}
       >
         {buttons.map((btn) => (
           <Button
             key={btn}
             onClick={() => handleClick(btn)}
-            color={btn === "⌫" ? "light-red" : "gray"}
+            color={btn === "⌫" ? "light-red" : "zinc"}
             className={`
               text-lg font-semibold
               ${btn === "0" ? "col-span-1" : ""}
