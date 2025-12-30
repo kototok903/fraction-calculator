@@ -49,7 +49,7 @@ export function Display({
         : null;
 
   return (
-    <div className="bg-linear-to-br from-blue-50 to-blue-100 py-2 rounded-lg border-2 border-blue-200 shadow-md">
+    <div className="relative bg-linear-to-br from-blue-50 to-blue-100 py-2 rounded-lg border-2 border-blue-200 shadow-md">
       {memory && (
         <div className="absolute bottom-0 left-0 bg-blue-200 text-gray-900 text-sm px-2 pt-0.5 rounded-bl-md rounded-tr-lg">
           M {formatFraction(memory)}
