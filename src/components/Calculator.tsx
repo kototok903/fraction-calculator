@@ -136,9 +136,9 @@ export function Calculator() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-2xl max-w-2xl w-full min-w-0">
-      <div className="text-center mb-4">
-        <h1 className="text-3xl font-bold text-gray-800">FRACTION<span className="text-blue-600">MINUS</span></h1>
+    <div className="bg-white px-3 py-4 md:rounded-xl shadow-2xl md:max-w-2xl w-full min-w-0">
+      <div className="text-center mb-2">
+        <h1 className="text-xl font-bold text-gray-800">FRACTION<span className="text-blue-600">MINUS</span></h1>
       </div>
       
       <Display
@@ -148,7 +148,7 @@ export function Calculator() {
         result={result}
       />
       
-      <div className="w-full flex items-center gap-4 mt-6">
+      <div className="w-full flex items-center gap-3 mt-4">
         <Keypad
           canShrink
           onInput={handleWholeInput}
@@ -157,11 +157,13 @@ export function Calculator() {
           onToggleSign={handleToggleSign}
         />
         
-        <div className="flex-[1.5] md:flex-[1.8] flex flex-col md:flex-row items-center gap-4">
+        <div className="flex-[1.5] md:flex-[1.8] px-2 md:px-0 flex flex-col md:flex-row items-center gap-3 md:gap-4 overflow-visible">
           <Keypad
             onInput={handleNumInput}
             onBackspace={handleNumBackspace}
           />
+
+          <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-gray-200 shadow-[0_3px_0_0_#9ca3af]" />
           
           <Keypad
             onInput={handleDenInput}

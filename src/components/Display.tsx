@@ -1,5 +1,11 @@
-import type { Fraction, Operator } from '../utils/fractionUtils';
-import { formatFraction, formatOperator, isCompleteFraction, toDecimal } from '../utils/fractionUtils';
+import type { ReactNode } from "react";
+import type { Fraction, Operator } from "../utils/fractionUtils";
+import {
+  formatFraction,
+  formatOperator,
+  isCompleteFraction,
+  toDecimal,
+} from "../utils/fractionUtils";
 
 interface DisplayProps {
   prevOperand: Fraction | null;
@@ -8,38 +14,59 @@ interface DisplayProps {
   result: Fraction | null;
 }
 
-export function Display({ prevOperand, operator, currOperand, result }: DisplayProps) {
-  const formatExpression = () => {
-    const parts: string[] = [];
+export function Display({
+  prevOperand,
+  operator,
+  currOperand,
+  result,
+}: DisplayProps) {
+  const getExpression = () => {
+    const parts: ReactNode[] = [];
     if (prevOperand) {
-      parts.push(formatFraction(prevOperand));
+      parts.push(<DisplayFraction fraction={prevOperand} />);
     }
     if (operator) {
-      parts.push(formatOperator(operator));
+      parts.push(<span>{formatOperator(operator)}</span>);
     }
-    parts.push(formatFraction(currOperand, parts.length === 0));
-    return parts.join(' ');
+    parts.push(<DisplayFraction fraction={currOperand} />);
+    return parts;
   };
 
-  const expression = formatExpression();
-  const decimalResult = result ? toDecimal(result) : prevOperand ? toDecimal(prevOperand) : isCompleteFraction(currOperand) ? toDecimal(currOperand) : null;
+  const expression = getExpression();
+  const decimalResult = result
+    ? toDecimal(result)
+    : prevOperand
+      ? toDecimal(prevOperand)
+      : isCompleteFraction(currOperand)
+        ? toDecimal(currOperand)
+        : null;
 
   return (
     <div className="bg-linear-to-br from-blue-50 to-blue-100 px-4 py-2 rounded-lg border-2 border-blue-300 shadow-md">
-      <div className="text-right text-3xl font-bold">
+      <div className="flex items-center justify-end gap-2 flex-wrap text-3xl font-bold">
         {result ? (
           <>
-            <span className="text-gray-500">{expression} = </span>
-            <span className="text-gray-900">{formatFraction(result)}</span>
+            {expression.map((part, index) => (
+              <span key={index} className="text-gray-500">
+                {part}
+              </span>
+            ))}
+            <span className="text-gray-500">=</span>
+            <span className="text-gray-900">
+              <DisplayFraction fraction={result} />
+            </span>
           </>
         ) : (
           <span className="text-gray-900">{expression}</span>
         )}
       </div>
-      <div className="text-right text-sm text-gray-500 mt-1">
-        {decimalResult ? `≈ ${decimalResult.toFixed(4)}` : '\u00A0'}
+      <div className="text-right text-sm text-gray-500">
+        {decimalResult ? `≈ ${decimalResult.toFixed(4)}` : "\u00A0"}
       </div>
     </div>
   );
 }
 
+export function DisplayFraction({ fraction }: { fraction: Fraction }) {
+  return <span className="">{formatFraction(fraction)}</span>;
+}

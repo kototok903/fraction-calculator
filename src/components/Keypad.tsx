@@ -40,14 +40,14 @@ export function Keypad({ label, canShrink, onInput, onBackspace, onClear, onTogg
   };
 
   return (
-    <div className="flex-1 flex flex-col gap-2 max-w-70 w-full">
+    <div className="flex-1 flex flex-col gap-2 max-w-80 w-full">
       {label && <div className="text-center text-sm font-medium text-gray-600">{label}</div>}
       {(onClear || onToggleSign) && (
         <div className="grid grid-cols-2 gap-1">
           {onClear && (
             <button
               onClick={onClear}
-              className="min-h-8 text-sm font-semibold rounded bg-red-500 hover:bg-red-600 text-white shadow-[0_3px_0_0_#b91c1c] active:translate-y-[2px] active:shadow-[0_1px_0_0_#b91c1c] transition-all"
+              className={`${canShrink ? 'min-h-10 md:min-h-8' : 'min-h-8'} text-sm font-semibold rounded bg-red-500 hover:bg-red-600 text-white shadow-[0_3px_0_0_#b91c1c] active:translate-y-[2px] active:shadow-[0_1px_0_0_#b91c1c] transition-all ${onToggleSign ? '' : 'col-span-2'}`}
             >
               C
             </button>
@@ -55,7 +55,7 @@ export function Keypad({ label, canShrink, onInput, onBackspace, onClear, onTogg
           {onToggleSign && (
             <button
               onClick={onToggleSign}
-              className={`min-h-8 text-sm font-semibold rounded bg-blue-500 hover:bg-blue-600 text-white shadow-[0_3px_0_0_#1d4ed8] active:translate-y-[2px] active:shadow-[0_1px_0_0_#1d4ed8] transition-all ${onClear ? '' : 'col-span-2'}`}
+              className={`${canShrink ? 'min-h-10 md:min-h-8' : 'min-h-8'} text-sm font-semibold rounded bg-blue-500 hover:bg-blue-600 text-white shadow-[0_3px_0_0_#1d4ed8] active:translate-y-[2px] active:shadow-[0_1px_0_0_#1d4ed8] transition-all ${onClear ? '' : 'col-span-2'}`}
             >
               +/−
             </button>
@@ -68,7 +68,7 @@ export function Keypad({ label, canShrink, onInput, onBackspace, onClear, onTogg
             key={btn}
             onClick={() => handleClick(btn)}
             className={`
-              min-h-8 text-lg font-semibold rounded
+              text-lg font-semibold rounded
               ${btn === '⌫' 
                 ? 'bg-red-100 hover:bg-red-200 text-red-700 col-span-1 shadow-[0_3px_0_0_#f87171]' 
                 : 'bg-gray-200 hover:bg-gray-300 text-gray-800 shadow-[0_3px_0_0_#9ca3af]'
@@ -77,6 +77,7 @@ export function Keypad({ label, canShrink, onInput, onBackspace, onClear, onTogg
               ${btn === '⌫' ? 'active:shadow-[0_1px_0_0_#f87171] col-span-2' : 'active:shadow-[0_1px_0_0_#9ca3af]'}
               active:translate-y-[2px] transition-all
               ${canShrink ? twoColOrder[btn] : ''}
+              ${canShrink ? 'min-h-10 md:min-h-8' : 'min-h-8'}
             `}
           >
             {btn}

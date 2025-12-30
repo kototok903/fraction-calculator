@@ -13,7 +13,7 @@ export function OpButtons({ onOperation, onEquals, selectedOp }: OpButtonsProps)
   ];
 
   return (
-    <div className="flex gap-2 w-full min-h-8">
+    <div className="flex gap-2 w-full min-h-10">
       {operations.map((op) => (
         <button
           key={op.value}
