@@ -4,10 +4,7 @@ import {
   DEFAULT_SETTINGS,
   type Settings,
 } from "@/contexts/settings/SettingsContext";
-import {
-  isValidDenominatorKeypadType,
-  isValidTheme,
-} from "@/utils/settingsUtils";
+import { isValidDenominatorMode, isValidTheme } from "@/utils/settingsUtils";
 
 const STORAGE_KEY = "fraction-calc-settings";
 
@@ -25,11 +22,9 @@ function loadSettings(): Settings {
       theme: isValidTheme(parsed.theme ?? "")
         ? parsed.theme!
         : DEFAULT_SETTINGS.theme,
-      denominatorKeypadType: isValidDenominatorKeypadType(
-        parsed.denominatorKeypadType ?? ""
-      )
-        ? parsed.denominatorKeypadType!
-        : DEFAULT_SETTINGS.denominatorKeypadType,
+      denominatorMode: isValidDenominatorMode(parsed.denominatorMode ?? "")
+        ? parsed.denominatorMode!
+        : DEFAULT_SETTINGS.denominatorMode,
     };
     return validSettings;
   } catch {

@@ -5,11 +5,11 @@ export function isValidTheme(value: string): value is ThemeName {
   return THEME_NAMES.includes(value as ThemeName);
 }
 
-export const DENOMINATOR_KEYPAD_TYPES = ["decimal", "binary"] as const;
-export type DenominatorKeypadType = (typeof DENOMINATOR_KEYPAD_TYPES)[number];
+export const DENOMINATOR_MODES = ["decimal", "binary"] as const;
+export type DenominatorMode = (typeof DENOMINATOR_MODES)[number];
 
-export function isValidDenominatorKeypadType(
+export function isValidDenominatorMode(
   value: string
-): value is DenominatorKeypadType {
-  return DENOMINATOR_KEYPAD_TYPES.includes(value as DenominatorKeypadType);
+): value is DenominatorMode {
+  return DENOMINATOR_MODES.includes(value as DenominatorMode);
 }

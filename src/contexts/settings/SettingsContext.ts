@@ -1,9 +1,9 @@
 import { createContext } from "react";
-import type { ThemeName, DenominatorKeypadType } from "@/utils/settingsUtils";
+import type { ThemeName, DenominatorMode } from "@/utils/settingsUtils";
 
 export interface Settings {
   theme: ThemeName;
-  denominatorKeypadType: DenominatorKeypadType;
+  denominatorMode: DenominatorMode;
 }
 
 export interface SettingsContextType {
@@ -13,7 +13,7 @@ export interface SettingsContextType {
 
 export const DEFAULT_SETTINGS: Settings = {
   theme: "light",
-  denominatorKeypadType: "binary",
+  denominatorMode: "binary",
 };
 
 export const SettingsContext = createContext<SettingsContextType | undefined>(

@@ -1,5 +1,5 @@
 import { useSettings } from "@/contexts/settings/useSettings";
-import type { DenominatorKeypadType, ThemeName } from "@/utils/settingsUtils";
+import type { DenominatorMode, ThemeName } from "@/utils/settingsUtils";
 import { FlatButton } from "@/components/FlatButton";
 
 interface SettingsProps {
@@ -12,8 +12,8 @@ const THEME_OPTIONS: { value: ThemeName; icon: string; label: string }[] = [
   { value: "retro", icon: "📺", label: "Retro" },
 ];
 
-const DENOMINATOR_KEYPAD_OPTIONS: {
-  value: DenominatorKeypadType;
+const DENOMINATOR_MODE_OPTIONS: {
+  value: DenominatorMode;
   icon: string;
   label: string;
 }[] = [
@@ -75,24 +75,20 @@ export function Settings({ onClose }: SettingsProps) {
             </div>
           </section>
 
-          {/* Denominator Keypad Type Section */}
+          {/* Denominator Mode Section */}
           <section>
             <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-3">
-              Denominator Keypad
+              Denominator Mode
             </h3>
             <div className="grid grid-cols-2 gap-3">
-              {DENOMINATOR_KEYPAD_OPTIONS.map(({ value, icon, label }) => (
+              {DENOMINATOR_MODE_OPTIONS.map(({ value, icon, label }) => (
                 <FlatButton
                   key={value}
-                  onClick={() =>
-                    updateSettings({ denominatorKeypadType: value })
-                  }
+                  onClick={() => updateSettings({ denominatorMode: value })}
                   className={`
                     flex flex-col items-center gap-1 p-3`}
                   variant={
-                    settings.denominatorKeypadType === value
-                      ? "selected"
-                      : "base"
+                    settings.denominatorMode === value ? "selected" : "base"
                   }
                 >
                   <span className="text-2xl">{icon}</span>

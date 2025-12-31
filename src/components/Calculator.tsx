@@ -171,7 +171,7 @@ export function Calculator() {
 
   const handleDenInput = (digit: string) => {
     clearFinishedCalculation();
-    if (settings.denominatorKeypadType === "binary") {
+    if (settings.denominatorMode === "binary") {
       setCurrOperand({
         ...currOperand,
         denominator: parseInt(digit),
@@ -185,7 +185,7 @@ export function Calculator() {
   };
   const handleDenDelete = () => {
     clearFinishedCalculation();
-    if (settings.denominatorKeypadType === "binary") {
+    if (settings.denominatorMode === "binary") {
       setCurrOperand({
         ...currOperand,
         denominator: 0,
@@ -272,7 +272,7 @@ export function Calculator() {
           />
           <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-fraction-divider shadow-[0_3px_0_0_var(--shadow-color-fraction-divider)]" />
           <Keypad
-            isBinary={settings.denominatorKeypadType === "binary"}
+            isBinary={settings.denominatorMode === "binary"}
             buttonVariant="fraction"
             onInput={handleDenInput}
             onDelete={handleDenDelete}
