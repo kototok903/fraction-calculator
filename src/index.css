@@ -21,14 +21,6 @@
   --display-fade-from: var(--color-blue-50);
   --display-fade-to: var(--color-blue-100);
 
-  /* Memory badge */
-  /* --memory-badge-bg: var(--color-blue-200);
-  --memory-badge-text: var(--color-gray-900); */
-
-  /* Divider */
-  /* --divider-bg: var(--color-stone-200);
-  --divider-shadow: var(--color-stone-400); */
-
   /* Buttons */
   --digit-btn-bg: var(--color-gray-200);
   --digit-btn-hover: var(--color-gray-300);
@@ -69,9 +61,6 @@
   --equals-btn-hover: var(--color-orange-600);
   --equals-btn-text: var(--color-white);
   --equals-btn-shadow: var(--color-orange-700);
-
-  /* Theme switcher */
-  /* --theme-switcher-bg: var(--color-blue-200); */
 }
 
 [data-theme="dark"] {
@@ -92,14 +81,6 @@
   --display-text-muted: var(--color-zinc-400);
   --display-fade-from: var(--color-zinc-700);
   --display-fade-to: var(--color-zinc-800);
-
-  /* Memory badge */
-  /* --memory-badge-bg: var(--color-zinc-600);
-  --memory-badge-text: var(--color-zinc-50); */
-
-  /* Divider */
-  /* --divider-bg: var(--color-stone-700);
-  --divider-shadow: var(--color-stone-800); */
 
   /* Buttons */
   --digit-btn-bg: var(--color-zinc-700);
@@ -141,9 +122,6 @@
   --equals-btn-hover: var(--color-orange-700);
   --equals-btn-text: var(--color-white);
   --equals-btn-shadow: var(--color-orange-800);
-
-  /* Theme switcher */
-  /* --theme-switcher-bg: var(--color-zinc-600); */
 }
 
 [data-theme="retro"] {
@@ -164,14 +142,6 @@
   --display-text-muted: var(--color-emerald-700);
   --display-fade-from: var(--color-emerald-100);
   --display-fade-to: var(--color-emerald-200);
-
-  /* Memory badge */
-  /* --memory-badge-bg: var(--color-emerald-300);
-  --memory-badge-text: var(--color-emerald-900); */
-
-  /* Divider */
-  /* --divider-bg: var(--color-orange-200);
-  --divider-shadow: var(--color-orange-400); */
 
   /* Buttons */
   --digit-btn-bg: var(--color-amber-200);
@@ -213,9 +183,6 @@
   --equals-btn-hover: var(--color-green-500);
   --equals-btn-text: var(--color-green-900);
   --equals-btn-shadow: var(--color-green-600);
-
-  /* Theme switcher */
-  /* --theme-switcher-bg: var(--color-emerald-300); */
 }
 
 /* Tailwind Theme Integration (enables autocomplete) */
