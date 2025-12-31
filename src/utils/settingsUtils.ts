@@ -13,3 +13,36 @@ export function isValidDenominatorMode(
 ): value is DenominatorMode {
   return DENOMINATOR_MODES.includes(value as DenominatorMode);
 }
+
+export const MEMORY_MODES = ["off", "on"] as const;
+export type MemoryMode = (typeof MEMORY_MODES)[number];
+
+export function isValidMemoryMode(value: string): value is MemoryMode {
+  return MEMORY_MODES.includes(value as MemoryMode);
+}
+
+export interface Settings {
+  theme: ThemeName;
+  denominatorMode: DenominatorMode;
+  memoryMode: MemoryMode;
+}
+
+export const DEFAULT_SETTINGS: Settings = {
+  theme: "light",
+  denominatorMode: "binary",
+  memoryMode: "on",
+};
+
+export function validateSettings(settings: Partial<Settings>): Settings {
+  return {
+    theme: isValidTheme(settings.theme ?? "")
+      ? settings.theme!
+      : DEFAULT_SETTINGS.theme,
+    denominatorMode: isValidDenominatorMode(settings.denominatorMode ?? "")
+      ? settings.denominatorMode!
+      : DEFAULT_SETTINGS.denominatorMode,
+    memoryMode: isValidMemoryMode(settings.memoryMode ?? "")
+      ? settings.memoryMode!
+      : DEFAULT_SETTINGS.memoryMode,
+  };
+}

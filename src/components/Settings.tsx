@@ -1,5 +1,9 @@
 import { useSettings } from "@/contexts/settings/useSettings";
-import type { DenominatorMode, ThemeName } from "@/utils/settingsUtils";
+import type {
+  DenominatorMode,
+  MemoryMode,
+  ThemeName,
+} from "@/utils/settingsUtils";
 import { FlatButton } from "@/components/FlatButton";
 
 interface SettingsProps {
@@ -19,6 +23,14 @@ const DENOMINATOR_MODE_OPTIONS: {
 }[] = [
   { value: "decimal", icon: "1 2 3", label: "Decimal" },
   { value: "binary", icon: "x/2 x/4", label: "Binary" },
+];
+
+const MEMORY_MODE_OPTIONS: {
+  value: MemoryMode;
+  label: string;
+}[] = [
+  { value: "off", label: "Off" },
+  { value: "on", label: "On" },
 ];
 
 export function Settings({ onClose }: SettingsProps) {
@@ -93,6 +105,26 @@ export function Settings({ onClose }: SettingsProps) {
                 >
                   <span className="text-2xl">{icon}</span>
                   <span className="text-sm">{label}</span>
+                </FlatButton>
+              ))}
+            </div>
+          </section>
+
+          {/* Denominator Mode Section */}
+          <section>
+            <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-3">
+              Memory Buttons
+            </h3>
+            <div className="grid grid-cols-2 gap-3">
+              {MEMORY_MODE_OPTIONS.map(({ value, label }) => (
+                <FlatButton
+                  key={value}
+                  onClick={() => updateSettings({ memoryMode: value })}
+                  className={`
+                    flex flex-col items-center gap-1 p-2`}
+                  variant={settings.memoryMode === value ? "selected" : "base"}
+                >
+                  <span className="text-xl">{label}</span>
                 </FlatButton>
               ))}
             </div>

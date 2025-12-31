@@ -245,14 +245,16 @@ export function Calculator() {
         memory={memory}
       />
 
-      <div className="mt-4">
-        <MemButtons
-          onClearMemory={handleClearMemory}
-          onRecallMemory={handleRecallMemory}
-          onAddToMemory={handleAddToMemory}
-          onSubtractFromMemory={handleSubtractFromMemory}
-        />
-      </div>
+      {settings.memoryMode === "on" && (
+        <div className="mt-4">
+          <MemButtons
+            onClearMemory={handleClearMemory}
+            onRecallMemory={handleRecallMemory}
+            onAddToMemory={handleAddToMemory}
+            onSubtractFromMemory={handleSubtractFromMemory}
+          />
+        </div>
+      )}
 
       <div className="w-full flex items-center gap-3 mt-4">
         <Keypad

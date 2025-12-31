@@ -1,10 +1,10 @@
 import { useState, useEffect, type ReactNode } from "react";
+import { SettingsContext } from "@/contexts/settings/SettingsContext";
 import {
-  SettingsContext,
   DEFAULT_SETTINGS,
+  validateSettings,
   type Settings,
-} from "@/contexts/settings/SettingsContext";
-import { isValidDenominatorMode, isValidTheme } from "@/utils/settingsUtils";
+} from "@/utils/settingsUtils";
 
 const STORAGE_KEY = "fraction-calc-settings";
 
@@ -18,15 +18,7 @@ function loadSettings(): Settings {
     }
 
     const parsed = JSON.parse(saved) as Partial<Settings>;
-    const validSettings = {
-      theme: isValidTheme(parsed.theme ?? "")
-        ? parsed.theme!
-        : DEFAULT_SETTINGS.theme,
-      denominatorMode: isValidDenominatorMode(parsed.denominatorMode ?? "")
-        ? parsed.denominatorMode!
-        : DEFAULT_SETTINGS.denominatorMode,
-    };
-    return validSettings;
+    return validateSettings(parsed);
   } catch {
     return DEFAULT_SETTINGS;
   }
