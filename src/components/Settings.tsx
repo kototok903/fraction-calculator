@@ -3,12 +3,17 @@ import type {
   DenominatorMode,
   MemoryMode,
   ThemeName,
+  CarpenterMode,
 } from "@/utils/settingsUtils";
 import { FlatButton } from "@/components/FlatButton";
 import { cn } from "@/utils/utils";
+import { DisplayFraction } from "@/components/DisplayFraction";
 
-interface SettingsProps {
-  onClose: () => void;
+interface SettingsOption<T extends string> {
+  value: T;
+  label: string;
+  icon?: React.ReactNode;
+  description?: React.ReactNode;
 }
 
 const THEME_OPTIONS: SettingsOption<ThemeName>[] = [
@@ -19,13 +24,41 @@ const THEME_OPTIONS: SettingsOption<ThemeName>[] = [
 
 const DENOMINATOR_MODE_OPTIONS: SettingsOption<DenominatorMode>[] = [
   { value: "decimal", icon: "1 2 3", label: "Decimal" },
-  { value: "binary", icon: "x/2 x/4", label: "Binary" },
+  {
+    value: "binary",
+    icon: (
+      <span className="flex items-center gap-4">
+        <DisplayFraction numerator="x" denominator="8" />
+        <DisplayFraction numerator="x" denominator="4" />
+        <DisplayFraction numerator="x" denominator="2" />
+      </span>
+    ),
+    label: "Binary",
+  },
 ];
 
 const MEMORY_MODE_OPTIONS: SettingsOption<MemoryMode>[] = [
   { value: "off", label: "Off" },
   { value: "on", label: "On" },
 ];
+
+const CARPENTER_MODE_OPTIONS: SettingsOption<CarpenterMode>[] = [
+  { value: "off", label: "Off", description: "Show all buttons" },
+  {
+    value: "on",
+    label: "On",
+    description: (
+      <span className="flex items-center gap-1">
+        Only show buttons up to
+        <DisplayFraction numerator="x" denominator="32" size="sm" />
+      </span>
+    ),
+  },
+];
+
+interface SettingsProps {
+  onClose: () => void;
+}
 
 export function Settings({ onClose }: SettingsProps) {
   const { settings, updateSettings } = useSettings();
@@ -75,6 +108,16 @@ export function Settings({ onClose }: SettingsProps) {
               updateSettings({ denominatorMode: value })
             }
           />
+          <SettingsSubsection visible={settings.denominatorMode === "binary"}>
+            <SettingsSection
+              title="Carpenter Mode"
+              options={CARPENTER_MODE_OPTIONS}
+              selectedOption={settings.carpenterMode}
+              onSelectOptions={(value) =>
+                updateSettings({ carpenterMode: value })
+              }
+            />
+          </SettingsSubsection>
 
           <SettingsSection
             title="Memory Buttons"
@@ -82,7 +125,6 @@ export function Settings({ onClose }: SettingsProps) {
             selectedOption={settings.memoryMode}
             onSelectOptions={(value) => updateSettings({ memoryMode: value })}
             optionClassName="p-2"
-            disabled
           />
         </div>
 
@@ -95,12 +137,6 @@ export function Settings({ onClose }: SettingsProps) {
       </div>
     </>
   );
-}
-
-interface SettingsOption<T extends string> {
-  value: T;
-  label: string;
-  icon?: React.ReactNode;
 }
 
 interface SettingsSectionProps<
@@ -129,7 +165,7 @@ function SettingsSection<T extends string>({
         {title}
       </h3>
       <div className={`grid grid-cols-${options.length} gap-3`}>
-        {options.map(({ value, icon, label }) => (
+        {options.map(({ value, icon, label, description }) => (
           <FlatButton
             key={value}
             onClick={() => onSelectOptions(value)}
@@ -142,9 +178,61 @@ function SettingsSection<T extends string>({
           >
             {icon && <span className="text-2xl">{icon}</span>}
             <span className={`text-${icon ? "sm" : "xl"}`}>{label}</span>
+            {description && (
+              <span className="text-sm font-medium">{description}</span>
+            )}
           </FlatButton>
         ))}
       </div>
     </section>
+  );
+}
+
+interface SettingsSubsectionProps extends React.HTMLAttributes<HTMLDivElement> {
+  visible?: boolean;
+  children: React.ReactNode | React.ReactNode[];
+}
+
+export function SettingsSubsection({
+  className = "",
+  visible = true,
+  children,
+  ...props
+}: SettingsSubsectionProps) {
+  const childrenArray = Array.isArray(children) ? children : [children];
+
+  return (
+    <div
+      className={cn(
+        "flex flex-col gap-3 overflow-hidden transition-all duration-300 ease-in-out",
+        visible ? "max-h-full opacity-100" : "max-h-0 opacity-0",
+        className
+      )}
+      {...props}
+    >
+      {childrenArray.map((child, index) => {
+        const isLast = index === childrenArray.length - 1;
+        return (
+          <div key={index} className="flex">
+            {/* Tree connector */}
+            <div className="flex flex-col items-center w-3 ml-2 mr-2">
+              {/* Corner piece */}
+              <div
+                className={`
+                      w-full h-3 
+                      border-l-2 border-b-2 border-settings-divider
+                      rounded-bl-md
+                    `}
+              />
+              {/* Vertical line continuing down (except for last) */}
+              {!isLast && (
+                <div className="flex-1 w-full border-l-2 border-settings-divider" />
+              )}
+            </div>
+            <div className="flex-1">{child}</div>
+          </div>
+        );
+      })}
+    </div>
   );
 }

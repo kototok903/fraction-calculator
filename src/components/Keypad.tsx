@@ -27,6 +27,14 @@ const binaryButtons: { value: string; label: ReactNode }[] = [
   { value: "128", label: <DisplayFraction numerator="x" denominator="128" /> },
   { value: "delete", label: "CD" },
 ];
+const carpenterBinaryButtons: { value: string; label: ReactNode }[] = [
+  { value: "8", label: <DisplayFraction numerator="x" denominator="8" /> },
+  { value: "4", label: <DisplayFraction numerator="x" denominator="4" /> },
+  { value: "2", label: <DisplayFraction numerator="x" denominator="2" /> },
+  { value: "32", label: <DisplayFraction numerator="x" denominator="32" /> },
+  { value: "16", label: <DisplayFraction numerator="x" denominator="16" /> },
+  { value: "delete", label: "CD" },
+];
 
 // Order for 2-col layout: 8,9 / 6,7 / 4,5 / 2,3 / 0,1 / ⌫
 const twoColOrder = [
@@ -47,6 +55,7 @@ interface KeypadProps {
   label?: string;
   canShrink?: boolean;
   isBinary?: boolean;
+  isCarpenterBinary?: boolean;
   buttonVariant?: CalcButtonVariant;
   onInput: (digit: string) => void;
   onDelete: () => void;
@@ -59,6 +68,7 @@ export function Keypad({
   label,
   canShrink,
   isBinary,
+  isCarpenterBinary,
   buttonVariant = "digit",
   onInput,
   onDelete,
@@ -74,7 +84,11 @@ export function Keypad({
     }
   };
 
-  const buttons = isBinary ? binaryButtons : decimalButtons;
+  const buttons = isBinary
+    ? isCarpenterBinary
+      ? carpenterBinaryButtons
+      : binaryButtons
+    : decimalButtons;
 
   return (
     <div className="flex-1 flex flex-col gap-2 max-w-80 w-full">

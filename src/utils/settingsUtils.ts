@@ -21,16 +21,25 @@ export function isValidMemoryMode(value: string): value is MemoryMode {
   return MEMORY_MODES.includes(value as MemoryMode);
 }
 
+export const CARPENTER_MODES = ["off", "on"] as const;
+export type CarpenterMode = (typeof CARPENTER_MODES)[number];
+
+export function isValidCarpenterMode(value: string): value is CarpenterMode {
+  return CARPENTER_MODES.includes(value as CarpenterMode);
+}
+
 export interface Settings {
   theme: ThemeName;
   denominatorMode: DenominatorMode;
   memoryMode: MemoryMode;
+  carpenterMode: CarpenterMode;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   theme: "light",
   denominatorMode: "binary",
   memoryMode: "on",
+  carpenterMode: "off",
 };
 
 export function validateSettings(settings: Partial<Settings>): Settings {
@@ -44,5 +53,8 @@ export function validateSettings(settings: Partial<Settings>): Settings {
     memoryMode: isValidMemoryMode(settings.memoryMode ?? "")
       ? settings.memoryMode!
       : DEFAULT_SETTINGS.memoryMode,
+    carpenterMode: isValidCarpenterMode(settings.carpenterMode ?? "")
+      ? settings.carpenterMode!
+      : DEFAULT_SETTINGS.carpenterMode,
   };
 }

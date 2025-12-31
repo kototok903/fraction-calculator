@@ -1,6 +1,13 @@
 import type { Fraction, Sign } from "@/utils/fractionUtils";
 import { cn } from "@/utils/utils";
 
+const DIVIDER_WIDTH_REM = 0.125;
+const SIZE_TO_REM = {
+  sm: 1.625,
+  md: 2.625,
+  lg: 4.625,
+} as const;
+
 interface DisplayFractionProps extends React.HTMLAttributes<HTMLSpanElement> {
   // Number fraction
   fraction?: Fraction;
@@ -11,7 +18,7 @@ interface DisplayFractionProps extends React.HTMLAttributes<HTMLSpanElement> {
   numerator?: string;
   denominator?: string;
   // Size
-  size?: "md" | "lg";
+  size?: "sm" | "md" | "lg";
 }
 
 export function DisplayFraction({
@@ -37,10 +44,10 @@ export function DisplayFraction({
   const displayDenominator =
     frac && frac.denominator > 0 ? frac.denominator.toString() : denominator;
 
-  const [sizeBig, sizeSmall] =
-    size === "md"
-      ? ["text-[2.625rem]", "text-[1.25rem]"]
-      : ["text-[4.625rem]", "text-[2.25rem]"];
+  const [sizeBig, sizeSmall] = [
+    `text-[${SIZE_TO_REM[size]}rem]`,
+    `text-[${(SIZE_TO_REM[size] - DIVIDER_WIDTH_REM) / 2}rem]`,
+  ];
 
   return (
     <span
@@ -58,7 +65,7 @@ export function DisplayFraction({
       {(displayNumerator || displayDenominator) && (
         <span className="leading-none inline-grid justify-items-center">
           <span>{displayNumerator ?? "\u00A0"}</span>
-          <div className="border-b-2 w-full" />
+          <div className={`border-b-[${DIVIDER_WIDTH_REM}rem] w-full`} />
           <span>{displayDenominator ?? "\u00A0"}</span>
         </span>
       )}

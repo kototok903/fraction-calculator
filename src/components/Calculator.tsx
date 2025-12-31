@@ -278,6 +278,10 @@ export function Calculator() {
           <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-fraction-divider shadow-[0_3px_0_0_var(--shadow-color-fraction-divider)]" />
           <Keypad
             isBinary={settings.denominatorMode === "binary"}
+            isCarpenterBinary={
+              settings.denominatorMode === "binary" &&
+              settings.carpenterMode === "on"
+            }
             buttonVariant="fraction"
             onInput={handleDenInput}
             onDelete={handleDenDelete}
