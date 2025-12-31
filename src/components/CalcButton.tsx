@@ -25,6 +25,7 @@ export function CalcButton({
     <button
       className={cn(
         `calc-btn-themed calc-btn-${variant}
+        flex items-center justify-center
         text-2xl font-bold rounded
         active:translate-y-[2px] transition-all
         select-none touch-manipulation`,

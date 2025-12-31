@@ -1,20 +1,19 @@
 import { createContext } from "react";
-
-export const THEME_NAMES = ["light", "dark", "retro"] as const;
-export type ThemeName = (typeof THEME_NAMES)[number];
+import type { ThemeName, DenominatorKeypadType } from "@/utils/settingsUtils";
 
 export interface Settings {
   theme: ThemeName;
+  denominatorKeypadType: DenominatorKeypadType;
 }
 
 export interface SettingsContextType {
   settings: Settings;
   updateSettings: (partial: Partial<Settings>) => void;
-  themes: readonly ThemeName[];
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   theme: "light",
+  denominatorKeypadType: "binary",
 };
 
 export const SettingsContext = createContext<SettingsContextType | undefined>(

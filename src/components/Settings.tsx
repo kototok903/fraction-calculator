@@ -1,15 +1,24 @@
 import { useSettings } from "@/contexts/settings/useSettings";
-import type { ThemeName } from "@/contexts/settings/SettingsContext";
+import type { DenominatorKeypadType, ThemeName } from "@/utils/settingsUtils";
 import { FlatButton } from "@/components/FlatButton";
 
 interface SettingsProps {
   onClose: () => void;
 }
 
-const THEME_OPTIONS: { name: ThemeName; icon: string; label: string }[] = [
-  { name: "light", icon: "☀️", label: "Light" },
-  { name: "dark", icon: "🌙", label: "Dark" },
-  { name: "retro", icon: "📺", label: "Retro" },
+const THEME_OPTIONS: { value: ThemeName; icon: string; label: string }[] = [
+  { value: "light", icon: "☀️", label: "Light" },
+  { value: "dark", icon: "🌙", label: "Dark" },
+  { value: "retro", icon: "📺", label: "Retro" },
+];
+
+const DENOMINATOR_KEYPAD_OPTIONS: {
+  value: DenominatorKeypadType;
+  icon: string;
+  label: string;
+}[] = [
+  { value: "decimal", icon: "1 2 3", label: "Decimal" },
+  { value: "binary", icon: "x/2 x/4", label: "Binary" },
 ];
 
 export function Settings({ onClose }: SettingsProps) {
@@ -33,7 +42,7 @@ export function Settings({ onClose }: SettingsProps) {
         "
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-display">
+        <div className="flex items-center justify-between px-4 py-3 border-b-[0.5px] border-settings-divider">
           <h2 className="text-xl font-bold text-title">Settings</h2>
           <FlatButton
             onClick={onClose}
@@ -44,20 +53,47 @@ export function Settings({ onClose }: SettingsProps) {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
           {/* Theme Section */}
           <section>
-            <h3 className="text-sm font-semibold text-display-muted uppercase tracking-wide mb-3">
+            <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-3">
               Appearance
             </h3>
             <div className="grid grid-cols-3 gap-3">
-              {THEME_OPTIONS.map(({ name, icon, label }) => (
+              {THEME_OPTIONS.map(({ value, icon, label }) => (
                 <FlatButton
-                  key={name}
-                  onClick={() => updateSettings({ theme: name })}
+                  key={value}
+                  onClick={() => updateSettings({ theme: value })}
                   className={`
-                    flex flex-col items-center gap-2 p-4`}
-                  variant={settings.theme === name ? "selected" : "base"}
+                    flex flex-col items-center gap-1 p-3`}
+                  variant={settings.theme === value ? "selected" : "base"}
+                >
+                  <span className="text-2xl">{icon}</span>
+                  <span className="text-sm">{label}</span>
+                </FlatButton>
+              ))}
+            </div>
+          </section>
+
+          {/* Denominator Keypad Type Section */}
+          <section>
+            <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-3">
+              Denominator Keypad
+            </h3>
+            <div className="grid grid-cols-2 gap-3">
+              {DENOMINATOR_KEYPAD_OPTIONS.map(({ value, icon, label }) => (
+                <FlatButton
+                  key={value}
+                  onClick={() =>
+                    updateSettings({ denominatorKeypadType: value })
+                  }
+                  className={`
+                    flex flex-col items-center gap-1 p-3`}
+                  variant={
+                    settings.denominatorKeypadType === value
+                      ? "selected"
+                      : "base"
+                  }
                 >
                   <span className="text-2xl">{icon}</span>
                   <span className="text-sm">{label}</span>
@@ -68,7 +104,7 @@ export function Settings({ onClose }: SettingsProps) {
         </div>
 
         {/* Footer */}
-        <div className="px-4 py-3 border-t border-display">
+        <div className="px-4 py-3 border-t-[0.5px] border-settings-divider">
           <FlatButton onClick={onClose} className="w-full py-2">
             Done
           </FlatButton>

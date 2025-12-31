@@ -10,6 +10,7 @@
   /* Calculator body */
   --calc-bg: var(--color-white);
   --title-text: var(--color-gray-800);
+  --title-muted: var(--color-gray-500);
   --title-accent: var(--color-blue-600);
 
   /* Display */
@@ -79,6 +80,7 @@
   /* Calculator body */
   --calc-bg: var(--color-zinc-800);
   --title-text: var(--color-zinc-100);
+  --title-muted: var(--color-zinc-400);
   --title-accent: var(--color-blue-400);
 
   /* Display */
@@ -148,6 +150,7 @@
   /* Calculator body */
   --calc-bg: var(--color-amber-50);
   --title-text: var(--color-amber-900);
+  --title-muted: var(--color-amber-700);
   --title-accent: var(--color-amber-600);
 
   /* Display */
@@ -219,6 +222,7 @@
   /* Calculator */
   --background-color-calc: var(--calc-bg);
   --text-color-title: var(--title-text);
+  --text-color-title-muted: var(--title-muted);
   --text-color-title-accent: var(--title-accent);
 
   /* Display */
@@ -238,8 +242,8 @@
   --background-color-fraction-divider: var(--fraction-calc-btn-bg);
   --shadow-color-fraction-divider: var(--fraction-calc-btn-shadow);
 
-  /* Theme switcher */
-  --background-color-theme-switcher: var(--display-border);
+  /* Settings */
+  --border-color-settings-divider: var(--title-muted);
 }
 
 /* Utilities */

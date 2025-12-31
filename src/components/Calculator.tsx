@@ -16,6 +16,7 @@ import { OpButtons } from "@/components/OpButtons";
 import { MemButtons } from "@/components/MemButtons";
 import { Settings } from "@/components/Settings";
 import { FlatButton } from "@/components/FlatButton";
+import { useSettings } from "@/contexts/settings/useSettings";
 
 const DEFAULT_FRACTION: Fraction = {
   sign: 1,
@@ -25,6 +26,8 @@ const DEFAULT_FRACTION: Fraction = {
 };
 
 export function Calculator() {
+  const { settings } = useSettings();
+
   const [prevOperand, setPrevOperand] = useState<Fraction | null>(null);
   const [operator, setOperator] = useState<Operator | null>(null);
   const [currOperand, setCurrOperand] = useState<Fraction>(DEFAULT_FRACTION);
@@ -143,7 +146,7 @@ export function Calculator() {
       whole: currOperand.whole * 10 + parseInt(digit),
     });
   };
-  const handleWholeBackspace = () => {
+  const handleWholeDelete = () => {
     clearFinishedCalculation();
     setCurrOperand({
       ...currOperand,
@@ -158,7 +161,7 @@ export function Calculator() {
       numerator: currOperand.numerator * 10 + parseInt(digit),
     });
   };
-  const handleNumBackspace = () => {
+  const handleNumDelete = () => {
     clearFinishedCalculation();
     setCurrOperand({
       ...currOperand,
@@ -168,17 +171,31 @@ export function Calculator() {
 
   const handleDenInput = (digit: string) => {
     clearFinishedCalculation();
-    setCurrOperand({
-      ...currOperand,
-      denominator: currOperand.denominator * 10 + parseInt(digit),
-    });
+    if (settings.denominatorKeypadType === "binary") {
+      setCurrOperand({
+        ...currOperand,
+        denominator: parseInt(digit),
+      });
+    } else {
+      setCurrOperand({
+        ...currOperand,
+        denominator: currOperand.denominator * 10 + parseInt(digit),
+      });
+    }
   };
-  const handleDenBackspace = () => {
+  const handleDenDelete = () => {
     clearFinishedCalculation();
-    setCurrOperand({
-      ...currOperand,
-      denominator: Math.floor(currOperand.denominator / 10),
-    });
+    if (settings.denominatorKeypadType === "binary") {
+      setCurrOperand({
+        ...currOperand,
+        denominator: 0,
+      });
+    } else {
+      setCurrOperand({
+        ...currOperand,
+        denominator: Math.floor(currOperand.denominator / 10),
+      });
+    }
   };
 
   const handleClearMemory = () => {
@@ -242,7 +259,7 @@ export function Calculator() {
           canShrink
           buttonVariant="digit"
           onInput={handleWholeInput}
-          onBackspace={handleWholeBackspace}
+          onDelete={handleWholeDelete}
           onClear={handleClear}
           onToggleSign={handleToggleSign}
         />
@@ -251,13 +268,14 @@ export function Calculator() {
           <Keypad
             buttonVariant="fraction"
             onInput={handleNumInput}
-            onBackspace={handleNumBackspace}
+            onDelete={handleNumDelete}
           />
           <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-fraction-divider shadow-[0_3px_0_0_var(--shadow-color-fraction-divider)]" />
           <Keypad
+            isBinary={settings.denominatorKeypadType === "binary"}
             buttonVariant="fraction"
             onInput={handleDenInput}
-            onBackspace={handleDenBackspace}
+            onDelete={handleDenDelete}
           />
         </div>
       </div>

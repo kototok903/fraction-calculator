@@ -17,6 +17,7 @@ export function FlatButton({
     <button
       className={cn(
         `flat-btn-themed flat-btn-${variant}
+        flex items-center justify-center
         text-lg font-semibold rounded-lg
         hover:scale-102 active:scale-95 transition-all
         select-none touch-manipulation`,
