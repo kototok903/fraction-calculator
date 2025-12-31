@@ -35,19 +35,21 @@ export function Calculator() {
   const [memory, setMemory] = useState<Fraction | null>(null);
   const [showSettings, setShowSettings] = useState(false);
 
+  const isCurrFractionDefault =
+    currOperand.whole === DEFAULT_FRACTION.whole &&
+    currOperand.numerator === DEFAULT_FRACTION.numerator &&
+    currOperand.denominator === DEFAULT_FRACTION.denominator &&
+    currOperand.sign === DEFAULT_FRACTION.sign;
+  const isClearEntry = !result && !isCurrFractionDefault;
+
   const handleClear = () => {
-    const isCurrFractionDefault =
-      currOperand.whole === DEFAULT_FRACTION.whole &&
-      currOperand.numerator === DEFAULT_FRACTION.numerator &&
-      currOperand.denominator === DEFAULT_FRACTION.denominator &&
-      currOperand.sign === DEFAULT_FRACTION.sign;
-    if (result || isCurrFractionDefault) {
+    if (isClearEntry) {
+      setCurrOperand(DEFAULT_FRACTION);
+    } else {
       setPrevOperand(null);
       setOperator(null);
       setCurrOperand(DEFAULT_FRACTION);
       setResult(null);
-    } else {
-      setCurrOperand(DEFAULT_FRACTION);
     }
   };
 
@@ -263,6 +265,7 @@ export function Calculator() {
           onInput={handleWholeInput}
           onDelete={handleWholeDelete}
           onClear={handleClear}
+          isClearEntry={isClearEntry}
           onToggleSign={handleToggleSign}
         />
 

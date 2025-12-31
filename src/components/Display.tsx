@@ -6,6 +6,7 @@ import {
   OPERATOR_SYMBOLS,
   toDecimal,
 } from "@/utils/fractionUtils";
+import { DisplayFraction } from "@/components/DisplayFraction";
 
 interface DisplayProps {
   prevOperand: Fraction | null;
@@ -25,7 +26,7 @@ export function Display({
   const getExpression = () => {
     const parts: ReactNode[] = [];
     if (prevOperand) {
-      parts.push(<DisplayFraction fraction={prevOperand} />);
+      parts.push(<DisplayFraction fraction={prevOperand} size="lg" />);
     }
     if (operator) {
       parts.push(<span>{OPERATOR_SYMBOLS[operator]}</span>);
@@ -34,6 +35,7 @@ export function Display({
       <DisplayFraction
         fraction={currOperand}
         showZero={parts.length === 0 || !!result}
+        size="lg"
       />
     );
     return parts;
@@ -55,7 +57,7 @@ export function Display({
           {result ? (
             <>
               <span className="text-display">
-                <DisplayFraction fraction={result} />
+                <DisplayFraction fraction={result} size="lg" />
               </span>
               <span className="text-display-muted">=</span>
               {expression
@@ -90,34 +92,5 @@ export function Display({
         </div>
       )}
     </div>
-  );
-}
-
-interface DisplayFractionProps {
-  fraction: Fraction;
-  showZero?: boolean;
-}
-
-export function DisplayFraction({
-  fraction,
-  showZero = true,
-}: DisplayFractionProps) {
-  return (
-    <span className="flex items-center gap-0">
-      {fraction.sign < 0 && <span className="text-4xl">-</span>}
-      {(fraction.whole > 0 ||
-        (showZero &&
-          fraction.numerator === 0 &&
-          fraction.denominator === 0)) && (
-        <span className="text-7xl">{fraction.whole}</span>
-      )}
-      {(fraction.numerator > 0 || fraction.denominator > 0) && (
-        <span className="text-4xl leading-none flex flex-col items-center">
-          <span>{fraction.numerator || "\u00A0"}</span>
-          <div className="w-full border-b-2" />
-          <span>{fraction.denominator || "\u00A0"}</span>
-        </span>
-      )}
-    </span>
   );
 }

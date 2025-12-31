@@ -1,6 +1,7 @@
 import { CalcButton, type CalcButtonVariant } from "@/components/CalcButton";
 import { cn } from "@/utils/utils";
 import type { ReactNode } from "react";
+import { DisplayFraction } from "@/components/DisplayFraction";
 
 const decimalButtons: { value: string; label: ReactNode }[] = [
   { value: "7", label: "7" },
@@ -50,6 +51,7 @@ interface KeypadProps {
   onInput: (digit: string) => void;
   onDelete: () => void;
   onClear?: () => void;
+  isClearEntry?: boolean;
   onToggleSign?: () => void;
 }
 
@@ -61,6 +63,7 @@ export function Keypad({
   onInput,
   onDelete,
   onClear,
+  isClearEntry,
   onToggleSign,
 }: KeypadProps) {
   const handleClick = (value: string) => {
@@ -86,16 +89,16 @@ export function Keypad({
             <CalcButton
               onClick={onClear}
               variant="clear"
-              className={`${canShrink ? "min-h-11 md:min-h-9" : "min-h-9"} font-semibold ${onToggleSign ? "" : "col-span-2"}`}
+              className={`${canShrink ? "min-h-11 md:min-h-9" : "min-h-9"} ${onToggleSign ? "" : "col-span-2"}`}
             >
-              C
+              {isClearEntry ? "CE" : "C"}
             </CalcButton>
           )}
           {onToggleSign && (
             <CalcButton
               onClick={onToggleSign}
               variant="toggle"
-              className={`${canShrink ? "min-h-11 md:min-h-9" : "min-h-9"} text-lg font-semibold ${onClear ? "" : "col-span-2"}`}
+              className={`${canShrink ? "min-h-11 md:min-h-9" : "min-h-9"} text-lg ${onClear ? "" : "col-span-2"}`}
             >
               +/−
             </CalcButton>
@@ -118,7 +121,11 @@ export function Keypad({
               isBinary && btn.value !== "delete"
                 ? "font-stretch-condensed"
                 : "",
-              btn.value === "delete" && !isBinary ? "col-span-2" : "",
+              btn.value === "delete"
+                ? canShrink
+                  ? `col-span-${2 - ((buttons.length - 1) % 2)} md:col-span-${3 - ((buttons.length - 1) % 3)}`
+                  : `col-span-${3 - ((buttons.length - 1) % 3)}`
+                : "",
               canShrink ? twoColOrder[index] : "",
               canShrink ? "min-h-11 md:min-h-9" : "min-h-9"
             )}
@@ -128,20 +135,5 @@ export function Keypad({
         ))}
       </div>
     </div>
-  );
-}
-
-interface DisplayFractionProps {
-  numerator: string;
-  denominator: string;
-}
-
-function DisplayFraction({ numerator, denominator }: DisplayFractionProps) {
-  return (
-    <span className="text-xl leading-none inline-grid justify-items-center">
-      <span>{numerator}</span>
-      <div className="border-b-2 w-full" />
-      <span>{denominator}</span>
-    </span>
   );
 }
