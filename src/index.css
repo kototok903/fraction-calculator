@@ -22,45 +22,53 @@
   --display-fade-to: var(--color-blue-100);
 
   /* Buttons */
-  --digit-btn-bg: var(--color-gray-200);
-  --digit-btn-hover: var(--color-gray-300);
-  --digit-btn-text: var(--color-gray-800);
-  --digit-btn-shadow: var(--color-gray-400);
+  --base-flat-btn-bg: var(--color-blue-200);
+  --base-flat-btn-hover: var(--color-blue-300);
+  --base-flat-btn-text: var(--color-gray-800);
 
-  --fraction-btn-bg: var(--color-stone-200);
-  --fraction-btn-hover: var(--color-stone-300);
-  --fraction-btn-text: var(--color-stone-900);
-  --fraction-btn-shadow: var(--color-stone-400);
+  --selected-flat-btn-bg: var(--color-blue-50);
+  --selected-flat-btn-hover: var(--color-blue-300);
+  --selected-flat-btn-text: var(--color-gray-800);
 
-  --clear-btn-bg: var(--color-red-500);
-  --clear-btn-hover: var(--color-red-600);
-  --clear-btn-text: var(--color-white);
-  --clear-btn-shadow: var(--color-red-700);
+  --digit-calc-btn-bg: var(--color-gray-200);
+  --digit-calc-btn-hover: var(--color-gray-300);
+  --digit-calc-btn-text: var(--color-gray-800);
+  --digit-calc-btn-shadow: var(--color-gray-400);
 
-  --toggle-sign-btn-bg: var(--color-slate-300);
-  --toggle-sign-btn-hover: var(--color-slate-400);
-  --toggle-sign-btn-text: var(--color-slate-800);
-  --toggle-sign-btn-shadow: var(--color-slate-500);
+  --fraction-calc-btn-bg: var(--color-stone-200);
+  --fraction-calc-btn-hover: var(--color-stone-300);
+  --fraction-calc-btn-text: var(--color-stone-900);
+  --fraction-calc-btn-shadow: var(--color-stone-400);
 
-  --memory-btn-bg: var(--color-slate-500);
-  --memory-btn-hover: var(--color-slate-600);
-  --memory-btn-text: var(--color-white);
-  --memory-btn-shadow: var(--color-slate-700);
+  --clear-calc-btn-bg: var(--color-red-500);
+  --clear-calc-btn-hover: var(--color-red-600);
+  --clear-calc-btn-text: var(--color-white);
+  --clear-calc-btn-shadow: var(--color-red-700);
 
-  --operator-btn-bg: var(--color-slate-300);
-  --operator-btn-hover: var(--color-slate-400);
-  --operator-btn-text: var(--color-slate-800);
-  --operator-btn-shadow: var(--color-slate-500);
+  --toggle-sign-calc-btn-bg: var(--color-slate-300);
+  --toggle-sign-calc-btn-hover: var(--color-slate-400);
+  --toggle-sign-calc-btn-text: var(--color-slate-800);
+  --toggle-sign-calc-btn-shadow: var(--color-slate-500);
 
-  --operator-selected-btn-bg: var(--color-blue-500);
-  --operator-selected-btn-hover: var(--color-blue-600);
-  --operator-selected-btn-text: var(--color-white);
-  --operator-selected-btn-shadow: var(--color-blue-700);
+  --memory-calc-btn-bg: var(--color-slate-500);
+  --memory-calc-btn-hover: var(--color-slate-600);
+  --memory-calc-btn-text: var(--color-white);
+  --memory-calc-btn-shadow: var(--color-slate-700);
 
-  --equals-btn-bg: var(--color-orange-500);
-  --equals-btn-hover: var(--color-orange-600);
-  --equals-btn-text: var(--color-white);
-  --equals-btn-shadow: var(--color-orange-700);
+  --operator-calc-btn-bg: var(--color-slate-300);
+  --operator-calc-btn-hover: var(--color-slate-400);
+  --operator-calc-btn-text: var(--color-slate-800);
+  --operator-calc-btn-shadow: var(--color-slate-500);
+
+  --operator-selected-calc-btn-bg: var(--color-blue-500);
+  --operator-selected-calc-btn-hover: var(--color-blue-600);
+  --operator-selected-calc-btn-text: var(--color-white);
+  --operator-selected-calc-btn-shadow: var(--color-blue-700);
+
+  --equals-calc-btn-bg: var(--color-orange-500);
+  --equals-calc-btn-hover: var(--color-orange-600);
+  --equals-calc-btn-text: var(--color-white);
+  --equals-calc-btn-shadow: var(--color-orange-700);
 }
 
 [data-theme="dark"] {
@@ -83,45 +91,53 @@
   --display-fade-to: var(--color-zinc-800);
 
   /* Buttons */
-  --digit-btn-bg: var(--color-zinc-700);
-  --digit-btn-hover: var(--color-zinc-600);
-  --digit-btn-text: var(--color-zinc-50);
-  --digit-btn-shadow: var(--color-zinc-800);
+  --base-flat-btn-bg: var(--color-zinc-600);
+  --base-flat-btn-hover: var(--color-zinc-500);
+  --base-flat-btn-text: var(--color-zinc-100);
 
-  --fraction-btn-bg: var(--color-stone-700);
-  --fraction-btn-hover: var(--color-stone-600);
-  --fraction-btn-text: var(--color-stone-50);
-  --fraction-btn-shadow: var(--color-stone-800);
+  --selected-flat-btn-bg: var(--color-zinc-700);
+  --selected-flat-btn-hover: var(--color-zinc-500);
+  --selected-flat-btn-text: var(--color-zinc-100);
 
-  --clear-btn-bg: var(--color-red-600);
-  --clear-btn-hover: var(--color-red-700);
-  --clear-btn-text: var(--color-white);
-  --clear-btn-shadow: var(--color-red-900);
+  --digit-calc-btn-bg: var(--color-zinc-700);
+  --digit-calc-btn-hover: var(--color-zinc-600);
+  --digit-calc-btn-text: var(--color-zinc-50);
+  --digit-calc-btn-shadow: var(--color-zinc-800);
 
-  --toggle-sign-btn-bg: var(--color-zinc-600);
-  --toggle-sign-btn-hover: var(--color-zinc-500);
-  --toggle-sign-btn-text: var(--color-zinc-50);
-  --toggle-sign-btn-shadow: var(--color-zinc-700);
+  --fraction-calc-btn-bg: var(--color-stone-700);
+  --fraction-calc-btn-hover: var(--color-stone-600);
+  --fraction-calc-btn-text: var(--color-stone-50);
+  --fraction-calc-btn-shadow: var(--color-stone-800);
 
-  --memory-btn-bg: var(--color-zinc-600);
-  --memory-btn-hover: var(--color-zinc-500);
-  --memory-btn-text: var(--color-zinc-50);
-  --memory-btn-shadow: var(--color-zinc-700);
+  --clear-calc-btn-bg: var(--color-red-600);
+  --clear-calc-btn-hover: var(--color-red-700);
+  --clear-calc-btn-text: var(--color-white);
+  --clear-calc-btn-shadow: var(--color-red-900);
 
-  --operator-btn-bg: var(--color-zinc-600);
-  --operator-btn-hover: var(--color-zinc-500);
-  --operator-btn-text: var(--color-zinc-50);
-  --operator-btn-shadow: var(--color-zinc-700);
+  --toggle-sign-calc-btn-bg: var(--color-zinc-600);
+  --toggle-sign-calc-btn-hover: var(--color-zinc-500);
+  --toggle-sign-calc-btn-text: var(--color-zinc-50);
+  --toggle-sign-calc-btn-shadow: var(--color-zinc-700);
 
-  --operator-selected-btn-bg: var(--color-blue-600);
-  --operator-selected-btn-hover: var(--color-blue-700);
-  --operator-selected-btn-text: var(--color-white);
-  --operator-selected-btn-shadow: var(--color-blue-800);
+  --memory-calc-btn-bg: var(--color-zinc-600);
+  --memory-calc-btn-hover: var(--color-zinc-500);
+  --memory-calc-btn-text: var(--color-zinc-50);
+  --memory-calc-btn-shadow: var(--color-zinc-700);
 
-  --equals-btn-bg: var(--color-orange-600);
-  --equals-btn-hover: var(--color-orange-700);
-  --equals-btn-text: var(--color-white);
-  --equals-btn-shadow: var(--color-orange-800);
+  --operator-calc-btn-bg: var(--color-zinc-600);
+  --operator-calc-btn-hover: var(--color-zinc-500);
+  --operator-calc-btn-text: var(--color-zinc-50);
+  --operator-calc-btn-shadow: var(--color-zinc-700);
+
+  --operator-selected-calc-btn-bg: var(--color-blue-600);
+  --operator-selected-calc-btn-hover: var(--color-blue-700);
+  --operator-selected-calc-btn-text: var(--color-white);
+  --operator-selected-calc-btn-shadow: var(--color-blue-800);
+
+  --equals-calc-btn-bg: var(--color-orange-600);
+  --equals-calc-btn-hover: var(--color-orange-700);
+  --equals-calc-btn-text: var(--color-white);
+  --equals-calc-btn-shadow: var(--color-orange-800);
 }
 
 [data-theme="retro"] {
@@ -144,45 +160,53 @@
   --display-fade-to: var(--color-emerald-200);
 
   /* Buttons */
-  --digit-btn-bg: var(--color-amber-200);
-  --digit-btn-hover: var(--color-amber-300);
-  --digit-btn-text: var(--color-amber-900);
-  --digit-btn-shadow: var(--color-amber-500);
+  --base-flat-btn-bg: var(--color-emerald-300);
+  --base-flat-btn-hover: var(--color-emerald-400);
+  --base-flat-btn-text: var(--color-amber-900);
 
-  --fraction-btn-bg: var(--color-orange-200);
-  --fraction-btn-hover: var(--color-orange-300);
-  --fraction-btn-text: var(--color-orange-900);
-  --fraction-btn-shadow: var(--color-orange-400);
+  --selected-flat-btn-bg: var(--color-emerald-100);
+  --selected-flat-btn-hover: var(--color-emerald-400);
+  --selected-flat-btn-text: var(--color-amber-900);
 
-  --clear-btn-bg: var(--color-red-400);
-  --clear-btn-hover: var(--color-red-500);
-  --clear-btn-text: var(--color-white);
-  --clear-btn-shadow: var(--color-red-600);
+  --digit-calc-btn-bg: var(--color-amber-200);
+  --digit-calc-btn-hover: var(--color-amber-300);
+  --digit-calc-btn-text: var(--color-amber-900);
+  --digit-calc-btn-shadow: var(--color-amber-500);
 
-  --toggle-sign-btn-bg: var(--color-amber-300);
-  --toggle-sign-btn-hover: var(--color-amber-400);
-  --toggle-sign-btn-text: var(--color-amber-900);
-  --toggle-sign-btn-shadow: var(--color-amber-500);
+  --fraction-calc-btn-bg: var(--color-orange-200);
+  --fraction-calc-btn-hover: var(--color-orange-300);
+  --fraction-calc-btn-text: var(--color-orange-900);
+  --fraction-calc-btn-shadow: var(--color-orange-400);
 
-  --memory-btn-bg: var(--color-violet-400);
-  --memory-btn-hover: var(--color-violet-500);
-  --memory-btn-text: var(--color-white);
-  --memory-btn-shadow: var(--color-violet-600);
+  --clear-calc-btn-bg: var(--color-red-400);
+  --clear-calc-btn-hover: var(--color-red-500);
+  --clear-calc-btn-text: var(--color-white);
+  --clear-calc-btn-shadow: var(--color-red-600);
 
-  --operator-btn-bg: var(--color-blue-300);
-  --operator-btn-hover: var(--color-blue-400);
-  --operator-btn-text: var(--color-blue-900);
-  --operator-btn-shadow: var(--color-blue-500);
+  --toggle-sign-calc-btn-bg: var(--color-amber-300);
+  --toggle-sign-calc-btn-hover: var(--color-amber-400);
+  --toggle-sign-calc-btn-text: var(--color-amber-900);
+  --toggle-sign-calc-btn-shadow: var(--color-amber-500);
 
-  --operator-selected-btn-bg: var(--color-blue-500);
-  --operator-selected-btn-hover: var(--color-blue-600);
-  --operator-selected-btn-text: var(--color-white);
-  --operator-selected-btn-shadow: var(--color-blue-700);
+  --memory-calc-btn-bg: var(--color-violet-400);
+  --memory-calc-btn-hover: var(--color-violet-500);
+  --memory-calc-btn-text: var(--color-white);
+  --memory-calc-btn-shadow: var(--color-violet-600);
 
-  --equals-btn-bg: var(--color-green-400);
-  --equals-btn-hover: var(--color-green-500);
-  --equals-btn-text: var(--color-green-900);
-  --equals-btn-shadow: var(--color-green-600);
+  --operator-calc-btn-bg: var(--color-blue-300);
+  --operator-calc-btn-hover: var(--color-blue-400);
+  --operator-calc-btn-text: var(--color-blue-900);
+  --operator-calc-btn-shadow: var(--color-blue-500);
+
+  --operator-selected-calc-btn-bg: var(--color-blue-500);
+  --operator-selected-calc-btn-hover: var(--color-blue-600);
+  --operator-selected-calc-btn-text: var(--color-white);
+  --operator-selected-calc-btn-shadow: var(--color-blue-700);
+
+  --equals-calc-btn-bg: var(--color-green-400);
+  --equals-calc-btn-hover: var(--color-green-500);
+  --equals-calc-btn-text: var(--color-green-900);
+  --equals-calc-btn-shadow: var(--color-green-600);
 }
 
 /* Tailwind Theme Integration (enables autocomplete) */
@@ -211,8 +235,8 @@
   --text-color-memory-badge: var(--display-text);
 
   /* Divider */
-  --background-color-fraction-divider: var(--fraction-btn-bg);
-  --shadow-color-fraction-divider: var(--fraction-btn-shadow);
+  --background-color-fraction-divider: var(--fraction-calc-btn-bg);
+  --shadow-color-fraction-divider: var(--fraction-calc-btn-shadow);
 
   /* Theme switcher */
   --background-color-theme-switcher: var(--display-border);
@@ -232,65 +256,85 @@
 
 /* Button Styles */
 
-.btn-themed {
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
-  box-shadow: 0 3px 0 0 var(--btn-shadow);
+.flat-btn-themed {
+  background-color: var(--flat-btn-bg);
+  color: var(--flat-btn-text);
 }
-.btn-themed:hover {
-  background-color: var(--btn-hover);
-}
-.btn-themed:active {
-  box-shadow: 0 1px 0 0 var(--btn-shadow);
+.flat-btn-themed:hover {
+  background-color: var(--flat-btn-hover);
 }
 
-.btn-digit {
-  --btn-bg: var(--digit-btn-bg);
-  --btn-hover: var(--digit-btn-hover);
-  --btn-text: var(--digit-btn-text);
-  --btn-shadow: var(--digit-btn-shadow);
+.flat-btn-base {
+  --flat-btn-bg: var(--base-flat-btn-bg);
+  --flat-btn-hover: var(--base-flat-btn-hover);
+  --flat-btn-text: var(--base-flat-btn-text);
 }
-.btn-fraction {
-  --btn-bg: var(--fraction-btn-bg);
-  --btn-hover: var(--fraction-btn-hover);
-  --btn-text: var(--fraction-btn-text);
-  --btn-shadow: var(--fraction-btn-shadow);
+
+.flat-btn-selected {
+  --flat-btn-bg: var(--selected-flat-btn-bg);
+  --flat-btn-hover: var(--selected-flat-btn-hover);
+  --flat-btn-text: var(--selected-flat-btn-text);
 }
-.btn-clear {
-  --btn-bg: var(--clear-btn-bg);
-  --btn-hover: var(--clear-btn-hover);
-  --btn-text: var(--clear-btn-text);
-  --btn-shadow: var(--clear-btn-shadow);
+
+.calc-btn-themed {
+  background-color: var(--calc-btn-bg);
+  color: var(--calc-btn-text);
+  box-shadow: 0 3px 0 0 var(--calc-btn-shadow);
 }
-.btn-toggle {
-  --btn-bg: var(--toggle-sign-btn-bg);
-  --btn-hover: var(--toggle-sign-btn-hover);
-  --btn-text: var(--toggle-sign-btn-text);
-  --btn-shadow: var(--toggle-sign-btn-shadow);
+.calc-btn-themed:hover {
+  background-color: var(--calc-btn-hover);
 }
-.btn-memory {
-  --btn-bg: var(--memory-btn-bg);
-  --btn-hover: var(--memory-btn-hover);
-  --btn-text: var(--memory-btn-text);
-  --btn-shadow: var(--memory-btn-shadow);
+.calc-btn-themed:active {
+  box-shadow: 0 1px 0 0 var(--calc-btn-shadow);
 }
-.btn-operator {
-  --btn-bg: var(--operator-btn-bg);
-  --btn-hover: var(--operator-btn-hover);
-  --btn-text: var(--operator-btn-text);
-  --btn-shadow: var(--operator-btn-shadow);
+
+.calc-btn-digit {
+  --calc-btn-bg: var(--digit-calc-btn-bg);
+  --calc-btn-hover: var(--digit-calc-btn-hover);
+  --calc-btn-text: var(--digit-calc-btn-text);
+  --calc-btn-shadow: var(--digit-calc-btn-shadow);
 }
-.btn-operator-selected {
-  --btn-bg: var(--operator-selected-btn-bg);
-  --btn-hover: var(--operator-selected-btn-hover);
-  --btn-text: var(--operator-selected-btn-text);
-  --btn-shadow: var(--operator-selected-btn-shadow);
+.calc-btn-fraction {
+  --calc-btn-bg: var(--fraction-calc-btn-bg);
+  --calc-btn-hover: var(--fraction-calc-btn-hover);
+  --calc-btn-text: var(--fraction-calc-btn-text);
+  --calc-btn-shadow: var(--fraction-calc-btn-shadow);
 }
-.btn-equals {
-  --btn-bg: var(--equals-btn-bg);
-  --btn-hover: var(--equals-btn-hover);
-  --btn-text: var(--equals-btn-text);
-  --btn-shadow: var(--equals-btn-shadow);
+.calc-btn-clear {
+  --calc-btn-bg: var(--clear-calc-btn-bg);
+  --calc-btn-hover: var(--clear-calc-btn-hover);
+  --calc-btn-text: var(--clear-calc-btn-text);
+  --calc-btn-shadow: var(--clear-calc-btn-shadow);
+}
+.calc-btn-toggle {
+  --calc-btn-bg: var(--toggle-sign-calc-btn-bg);
+  --calc-btn-hover: var(--toggle-sign-calc-btn-hover);
+  --calc-btn-text: var(--toggle-sign-calc-btn-text);
+  --calc-btn-shadow: var(--toggle-sign-calc-btn-shadow);
+}
+.calc-btn-memory {
+  --calc-btn-bg: var(--memory-calc-btn-bg);
+  --calc-btn-hover: var(--memory-calc-btn-hover);
+  --calc-btn-text: var(--memory-calc-btn-text);
+  --calc-btn-shadow: var(--memory-calc-btn-shadow);
+}
+.calc-btn-operator {
+  --calc-btn-bg: var(--operator-calc-btn-bg);
+  --calc-btn-hover: var(--operator-calc-btn-hover);
+  --calc-btn-text: var(--operator-calc-btn-text);
+  --calc-btn-shadow: var(--operator-calc-btn-shadow);
+}
+.calc-btn-operator-selected {
+  --calc-btn-bg: var(--operator-selected-calc-btn-bg);
+  --calc-btn-hover: var(--operator-selected-calc-btn-hover);
+  --calc-btn-text: var(--operator-selected-calc-btn-text);
+  --calc-btn-shadow: var(--operator-selected-calc-btn-shadow);
+}
+.calc-btn-equals {
+  --calc-btn-bg: var(--equals-calc-btn-bg);
+  --calc-btn-hover: var(--equals-calc-btn-hover);
+  --calc-btn-text: var(--equals-calc-btn-text);
+  --calc-btn-shadow: var(--equals-calc-btn-shadow);
 }
 
 /* Base Styles */

@@ -1,5 +1,6 @@
 import { useSettings } from "@/contexts/settings/useSettings";
 import type { ThemeName } from "@/contexts/settings/SettingsContext";
+import { FlatButton } from "@/components/FlatButton";
 
 interface SettingsProps {
   onClose: () => void;
@@ -16,16 +17,16 @@ export function Settings({ onClose }: SettingsProps) {
 
   return (
     <>
-      {/* Backdrop - only visible on md+ */}
+      {/* Backdrop*/}
       <div
-        className="hidden md:block fixed inset-0 bg-black/40 z-40"
+        className="hidden md:block fixed inset-0 bg-black/40 z-10"
         onClick={onClose}
       />
 
       {/* Panel */}
       <div
         className="
-          fixed inset-0 z-50 bg-calc
+          fixed inset-0 z-11 bg-calc
           md:inset-auto md:fixed md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2
           md:rounded-xl md:shadow-2xl md:max-w-md md:w-full
           flex flex-col
@@ -34,13 +35,12 @@ export function Settings({ onClose }: SettingsProps) {
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-display">
           <h2 className="text-xl font-bold text-title">Settings</h2>
-          <button
+          <FlatButton
             onClick={onClose}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-lg
-              bg-theme-switcher text-title hover:opacity-80 transition-opacity"
+            className="rounded-full leading-none w-8 h-8"
           >
             ✕
-          </button>
+          </FlatButton>
         </div>
 
         {/* Content */}
@@ -52,24 +52,16 @@ export function Settings({ onClose }: SettingsProps) {
             </h3>
             <div className="grid grid-cols-3 gap-3">
               {THEME_OPTIONS.map(({ name, icon, label }) => (
-                <button
+                <FlatButton
                   key={name}
                   onClick={() => updateSettings({ theme: name })}
                   className={`
-                    flex flex-col items-center gap-2 p-4 rounded-lg
-                    border-2 transition-all
-                    ${
-                      settings.theme === name
-                        ? "border-title-accent bg-display-bg-from"
-                        : "border-transparent bg-theme-switcher hover:border-display"
-                    }
-                  `}
+                    flex flex-col items-center gap-2 p-4`}
+                  variant={settings.theme === name ? "selected" : "base"}
                 >
-                  <span className="text-3xl">{icon}</span>
-                  <span className="text-sm font-medium text-title">
-                    {label}
-                  </span>
-                </button>
+                  <span className="text-2xl">{icon}</span>
+                  <span className="text-sm">{label}</span>
+                </FlatButton>
               ))}
             </div>
           </section>
@@ -77,13 +69,9 @@ export function Settings({ onClose }: SettingsProps) {
 
         {/* Footer */}
         <div className="px-4 py-3 border-t border-display">
-          <button
-            onClick={onClose}
-            className="w-full py-2.5 rounded-lg font-semibold
-              bg-theme-switcher text-title hover:opacity-90 transition-opacity"
-          >
+          <FlatButton onClick={onClose} className="w-full py-2">
             Done
-          </button>
+          </FlatButton>
         </div>
       </div>
     </>

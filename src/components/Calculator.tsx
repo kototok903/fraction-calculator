@@ -15,6 +15,7 @@ import { Keypad } from "@/components/Keypad";
 import { OpButtons } from "@/components/OpButtons";
 import { MemButtons } from "@/components/MemButtons";
 import { Settings } from "@/components/Settings";
+import { FlatButton } from "@/components/FlatButton";
 
 const DEFAULT_FRACTION: Fraction = {
   sign: 1,
@@ -204,18 +205,17 @@ export function Calculator() {
   return (
     <div className="bg-calc px-3 pt-3 pb-4 md:rounded-xl shadow-2xl md:max-w-2xl w-full min-w-0">
       <div className="flex items-center justify-between mb-2">
-        <button
+        <FlatButton
           onClick={() => setShowSettings(true)}
-          className="w-8 h-8 rounded-full flex items-center justify-center text-lg
-            transition-transform hover:scale-110 active:scale-95 bg-theme-switcher"
+          className="rounded-full leading-none w-8 h-8"
           title="Settings"
         >
           ⚙️
-        </button>
+        </FlatButton>
         <h1 className="text-xl font-bold text-title">
           FRACTION<span className="text-title-accent">MINUS</span>
         </h1>
-        <div className="w-8" /> {/* Spacer for alignment */}
+        <div className="w-8" />
       </div>
 
       {showSettings && <Settings onClose={() => setShowSettings(false)} />}

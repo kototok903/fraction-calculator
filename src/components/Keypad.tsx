@@ -1,9 +1,9 @@
-import { Button, type ButtonVariant } from "@/components/Button";
+import { CalcButton, type CalcButtonVariant } from "@/components/CalcButton";
 
 interface KeypadProps {
   label?: string;
   canShrink?: boolean;
-  buttonVariant?: ButtonVariant;
+  buttonVariant?: CalcButtonVariant;
   onInput: (digit: string) => void;
   onBackspace: () => void;
   onClear?: () => void;
@@ -54,22 +54,22 @@ export function Keypad({
       {(onClear || onToggleSign) && (
         <div className="grid grid-cols-2 gap-2 md:gap-1">
           {onClear && (
-            <Button
+            <CalcButton
               onClick={onClear}
               variant="clear"
               className={`${canShrink ? "min-h-11 md:min-h-9" : "min-h-9"} font-semibold ${onToggleSign ? "" : "col-span-2"}`}
             >
               C
-            </Button>
+            </CalcButton>
           )}
           {onToggleSign && (
-            <Button
+            <CalcButton
               onClick={onToggleSign}
               variant="toggle"
               className={`${canShrink ? "min-h-11 md:min-h-9" : "min-h-9"} text-lg font-semibold ${onClear ? "" : "col-span-2"}`}
             >
               +/−
-            </Button>
+            </CalcButton>
           )}
         </div>
       )}
@@ -77,7 +77,7 @@ export function Keypad({
         className={`grid gap-x-2 md:gap-x-1 gap-y-2 ${canShrink ? "grid-cols-2 md:grid-cols-3" : "grid-cols-3"}`}
       >
         {buttons.map((btn) => (
-          <Button
+          <CalcButton
             key={btn}
             onClick={() => handleClick(btn)}
             variant={buttonVariant}
@@ -90,7 +90,7 @@ export function Keypad({
             `}
           >
             {btn}
-          </Button>
+          </CalcButton>
         ))}
       </div>
     </div>

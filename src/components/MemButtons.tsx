@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button";
+import { CalcButton } from "@/components/CalcButton";
 
 interface MemButtonsProps {
   onClear?: () => void;
@@ -18,26 +18,26 @@ export function MemButtons({
   return (
     <div className="flex gap-2 w-full min-h-8">
       {onClear && (
-        <Button onClick={onClear} variant="clear" className="flex-1">
+        <CalcButton onClick={onClear} variant="clear" className="flex-1">
           C
-        </Button>
+        </CalcButton>
       )}
-      <Button onClick={onClearMemory} variant="memory" className="flex-1">
+      <CalcButton onClick={onClearMemory} variant="memory" className="flex-1">
         MC
-      </Button>
-      <Button onClick={onRecallMemory} variant="memory" className="flex-1">
+      </CalcButton>
+      <CalcButton onClick={onRecallMemory} variant="memory" className="flex-1">
         MR
-      </Button>
-      <Button onClick={onAddToMemory} variant="memory" className="flex-1">
+      </CalcButton>
+      <CalcButton onClick={onAddToMemory} variant="memory" className="flex-1">
         M+
-      </Button>
-      <Button
+      </CalcButton>
+      <CalcButton
         onClick={onSubtractFromMemory}
         variant="memory"
         className="flex-1"
       >
         M-
-      </Button>
+      </CalcButton>
     </div>
   );
 }
