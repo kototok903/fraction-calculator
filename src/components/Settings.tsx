@@ -4,6 +4,7 @@ import type {
   MemoryMode,
   ThemeName,
   CarpenterMode,
+  //   BinaryRoundingMode,
 } from "@/utils/settingsUtils";
 import { FlatButton } from "@/components/FlatButton";
 import { cn } from "@/utils/utils";
@@ -37,10 +38,12 @@ const DENOMINATOR_MODE_OPTIONS: SettingsOption<DenominatorMode>[] = [
   },
 ];
 
-const MEMORY_MODE_OPTIONS: SettingsOption<MemoryMode>[] = [
-  { value: "off", label: "Off" },
-  { value: "on", label: "On" },
-];
+// const BINARY_ROUNDING_MODE_OPTIONS: SettingsOption<BinaryRoundingMode>[] = [
+//   { value: "off", label: "Off" },
+//   { value: "up", label: "Up" },
+//   { value: "nearest", label: "Nearest" },
+//   { value: "down", label: "Down" },
+// ];
 
 const CARPENTER_MODE_OPTIONS: SettingsOption<CarpenterMode>[] = [
   { value: "off", label: "Off", description: "Show all buttons" },
@@ -54,6 +57,11 @@ const CARPENTER_MODE_OPTIONS: SettingsOption<CarpenterMode>[] = [
       </span>
     ),
   },
+];
+
+const MEMORY_MODE_OPTIONS: SettingsOption<MemoryMode>[] = [
+  { value: "off", label: "Off" },
+  { value: "on", label: "On" },
 ];
 
 interface SettingsProps {
@@ -109,6 +117,14 @@ export function Settings({ onClose }: SettingsProps) {
             }
           />
           <SettingsSubsection visible={settings.denominatorMode === "binary"}>
+            {/* <SettingsSection
+              title="Binary Rounding Mode"
+              options={BINARY_ROUNDING_MODE_OPTIONS}
+              selectedOption={settings.binaryRoundingMode}
+              onSelectOptions={(value) =>
+                updateSettings({ binaryRoundingMode: value })
+              }
+            /> */}
             <SettingsSection
               title="Carpenter Mode"
               options={CARPENTER_MODE_OPTIONS}
@@ -124,7 +140,6 @@ export function Settings({ onClose }: SettingsProps) {
             options={MEMORY_MODE_OPTIONS}
             selectedOption={settings.memoryMode}
             onSelectOptions={(value) => updateSettings({ memoryMode: value })}
-            optionClassName="p-2"
           />
         </div>
 
@@ -146,6 +161,7 @@ interface SettingsSectionProps<
   options: SettingsOption<T>[];
   selectedOption: T;
   onSelectOptions: (value: T) => void;
+  rows?: number;
   optionClassName?: string;
   disabled?: boolean;
 }
@@ -155,6 +171,7 @@ function SettingsSection<T extends string>({
   options,
   selectedOption,
   onSelectOptions,
+  rows = 1,
   optionClassName,
   disabled,
   ...props
@@ -164,13 +181,15 @@ function SettingsSection<T extends string>({
       <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-3">
         {title}
       </h3>
-      <div className={`grid grid-cols-${options.length} gap-3`}>
+      <div
+        className={`grid grid-cols-${Math.ceil(options.length / rows)} gap-3`}
+      >
         {options.map(({ value, icon, label, description }) => (
           <FlatButton
             key={value}
             onClick={() => onSelectOptions(value)}
             className={cn(
-              "flex flex-col items-center gap-1 p-3",
+              "flex flex-col items-center gap-1 p-2",
               optionClassName
             )}
             variant={selectedOption === value ? "selected" : "base"}
@@ -204,7 +223,7 @@ export function SettingsSubsection({
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 overflow-hidden transition-all duration-300 ease-in-out",
+        "flex flex-col gap-3 transition-all duration-300 ease-in-out",
         visible ? "max-h-full opacity-100" : "max-h-0 opacity-0",
         className
       )}
@@ -226,7 +245,7 @@ export function SettingsSubsection({
               />
               {/* Vertical line continuing down (except for last) */}
               {!isLast && (
-                <div className="flex-1 w-full border-l-2 border-settings-divider" />
+                <div className="flex-1 w-full border-l-2 border-settings-divider -my-3" />
               )}
             </div>
             <div className="flex-1">{child}</div>

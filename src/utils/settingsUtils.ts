@@ -14,11 +14,13 @@ export function isValidDenominatorMode(
   return DENOMINATOR_MODES.includes(value as DenominatorMode);
 }
 
-export const MEMORY_MODES = ["off", "on"] as const;
-export type MemoryMode = (typeof MEMORY_MODES)[number];
+export const BINARY_ROUNDING_MODES = ["off", "up", "nearest", "down"] as const;
+export type BinaryRoundingMode = (typeof BINARY_ROUNDING_MODES)[number];
 
-export function isValidMemoryMode(value: string): value is MemoryMode {
-  return MEMORY_MODES.includes(value as MemoryMode);
+export function isValidBinaryRoundingMode(
+  value: string
+): value is BinaryRoundingMode {
+  return BINARY_ROUNDING_MODES.includes(value as BinaryRoundingMode);
 }
 
 export const CARPENTER_MODES = ["off", "on"] as const;
@@ -28,18 +30,27 @@ export function isValidCarpenterMode(value: string): value is CarpenterMode {
   return CARPENTER_MODES.includes(value as CarpenterMode);
 }
 
+export const MEMORY_MODES = ["off", "on"] as const;
+export type MemoryMode = (typeof MEMORY_MODES)[number];
+
+export function isValidMemoryMode(value: string): value is MemoryMode {
+  return MEMORY_MODES.includes(value as MemoryMode);
+}
+
 export interface Settings {
   theme: ThemeName;
   denominatorMode: DenominatorMode;
-  memoryMode: MemoryMode;
+  binaryRoundingMode: BinaryRoundingMode;
   carpenterMode: CarpenterMode;
+  memoryMode: MemoryMode;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   theme: "light",
   denominatorMode: "binary",
-  memoryMode: "on",
+  binaryRoundingMode: "nearest",
   carpenterMode: "off",
+  memoryMode: "on",
 };
 
 export function validateSettings(settings: Partial<Settings>): Settings {
@@ -50,11 +61,16 @@ export function validateSettings(settings: Partial<Settings>): Settings {
     denominatorMode: isValidDenominatorMode(settings.denominatorMode ?? "")
       ? settings.denominatorMode!
       : DEFAULT_SETTINGS.denominatorMode,
-    memoryMode: isValidMemoryMode(settings.memoryMode ?? "")
-      ? settings.memoryMode!
-      : DEFAULT_SETTINGS.memoryMode,
+    binaryRoundingMode: isValidBinaryRoundingMode(
+      settings.binaryRoundingMode ?? ""
+    )
+      ? settings.binaryRoundingMode!
+      : DEFAULT_SETTINGS.binaryRoundingMode,
     carpenterMode: isValidCarpenterMode(settings.carpenterMode ?? "")
       ? settings.carpenterMode!
       : DEFAULT_SETTINGS.carpenterMode,
+    memoryMode: isValidMemoryMode(settings.memoryMode ?? "")
+      ? settings.memoryMode!
+      : DEFAULT_SETTINGS.memoryMode,
   };
 }
