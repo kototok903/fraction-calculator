@@ -49,9 +49,9 @@ export function Display({
         : null;
 
   return (
-    <div className="relative py-2 rounded-lg border-2 shadow-md bg-display border-display overflow-hidden">
+    <div className="relative py-2 rounded-lg border-2 shadow-md bg-linear-to-br from-display-bg-from to-display-bg-to border-display overflow-hidden">
       {memory && (
-        <div className="absolute bottom-0 left-0 text-sm text-nowrap px-2 pt-0.5 max-w-[50%] rounded-bl-md rounded-tr-lg text-ellipsis overflow-hidden bg-memory-badge text-memory-badge">
+        <div className="absolute bottom-0 left-0 text-sm text-nowrap px-2 pt-0.5 max-w-[50%] rounded-bl-md rounded-tr-lg text-ellipsis overflow-hidden bg-memory-badge-bg text-memory-badge-text">
           M {formatFraction(memory)}
         </div>
       )}
@@ -87,8 +87,8 @@ export function Display({
       <div className="text-right text-sm px-2 text-display-muted">
         {decimalResult ? `≈ ${decimalResult.toFixed(4)}` : "\u00A0"}
       </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-display-fade-left" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-3 bg-display-fade-right" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-display-fade-from to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-3 bg-linear-to-l from-display-fade-to to-transparent" />
     </div>
   );
 }
@@ -114,7 +114,7 @@ export function DisplayFraction({
       {(fraction.numerator > 0 || fraction.denominator > 0) && (
         <span className="text-xl leading-[1.1] flex flex-col items-center">
           <span>{fraction.numerator || "\u00A0"}</span>
-          <div className="w-full border-b border-display-text" />
+          <div className="w-full border-b" />
           <span>{fraction.denominator || "\u00A0"}</span>
         </span>
       )}

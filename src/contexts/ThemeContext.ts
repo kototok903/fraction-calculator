@@ -1,10 +1,12 @@
 import { createContext } from "react";
-import { type Theme } from "@/themes/themes";
+
+export const THEME_NAMES = ["light", "dark", "retro"] as const;
+export type ThemeName = (typeof THEME_NAMES)[number];
 
 export interface ThemeContextType {
-  theme: Theme;
-  setTheme: (name: string) => void;
-  themes: Theme[];
+  theme: ThemeName;
+  setTheme: (name: ThemeName) => void;
+  themes: readonly ThemeName[];
 }
 
 export const ThemeContext = createContext<ThemeContextType | undefined>(

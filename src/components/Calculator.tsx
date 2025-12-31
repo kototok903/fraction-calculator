@@ -242,7 +242,7 @@ export function Calculator() {
             onInput={handleNumInput}
             onBackspace={handleNumBackspace}
           />
-          <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-divider shadow-divider" />
+          <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-divider shadow-[0_3px_0_0_var(--shadow-color-divider)]" />
           <Keypad
             buttonVariant="fraction"
             onInput={handleDenInput}
