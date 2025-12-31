@@ -1,6 +1,6 @@
 # Fraction Calculator
 
-<img width="600" alt="CleanShot 2025-12-29 at 22 11 44@2x" src="https://github.com/user-attachments/assets/1c847ffa-51a4-4cba-8f0a-135750bed29b" />
+<img width="600" alt="CleanShot 2025-12-31 at 02 15 09@2x" src="https://github.com/user-attachments/assets/791ed1bc-e60c-487a-8852-36c7ff60b249" />
 
 A web-based calculator for mixed number fractions with dedicated keypads for whole numbers, numerators, and denominators.
 
