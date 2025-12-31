@@ -201,7 +201,7 @@ export function Calculator() {
   };
 
   return (
-    <div className="bg-calc px-3 py-4 md:rounded-xl shadow-2xl md:max-w-2xl w-full min-w-0">
+    <div className="bg-calc px-3 pt-3 pb-4 md:rounded-xl shadow-2xl md:max-w-2xl w-full min-w-0">
       <div className="flex items-center justify-between mb-2">
         <h1 className="text-xl font-bold text-title">
           FRACTION<span className="text-title-accent">MINUS</span>
@@ -236,7 +236,7 @@ export function Calculator() {
           onToggleSign={handleToggleSign}
         />
 
-        <div className="flex-[1.5] md:flex-[1.8] px-2 md:px-0 flex flex-col md:flex-row items-center gap-3 overflow-visible">
+        <div className="flex-[1.5] md:flex-[1.8] px-2 md:px-0 flex flex-col md:flex-row items-center gap-2 overflow-visible">
           <Keypad
             buttonVariant="fraction"
             onInput={handleNumInput}

@@ -57,7 +57,7 @@ export function Keypad({
             <Button
               onClick={onClear}
               variant="clear"
-              className={`${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"} font-semibold ${onToggleSign ? "" : "col-span-2"}`}
+              className={`${canShrink ? "min-h-11 md:min-h-9" : "min-h-9"} font-semibold ${onToggleSign ? "" : "col-span-2"}`}
             >
               C
             </Button>
@@ -66,7 +66,7 @@ export function Keypad({
             <Button
               onClick={onToggleSign}
               variant="toggle"
-              className={`${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"} text-lg font-semibold ${onClear ? "" : "col-span-2"}`}
+              className={`${canShrink ? "min-h-11 md:min-h-9" : "min-h-9"} text-lg font-semibold ${onClear ? "" : "col-span-2"}`}
             >
               +/−
             </Button>
@@ -84,9 +84,9 @@ export function Keypad({
             className={`
               font-semibold
               ${btn === "0" ? "col-span-1" : ""}
-              ${btn === "⌫" ? "col-span-2" : "text-xl"}
+              ${btn === "⌫" ? "col-span-2" : ""}
               ${canShrink ? twoColOrder[btn] : ""}
-              ${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"}
+              ${canShrink ? "min-h-11 md:min-h-9" : "min-h-9"}
             `}
           >
             {btn}

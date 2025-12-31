@@ -49,14 +49,7 @@ export function Display({
         : null;
 
   return (
-    <div className="relative py-2 rounded-lg border-2 shadow-md bg-linear-to-br from-display-bg-from to-display-bg-to border-display overflow-hidden">
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-display-fade-from to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-3 bg-linear-to-l from-display-fade-to to-transparent" />
-      {memory && (
-        <div className="absolute bottom-0 left-0 leading-tight text-nowrap px-2 pt-0.5 max-w-[50%] rounded-bl-md rounded-tr-lg text-ellipsis overflow-hidden bg-memory-badge text-memory-badge">
-          M {formatFraction(memory)}
-        </div>
-      )}
+    <div className="relative pt-2 pb-1 rounded-lg border-2 shadow-md bg-linear-to-br from-display-bg-from to-display-bg-to border-display overflow-hidden">
       <div className="relative">
         <div className="flex flex-row-reverse items-center gap-2 text-4xl font-stretch-condensed px-2 overflow-x-auto overflow-y-hidden scrollbar-hide">
           {result ? (
@@ -89,6 +82,13 @@ export function Display({
       <div className="text-right text-lg leading-none px-2 text-display mt-1">
         {decimalResult ? `≈ ${decimalResult.toFixed(4)}` : "\u00A0"}
       </div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-display-fade-from to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-3 bg-linear-to-l from-display-fade-to to-transparent" />
+      {memory && (
+        <div className="absolute bottom-0 left-0 leading-tight text-nowrap px-2 pt-0.5 max-w-[50%] rounded-bl-md rounded-tr-lg text-ellipsis overflow-hidden bg-memory-badge text-memory-badge">
+          M {formatFraction(memory)}
+        </div>
+      )}
     </div>
   );
 }
