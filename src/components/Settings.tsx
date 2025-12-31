@@ -1,12 +1,13 @@
 // Tailwind safelist: grid-cols-4 grid-cols-5 grid-cols-6
 
 import { useSettings } from "@/contexts/settings/useSettings";
-import type {
-  DenominatorMode,
-  MemoryMode,
-  ThemeName,
-  CarpenterMode,
-  BinaryRoundingMode,
+import {
+  type DenominatorMode,
+  type MemoryMode,
+  type ThemeName,
+  type CarpenterMode,
+  type BinaryRoundingMode,
+  BINARY_ROUNDING_DENOMINATORS,
   //   BinaryRoundingMode,
 } from "@/utils/settingsUtils";
 import { FlatButton } from "@/components/FlatButton";
@@ -132,9 +133,17 @@ export function Settings({ onClose }: SettingsProps) {
               title="Carpenter Mode"
               options={CARPENTER_MODE_OPTIONS}
               selectedOption={settings.carpenterMode}
-              onSelectOptions={(value) =>
-                updateSettings({ carpenterMode: value })
-              }
+              onSelectOptions={(value) => {
+                updateSettings({ carpenterMode: value });
+                if (value === "on") {
+                  const currIndex = BINARY_ROUNDING_DENOMINATORS.indexOf(
+                    settings.binaryRoundingDenominator
+                  );
+                  if (currIndex > BINARY_ROUNDING_DENOMINATORS.indexOf("32")) {
+                    updateSettings({ binaryRoundingDenominator: "32" });
+                  }
+                }
+              }}
             />
           </SettingsSubsection>
 
@@ -180,12 +189,12 @@ function SettingsSection<T extends string>({
 }: SettingsSectionProps<T>) {
   return (
     <section {...props}>
-      <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-3">
+      <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-2">
         {title}
       </h3>
       <div
         className={cn(
-          `grid grid-cols-${options.length} gap-3`,
+          `grid grid-cols-${options.length} gap-2`,
           optionsClassName
         )}
       >
@@ -227,7 +236,7 @@ export function SettingsSubsection({
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 transition-all duration-300 ease-in-out",
+        "flex flex-col gap-2 transition-all duration-300 ease-in-out -mt-2",
         visible ? "max-h-full opacity-100" : "max-h-0 opacity-0",
         className
       )}
