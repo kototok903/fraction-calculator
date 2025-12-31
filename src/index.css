@@ -26,7 +26,7 @@
   --base-flat-btn-hover: var(--color-blue-300);
   --base-flat-btn-text: var(--color-gray-800);
 
-  --selected-flat-btn-bg: var(--color-blue-50);
+  --selected-flat-btn-bg: var(--color-blue-300);
   --selected-flat-btn-hover: var(--color-blue-300);
   --selected-flat-btn-text: var(--color-gray-800);
 
@@ -91,12 +91,12 @@
   --display-fade-to: var(--color-zinc-800);
 
   /* Buttons */
-  --base-flat-btn-bg: var(--color-zinc-600);
-  --base-flat-btn-hover: var(--color-zinc-500);
+  --base-flat-btn-bg: var(--color-zinc-700);
+  --base-flat-btn-hover: var(--color-zinc-600);
   --base-flat-btn-text: var(--color-zinc-100);
 
-  --selected-flat-btn-bg: var(--color-zinc-700);
-  --selected-flat-btn-hover: var(--color-zinc-500);
+  --selected-flat-btn-bg: var(--color-zinc-600);
+  --selected-flat-btn-hover: var(--color-zinc-600);
   --selected-flat-btn-text: var(--color-zinc-100);
 
   --digit-calc-btn-bg: var(--color-zinc-700);
@@ -164,7 +164,7 @@
   --base-flat-btn-hover: var(--color-emerald-400);
   --base-flat-btn-text: var(--color-amber-900);
 
-  --selected-flat-btn-bg: var(--color-emerald-100);
+  --selected-flat-btn-bg: var(--color-emerald-400);
   --selected-flat-btn-hover: var(--color-emerald-400);
   --selected-flat-btn-text: var(--color-amber-900);
 
