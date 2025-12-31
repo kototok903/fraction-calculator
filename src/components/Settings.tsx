@@ -5,30 +5,24 @@ import type {
   ThemeName,
 } from "@/utils/settingsUtils";
 import { FlatButton } from "@/components/FlatButton";
+import { cn } from "@/utils/utils";
 
 interface SettingsProps {
   onClose: () => void;
 }
 
-const THEME_OPTIONS: { value: ThemeName; icon: string; label: string }[] = [
+const THEME_OPTIONS: SettingsOption<ThemeName>[] = [
   { value: "light", icon: "☀️", label: "Light" },
   { value: "dark", icon: "🌙", label: "Dark" },
   { value: "retro", icon: "📺", label: "Retro" },
 ];
 
-const DENOMINATOR_MODE_OPTIONS: {
-  value: DenominatorMode;
-  icon: string;
-  label: string;
-}[] = [
+const DENOMINATOR_MODE_OPTIONS: SettingsOption<DenominatorMode>[] = [
   { value: "decimal", icon: "1 2 3", label: "Decimal" },
   { value: "binary", icon: "x/2 x/4", label: "Binary" },
 ];
 
-const MEMORY_MODE_OPTIONS: {
-  value: MemoryMode;
-  label: string;
-}[] = [
+const MEMORY_MODE_OPTIONS: SettingsOption<MemoryMode>[] = [
   { value: "off", label: "Off" },
   { value: "on", label: "On" },
 ];
@@ -66,69 +60,30 @@ export function Settings({ onClose }: SettingsProps) {
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
-          {/* Theme Section */}
-          <section>
-            <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-3">
-              Appearance
-            </h3>
-            <div className="grid grid-cols-3 gap-3">
-              {THEME_OPTIONS.map(({ value, icon, label }) => (
-                <FlatButton
-                  key={value}
-                  onClick={() => updateSettings({ theme: value })}
-                  className={`
-                    flex flex-col items-center gap-1 p-3`}
-                  variant={settings.theme === value ? "selected" : "base"}
-                >
-                  <span className="text-2xl">{icon}</span>
-                  <span className="text-sm">{label}</span>
-                </FlatButton>
-              ))}
-            </div>
-          </section>
+          <SettingsSection
+            title="Appearance"
+            options={THEME_OPTIONS}
+            selectedOption={settings.theme}
+            onSelectOptions={(value) => updateSettings({ theme: value })}
+          />
 
-          {/* Denominator Mode Section */}
-          <section>
-            <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-3">
-              Denominator Mode
-            </h3>
-            <div className="grid grid-cols-2 gap-3">
-              {DENOMINATOR_MODE_OPTIONS.map(({ value, icon, label }) => (
-                <FlatButton
-                  key={value}
-                  onClick={() => updateSettings({ denominatorMode: value })}
-                  className={`
-                    flex flex-col items-center gap-1 p-3`}
-                  variant={
-                    settings.denominatorMode === value ? "selected" : "base"
-                  }
-                >
-                  <span className="text-2xl">{icon}</span>
-                  <span className="text-sm">{label}</span>
-                </FlatButton>
-              ))}
-            </div>
-          </section>
+          <SettingsSection
+            title="Denominator Mode"
+            options={DENOMINATOR_MODE_OPTIONS}
+            selectedOption={settings.denominatorMode}
+            onSelectOptions={(value) =>
+              updateSettings({ denominatorMode: value })
+            }
+          />
 
-          {/* Denominator Mode Section */}
-          <section>
-            <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-3">
-              Memory Buttons
-            </h3>
-            <div className="grid grid-cols-2 gap-3">
-              {MEMORY_MODE_OPTIONS.map(({ value, label }) => (
-                <FlatButton
-                  key={value}
-                  onClick={() => updateSettings({ memoryMode: value })}
-                  className={`
-                    flex flex-col items-center gap-1 p-2`}
-                  variant={settings.memoryMode === value ? "selected" : "base"}
-                >
-                  <span className="text-xl">{label}</span>
-                </FlatButton>
-              ))}
-            </div>
-          </section>
+          <SettingsSection
+            title="Memory Buttons"
+            options={MEMORY_MODE_OPTIONS}
+            selectedOption={settings.memoryMode}
+            onSelectOptions={(value) => updateSettings({ memoryMode: value })}
+            optionClassName="p-2"
+            disabled
+          />
         </div>
 
         {/* Footer */}
@@ -139,5 +94,57 @@ export function Settings({ onClose }: SettingsProps) {
         </div>
       </div>
     </>
+  );
+}
+
+interface SettingsOption<T extends string> {
+  value: T;
+  label: string;
+  icon?: React.ReactNode;
+}
+
+interface SettingsSectionProps<
+  T extends string,
+> extends React.HTMLAttributes<HTMLDivElement> {
+  title: string;
+  options: SettingsOption<T>[];
+  selectedOption: T;
+  onSelectOptions: (value: T) => void;
+  optionClassName?: string;
+  disabled?: boolean;
+}
+
+function SettingsSection<T extends string>({
+  title,
+  options,
+  selectedOption,
+  onSelectOptions,
+  optionClassName,
+  disabled,
+  ...props
+}: SettingsSectionProps<T>) {
+  return (
+    <section {...props}>
+      <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-3">
+        {title}
+      </h3>
+      <div className={`grid grid-cols-${options.length} gap-3`}>
+        {options.map(({ value, icon, label }) => (
+          <FlatButton
+            key={value}
+            onClick={() => onSelectOptions(value)}
+            className={cn(
+              "flex flex-col items-center gap-1 p-3",
+              optionClassName
+            )}
+            variant={selectedOption === value ? "selected" : "base"}
+            disabled={disabled}
+          >
+            {icon && <span className="text-2xl">{icon}</span>}
+            <span className={`text-${icon ? "sm" : "xl"}`}>{label}</span>
+          </FlatButton>
+        ))}
+      </div>
+    </section>
   );
 }
