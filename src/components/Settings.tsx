@@ -52,8 +52,7 @@ const CARPENTER_MODE_OPTIONS: SettingsOption<CarpenterMode>[] = [
     label: "On",
     description: (
       <span className="flex items-center gap-1">
-        Only show buttons up to
-        <DisplayFraction numerator="x" denominator="32" size="sm" />
+        Only show buttons up to x/32
       </span>
     ),
   },
@@ -189,7 +188,7 @@ function SettingsSection<T extends string>({
             key={value}
             onClick={() => onSelectOptions(value)}
             className={cn(
-              "flex flex-col items-center gap-1 p-2",
+              "flex flex-col items-center gap-1 py-2 px-3",
               optionClassName
             )}
             variant={selectedOption === value ? "selected" : "base"}
@@ -198,7 +197,9 @@ function SettingsSection<T extends string>({
             {icon && <span className="text-2xl">{icon}</span>}
             <span className={`text-${icon ? "sm" : "xl"}`}>{label}</span>
             {description && (
-              <span className="text-sm font-medium">{description}</span>
+              <span className="text-sm font-medium leading-none">
+                {description}
+              </span>
             )}
           </FlatButton>
         ))}

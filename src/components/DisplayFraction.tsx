@@ -1,11 +1,22 @@
 import type { Fraction, Sign } from "@/utils/fractionUtils";
 import { cn } from "@/utils/utils";
 
-const DIVIDER_WIDTH_REM = 0.125;
-const SIZE_TO_REM = {
-  sm: 1.625,
-  md: 2.625,
-  lg: 4.625,
+const SIZE_CLASSES = {
+  sm: {
+    big: "text-[1.625rem]",
+    small: "text-[0.75rem]",
+    border: "border-b-[0.125rem]",
+  },
+  md: {
+    big: "text-[2.625rem]",
+    small: "text-[1.25rem]",
+    border: "border-b-[0.125rem]",
+  },
+  lg: {
+    big: "text-[4.625rem]",
+    small: "text-[2.25rem]",
+    border: "border-b-[0.125rem]",
+  },
 } as const;
 
 interface DisplayFractionProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -44,28 +55,27 @@ export function DisplayFraction({
   const displayDenominator =
     frac && frac.denominator > 0 ? frac.denominator.toString() : denominator;
 
-  const [sizeBig, sizeSmall] = [
-    `text-[${SIZE_TO_REM[size]}rem]`,
-    `text-[${(SIZE_TO_REM[size] - DIVIDER_WIDTH_REM) / 2}rem]`,
-  ];
+  const sizeClasses = SIZE_CLASSES[size];
 
   return (
     <span
       className={cn(
         "flex items-center gap-0 font-stretch-condensed",
-        sizeSmall,
+        sizeClasses.small,
         className
       )}
       {...props}
     >
       {displaySign < 0 && <span>−</span>}
       {displayWhole && (
-        <span className={cn(sizeBig, "leading-none")}>{displayWhole}</span>
+        <span className={cn(sizeClasses.big, "leading-none")}>
+          {displayWhole}
+        </span>
       )}
       {(displayNumerator || displayDenominator) && (
         <span className="leading-none inline-grid justify-items-center">
           <span>{displayNumerator ?? "\u00A0"}</span>
-          <div className={`border-b-[${DIVIDER_WIDTH_REM}rem] w-full`} />
+          <div className={`${sizeClasses.border} w-full`} />
           <span>{displayDenominator ?? "\u00A0"}</span>
         </span>
       )}
