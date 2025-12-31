@@ -22,13 +22,13 @@ export function OpButtons({
         <Button
           key={op}
           onClick={() => onOperation(op)}
-          color={selectedOp === op ? "blue" : "slate"}
+          variant={selectedOp === op ? "operator-selected" : "operator"}
           className="flex-1"
         >
           {OPERATOR_SYMBOLS[op]}
         </Button>
       ))}
-      <Button onClick={onEquals} color="orange" className="flex-1">
+      <Button onClick={onEquals} variant="equals" className="flex-1">
         =
       </Button>
     </div>

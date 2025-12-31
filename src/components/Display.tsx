@@ -49,9 +49,9 @@ export function Display({
         : null;
 
   return (
-    <div className="relative bg-linear-to-br from-blue-50 to-blue-100 py-2 rounded-lg border-2 border-blue-200 shadow-md">
+    <div className="relative py-2 rounded-lg border-2 shadow-md bg-display border-display overflow-hidden">
       {memory && (
-        <div className="absolute bottom-0 left-0 bg-blue-200 text-gray-900 text-sm text-nowrap px-2 pt-0.5 max-w-[50%] rounded-bl-md rounded-tr-lg text-ellipsis overflow-hidden">
+        <div className="absolute bottom-0 left-0 text-sm text-nowrap px-2 pt-0.5 max-w-[50%] rounded-bl-md rounded-tr-lg text-ellipsis overflow-hidden bg-memory-badge text-memory-badge">
           M {formatFraction(memory)}
         </div>
       )}
@@ -59,15 +59,15 @@ export function Display({
         <div className="flex flex-row-reverse items-center gap-2 text-4xl px-2 overflow-x-auto overflow-y-hidden scrollbar-hide">
           {result ? (
             <>
-              <span className="text-gray-900">
+              <span className="text-display">
                 <DisplayFraction fraction={result} />
               </span>
-              <span className="text-gray-500">=</span>
+              <span className="text-display-muted">=</span>
               {expression
                 .slice()
                 .reverse()
                 .map((part, index) => (
-                  <span key={index} className="text-gray-500">
+                  <span key={index} className="text-display-muted">
                     {part}
                   </span>
                 ))}
@@ -77,18 +77,18 @@ export function Display({
               .slice()
               .reverse()
               .map((part, index) => (
-                <span key={index} className="text-gray-900">
+                <span key={index} className="text-display">
                   {part}
                 </span>
               ))
           )}
         </div>
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-blue-50 to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-3 bg-linear-to-l from-blue-100 to-transparent" />
       </div>
-      <div className="text-right text-sm text-gray-500 px-2">
+      <div className="text-right text-sm px-2 text-display-muted">
         {decimalResult ? `≈ ${decimalResult.toFixed(4)}` : "\u00A0"}
       </div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-display-fade-left" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-3 bg-display-fade-right" />
     </div>
   );
 }
@@ -114,7 +114,7 @@ export function DisplayFraction({
       {(fraction.numerator > 0 || fraction.denominator > 0) && (
         <span className="text-xl leading-[1.1] flex flex-col items-center">
           <span>{fraction.numerator || "\u00A0"}</span>
-          <div className="w-full border-b" />
+          <div className="w-full border-b border-display-text" />
           <span>{fraction.denominator || "\u00A0"}</span>
         </span>
       )}

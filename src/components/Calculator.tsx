@@ -14,6 +14,7 @@ import { Display } from "@/components/Display";
 import { Keypad } from "@/components/Keypad";
 import { OpButtons } from "@/components/OpButtons";
 import { MemButtons } from "@/components/MemButtons";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 const DEFAULT_FRACTION: Fraction = {
   sign: 1,
@@ -200,11 +201,12 @@ export function Calculator() {
   };
 
   return (
-    <div className="bg-white px-3 py-4 md:rounded-xl shadow-2xl md:max-w-2xl w-full min-w-0">
-      <div className="text-center mb-2">
-        <h1 className="text-xl font-bold text-gray-800">
-          FRACTION<span className="text-blue-600">MINUS</span>
+    <div className="bg-calc px-3 py-4 md:rounded-xl shadow-2xl md:max-w-2xl w-full min-w-0">
+      <div className="flex items-center justify-between mb-2">
+        <h1 className="text-xl font-bold text-title">
+          FRACTION<span className="text-title-accent">MINUS</span>
         </h1>
+        <ThemeSwitcher />
       </div>
 
       <Display
@@ -227,6 +229,7 @@ export function Calculator() {
       <div className="w-full flex items-center gap-3 mt-4">
         <Keypad
           canShrink
+          buttonVariant="digit"
           onInput={handleWholeInput}
           onBackspace={handleWholeBackspace}
           onClear={handleClear}
@@ -235,13 +238,13 @@ export function Calculator() {
 
         <div className="flex-[1.5] md:flex-[1.8] px-2 md:px-0 flex flex-col md:flex-row items-center gap-3 overflow-visible">
           <Keypad
-            buttonColor="stone"
+            buttonVariant="fraction"
             onInput={handleNumInput}
             onBackspace={handleNumBackspace}
           />
-          <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-stone-200 shadow-[0_3px_0_0_#a8a29e]" />
+          <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-divider shadow-divider" />
           <Keypad
-            buttonColor="stone"
+            buttonVariant="fraction"
             onInput={handleDenInput}
             onBackspace={handleDenBackspace}
           />

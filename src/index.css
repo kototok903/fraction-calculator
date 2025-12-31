@@ -5,10 +5,144 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Page */
+  .bg-page {
+    background: linear-gradient(
+      to bottom right,
+      var(--page-bg-from),
+      var(--page-bg-to)
+    );
+  }
+
+  /* Calculator body */
+  .bg-calc {
+    background-color: var(--calc-bg);
+  }
+  .text-title {
+    color: var(--title-text);
+  }
+  .text-title-accent {
+    color: var(--title-accent);
+  }
+
+  /* Display */
+  .bg-display {
+    background: linear-gradient(
+      to bottom right,
+      var(--display-bg-from),
+      var(--display-bg-to)
+    );
+  }
+  .border-display {
+    border-color: var(--display-border);
+  }
+  .text-display {
+    color: var(--display-text);
+  }
+  .text-display-muted {
+    color: var(--display-text-muted);
+  }
+  .bg-display-fade-left {
+    background: linear-gradient(
+      to right,
+      var(--display-fade-from),
+      transparent
+    );
+  }
+  .bg-display-fade-right {
+    background: linear-gradient(to left, var(--display-fade-to), transparent);
+  }
+  .border-display-text {
+    border-color: var(--display-text);
+  }
+
+  /* Memory badge */
+  .bg-memory-badge {
+    background-color: var(--memory-badge-bg);
+  }
+  .text-memory-badge {
+    color: var(--memory-badge-text);
+  }
+
+  /* Divider */
+  .bg-divider {
+    background-color: var(--divider-bg);
+  }
+  .shadow-divider {
+    box-shadow: 0 3px 0 0 var(--divider-shadow);
+  }
+
+  /* Theme switcher */
+  .bg-theme-switcher {
+    background-color: var(--display-border);
+  }
+}
+
+/* Themed button base (outside @layer so variants work correctly) */
+.btn-themed {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  box-shadow: 0 3px 0 0 var(--btn-shadow);
+}
+.btn-themed:hover {
+  background-color: var(--btn-hover);
+}
+.btn-themed:active {
+  box-shadow: 0 1px 0 0 var(--btn-shadow);
+}
+
+/* Button variants */
+.btn-digit {
+  --btn-bg: var(--digit-btn-bg);
+  --btn-hover: var(--digit-btn-hover);
+  --btn-text: var(--digit-btn-text);
+  --btn-shadow: var(--digit-btn-shadow);
+}
+.btn-fraction {
+  --btn-bg: var(--fraction-btn-bg);
+  --btn-hover: var(--fraction-btn-hover);
+  --btn-text: var(--fraction-btn-text);
+  --btn-shadow: var(--fraction-btn-shadow);
+}
+.btn-clear {
+  --btn-bg: var(--clear-btn-bg);
+  --btn-hover: var(--clear-btn-hover);
+  --btn-text: var(--clear-btn-text);
+  --btn-shadow: var(--clear-btn-shadow);
+}
+.btn-toggle {
+  --btn-bg: var(--toggle-sign-btn-bg);
+  --btn-hover: var(--toggle-sign-btn-hover);
+  --btn-text: var(--toggle-sign-btn-text);
+  --btn-shadow: var(--toggle-sign-btn-shadow);
+}
+.btn-memory {
+  --btn-bg: var(--memory-btn-bg);
+  --btn-hover: var(--memory-btn-hover);
+  --btn-text: var(--memory-btn-text);
+  --btn-shadow: var(--memory-btn-shadow);
+}
+.btn-operator {
+  --btn-bg: var(--operator-btn-bg);
+  --btn-hover: var(--operator-btn-hover);
+  --btn-text: var(--operator-btn-text);
+  --btn-shadow: var(--operator-btn-shadow);
+}
+.btn-operator-selected {
+  --btn-bg: var(--operator-selected-btn-bg);
+  --btn-hover: var(--operator-selected-btn-hover);
+  --btn-text: var(--operator-selected-btn-text);
+  --btn-shadow: var(--operator-selected-btn-shadow);
+}
+.btn-equals {
+  --btn-bg: var(--equals-btn-bg);
+  --btn-hover: var(--equals-btn-hover);
+  --btn-text: var(--equals-btn-text);
+  --btn-shadow: var(--equals-btn-shadow);
 }
 
 body,
@@ -18,4 +152,9 @@ html,
   padding: 0;
   width: 100%;
   min-height: 100vh;
+  background: linear-gradient(
+    to bottom right,
+    var(--page-bg-from),
+    var(--page-bg-to)
+  );
 }

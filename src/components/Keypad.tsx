@@ -1,9 +1,9 @@
-import { Button, type ButtonColor } from "@/components/Button";
+import { Button, type ButtonVariant } from "@/components/Button";
 
 interface KeypadProps {
   label?: string;
   canShrink?: boolean;
-  buttonColor?: ButtonColor;
+  buttonVariant?: ButtonVariant;
   onInput: (digit: string) => void;
   onBackspace: () => void;
   onClear?: () => void;
@@ -13,7 +13,7 @@ interface KeypadProps {
 export function Keypad({
   label,
   canShrink,
-  buttonColor = "gray",
+  buttonVariant = "digit",
   onInput,
   onBackspace,
   onClear,
@@ -47,7 +47,7 @@ export function Keypad({
   return (
     <div className="flex-1 flex flex-col gap-2 max-w-80 w-full">
       {label && (
-        <div className="text-center text-sm font-medium text-gray-600">
+        <div className="text-center text-sm font-medium text-display-muted">
           {label}
         </div>
       )}
@@ -56,7 +56,7 @@ export function Keypad({
           {onClear && (
             <Button
               onClick={onClear}
-              color="red"
+              variant="clear"
               className={`${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"} font-semibold ${onToggleSign ? "" : "col-span-2"}`}
             >
               C
@@ -65,7 +65,7 @@ export function Keypad({
           {onToggleSign && (
             <Button
               onClick={onToggleSign}
-              color="slate"
+              variant="toggle"
               className={`${canShrink ? "min-h-10 md:min-h-8" : "min-h-8"} text-lg font-semibold ${onClear ? "" : "col-span-2"}`}
             >
               +/−
@@ -80,7 +80,7 @@ export function Keypad({
           <Button
             key={btn}
             onClick={() => handleClick(btn)}
-            color={buttonColor}
+            variant={buttonVariant}
             className={`
               font-semibold
               ${btn === "0" ? "col-span-1" : ""}
