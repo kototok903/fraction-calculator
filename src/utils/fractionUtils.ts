@@ -178,6 +178,18 @@ export function areFractionsEqual(f1: Fraction, f2: Fraction): boolean {
 }
 
 /**
+ * Check if two fractions are deeply equal
+ */
+export function areFractionsDeepEqual(f1: Fraction, f2: Fraction): boolean {
+  return (
+    f1.sign === f2.sign &&
+    f1.whole === f2.whole &&
+    f1.numerator === f2.numerator &&
+    f1.denominator === f2.denominator
+  );
+}
+
+/**
  * Convert fraction to decimal
  */
 export function toDecimal(frac: Fraction): number {
@@ -233,4 +245,31 @@ export function formatFraction(
     return `${frac.sign < 0 ? "-" : ""}${frac.numerator || " "}/${frac.denominator || " "}`;
   }
   return `${frac.sign * frac.whole} ${frac.numerator || " "}/${frac.denominator || " "}`;
+}
+
+/**
+ * Round a fraction to a new denominator
+ */
+export function roundFraction(frac: Fraction, newDen: number): Fraction {
+  const imp = toImproperFraction(frac);
+  const roundedNum = Math.round((imp.num * newDen) / imp.den);
+  return toProperFraction(roundedNum, newDen);
+}
+
+/**
+ * Ceil a fraction to a new denominator
+ */
+export function ceilFraction(frac: Fraction, newDen: number): Fraction {
+  const imp = toImproperFraction(frac);
+  const roundedNum = Math.ceil((imp.num * newDen) / imp.den);
+  return toProperFraction(roundedNum, newDen);
+}
+
+/**
+ * Floor a fraction to a new denominator
+ */
+export function floorFraction(frac: Fraction, newDen: number): Fraction {
+  const imp = toImproperFraction(frac);
+  const roundedNum = Math.floor((imp.num * newDen) / imp.den);
+  return toProperFraction(roundedNum, newDen);
 }

@@ -8,7 +8,10 @@ import {
   isZero,
   clearIncompleteFraction,
   simplifyProperFraction,
-  areFractionsEqual,
+  areFractionsDeepEqual,
+  ceilFraction,
+  roundFraction,
+  floorFraction,
 } from "@/utils/fractionUtils";
 import { Display } from "@/components/Display";
 import { Keypad } from "@/components/Keypad";
@@ -17,6 +20,8 @@ import { MemButtons } from "@/components/MemButtons";
 import { Settings } from "@/components/Settings";
 import { FlatButton } from "@/components/FlatButton";
 import { useSettings } from "@/contexts/settings/useSettings";
+import { BinaryRoundingSwitch } from "@/components/BinaryRoundingSwitch";
+import { cn } from "@/utils/utils";
 
 const DEFAULT_FRACTION: Fraction = {
   sign: 1,
@@ -26,7 +31,7 @@ const DEFAULT_FRACTION: Fraction = {
 };
 
 export function Calculator() {
-  const { settings } = useSettings();
+  const { settings, updateSettings } = useSettings();
 
   const [prevOperand, setPrevOperand] = useState<Fraction | null>(null);
   const [operator, setOperator] = useState<Operator | null>(null);
@@ -35,11 +40,10 @@ export function Calculator() {
   const [memory, setMemory] = useState<Fraction | null>(null);
   const [showSettings, setShowSettings] = useState(false);
 
-  const isCurrFractionDefault =
-    currOperand.whole === DEFAULT_FRACTION.whole &&
-    currOperand.numerator === DEFAULT_FRACTION.numerator &&
-    currOperand.denominator === DEFAULT_FRACTION.denominator &&
-    currOperand.sign === DEFAULT_FRACTION.sign;
+  const isCurrFractionDefault = areFractionsDeepEqual(
+    currOperand,
+    DEFAULT_FRACTION
+  );
   const isClearEntry = !result && !isCurrFractionDefault;
 
   const handleClear = () => {
@@ -116,24 +120,53 @@ export function Calculator() {
 
     if (!isZero(currOperand)) {
       const simplifiedCurrOperand = simplifyProperFraction(currOperand);
-      if (!areFractionsEqual(simplifiedCurrOperand, currOperand)) {
+      if (!areFractionsDeepEqual(simplifiedCurrOperand, currOperand)) {
         setResult(simplifiedCurrOperand);
         return;
       }
     }
   };
 
+  const roundIfNeeded = (frac: Fraction) => {
+    if (
+      settings.denominatorMode !== "binary" ||
+      settings.binaryRoundingMode === "off"
+    ) {
+      return frac;
+    }
+    switch (settings.binaryRoundingMode) {
+      case "up":
+        return ceilFraction(frac, parseInt(settings.binaryRoundingDenominator));
+      case "nearest":
+        return roundFraction(
+          frac,
+          parseInt(settings.binaryRoundingDenominator)
+        );
+      case "down":
+        return floorFraction(
+          frac,
+          parseInt(settings.binaryRoundingDenominator)
+        );
+    }
+  };
+
   const calculate = (f1: Fraction, op: Operator, f2: Fraction) => {
+    let result: Fraction;
     switch (op) {
       case "+":
-        return addFractions(f1, f2);
+        result = addFractions(f1, f2);
+        break;
       case "-":
-        return subtractFractions(f1, f2);
+        result = subtractFractions(f1, f2);
+        break;
       case "*":
-        return multiplyFractions(f1, f2);
+        result = multiplyFractions(f1, f2);
+        break;
       case "/":
-        return divideFractions(f1, f2);
+        result = divideFractions(f1, f2);
+        break;
     }
+    return roundIfNeeded(result);
   };
 
   const handleToggleSign = () => {
@@ -226,15 +259,34 @@ export function Calculator() {
       <div className="flex items-center justify-between mb-2">
         <FlatButton
           onClick={() => setShowSettings(true)}
-          className="rounded-full leading-none w-8 h-8"
+          className={cn(
+            "leading-none w-8 h-8",
+            settings.denominatorMode === "binary" &&
+              settings.binaryRoundingMode !== "off"
+              ? settings.carpenterMode === "on"
+                ? "mr-10"
+                : "mr-12"
+              : ""
+          )}
           title="Settings"
         >
           ⚙️
         </FlatButton>
-        <h1 className="text-xl font-bold text-title">
+        <h1 className="text-xl font-bold font-stretch-condensed text-title min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">
           ENGI<span className="text-title-accent">CALC</span>
         </h1>
-        <div className="w-8" />
+        {settings.denominatorMode === "binary" &&
+        settings.binaryRoundingMode !== "off" ? (
+          <BinaryRoundingSwitch
+            selected={settings.binaryRoundingDenominator}
+            onSelect={(value) =>
+              updateSettings({ binaryRoundingDenominator: value })
+            }
+            isCarpenterBinary={settings.carpenterMode === "on"}
+          />
+        ) : (
+          <div className="w-8" />
+        )}
       </div>
 
       {showSettings && <Settings onClose={() => setShowSettings(false)} />}

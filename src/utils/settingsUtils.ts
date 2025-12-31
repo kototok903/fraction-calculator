@@ -23,6 +23,28 @@ export function isValidBinaryRoundingMode(
   return BINARY_ROUNDING_MODES.includes(value as BinaryRoundingMode);
 }
 
+export const BINARY_ROUNDING_DENOMINATORS = [
+  "off",
+  "2",
+  "4",
+  "8",
+  "16",
+  "32",
+  "64",
+  "128",
+  "256",
+] as const;
+export type BinaryRoundingDenominator =
+  (typeof BINARY_ROUNDING_DENOMINATORS)[number];
+
+export function isValidBinaryRoundingDenominator(
+  value: string
+): value is BinaryRoundingDenominator {
+  return BINARY_ROUNDING_DENOMINATORS.includes(
+    value as BinaryRoundingDenominator
+  );
+}
+
 export const CARPENTER_MODES = ["off", "on"] as const;
 export type CarpenterMode = (typeof CARPENTER_MODES)[number];
 
@@ -41,6 +63,7 @@ export interface Settings {
   theme: ThemeName;
   denominatorMode: DenominatorMode;
   binaryRoundingMode: BinaryRoundingMode;
+  binaryRoundingDenominator: BinaryRoundingDenominator;
   carpenterMode: CarpenterMode;
   memoryMode: MemoryMode;
 }
@@ -49,6 +72,7 @@ export const DEFAULT_SETTINGS: Settings = {
   theme: "light",
   denominatorMode: "binary",
   binaryRoundingMode: "nearest",
+  binaryRoundingDenominator: "off",
   carpenterMode: "off",
   memoryMode: "on",
 };
@@ -66,6 +90,11 @@ export function validateSettings(settings: Partial<Settings>): Settings {
     )
       ? settings.binaryRoundingMode!
       : DEFAULT_SETTINGS.binaryRoundingMode,
+    binaryRoundingDenominator: isValidBinaryRoundingDenominator(
+      settings.binaryRoundingDenominator ?? ""
+    )
+      ? settings.binaryRoundingDenominator!
+      : DEFAULT_SETTINGS.binaryRoundingDenominator,
     carpenterMode: isValidCarpenterMode(settings.carpenterMode ?? "")
       ? settings.carpenterMode!
       : DEFAULT_SETTINGS.carpenterMode,

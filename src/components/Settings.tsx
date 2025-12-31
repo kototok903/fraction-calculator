@@ -1,9 +1,12 @@
+// Tailwind safelist: grid-cols-4 grid-cols-5 grid-cols-6
+
 import { useSettings } from "@/contexts/settings/useSettings";
 import type {
   DenominatorMode,
   MemoryMode,
   ThemeName,
   CarpenterMode,
+  BinaryRoundingMode,
   //   BinaryRoundingMode,
 } from "@/utils/settingsUtils";
 import { FlatButton } from "@/components/FlatButton";
@@ -38,12 +41,12 @@ const DENOMINATOR_MODE_OPTIONS: SettingsOption<DenominatorMode>[] = [
   },
 ];
 
-// const BINARY_ROUNDING_MODE_OPTIONS: SettingsOption<BinaryRoundingMode>[] = [
-//   { value: "off", label: "Off" },
-//   { value: "up", label: "Up" },
-//   { value: "nearest", label: "Nearest" },
-//   { value: "down", label: "Down" },
-// ];
+const BINARY_ROUNDING_MODE_OPTIONS: SettingsOption<BinaryRoundingMode>[] = [
+  { value: "off", label: "Off" },
+  { value: "up", label: "Up" },
+  { value: "nearest", label: "Nearest" },
+  { value: "down", label: "Down" },
+];
 
 const CARPENTER_MODE_OPTIONS: SettingsOption<CarpenterMode>[] = [
   { value: "off", label: "Off", description: "Show all buttons" },
@@ -83,7 +86,7 @@ export function Settings({ onClose }: SettingsProps) {
         className="
           fixed inset-0 z-11 bg-calc
           md:inset-auto md:fixed md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2
-          md:rounded-xl md:shadow-2xl md:max-w-md md:w-full
+          md:rounded-xl md:shadow-2xl md:max-w-md md:w-full md:max-h-[80vh]
           flex flex-col
         "
       >
@@ -116,14 +119,15 @@ export function Settings({ onClose }: SettingsProps) {
             }
           />
           <SettingsSubsection visible={settings.denominatorMode === "binary"}>
-            {/* <SettingsSection
+            <SettingsSection
               title="Binary Rounding Mode"
               options={BINARY_ROUNDING_MODE_OPTIONS}
               selectedOption={settings.binaryRoundingMode}
               onSelectOptions={(value) =>
                 updateSettings({ binaryRoundingMode: value })
               }
-            /> */}
+              optionsClassName="grid-cols-2 md:grid-cols-4"
+            />
             <SettingsSection
               title="Carpenter Mode"
               options={CARPENTER_MODE_OPTIONS}
@@ -161,7 +165,7 @@ interface SettingsSectionProps<
   selectedOption: T;
   onSelectOptions: (value: T) => void;
   rows?: number;
-  optionClassName?: string;
+  optionsClassName?: string;
   disabled?: boolean;
 }
 
@@ -170,8 +174,7 @@ function SettingsSection<T extends string>({
   options,
   selectedOption,
   onSelectOptions,
-  rows = 1,
-  optionClassName,
+  optionsClassName,
   disabled,
   ...props
 }: SettingsSectionProps<T>) {
@@ -181,16 +184,16 @@ function SettingsSection<T extends string>({
         {title}
       </h3>
       <div
-        className={`grid grid-cols-${Math.ceil(options.length / rows)} gap-3`}
+        className={cn(
+          `grid grid-cols-${options.length} gap-3`,
+          optionsClassName
+        )}
       >
         {options.map(({ value, icon, label, description }) => (
           <FlatButton
             key={value}
             onClick={() => onSelectOptions(value)}
-            className={cn(
-              "flex flex-col items-center gap-1 py-2 px-3",
-              optionClassName
-            )}
+            className="flex flex-col items-center gap-1 py-2 px-3"
             variant={selectedOption === value ? "selected" : "base"}
             disabled={disabled}
           >
