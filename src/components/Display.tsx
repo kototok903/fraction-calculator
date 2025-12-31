@@ -51,7 +51,7 @@ export function Display({
   return (
     <div className="relative py-2 rounded-lg border-2 shadow-md bg-linear-to-br from-display-bg-from to-display-bg-to border-display overflow-hidden">
       {memory && (
-        <div className="absolute bottom-0 left-0 text-sm text-nowrap px-2 pt-0.5 max-w-[50%] rounded-bl-md rounded-tr-lg text-ellipsis overflow-hidden bg-memory-badge-bg text-memory-badge-text">
+        <div className="absolute z-1 bottom-0 left-0 text-sm text-nowrap px-2 pt-0.5 max-w-[50%] rounded-bl-md rounded-tr-lg text-ellipsis overflow-hidden bg-memory-badge text-memory-badge">
           M {formatFraction(memory)}
         </div>
       )}
