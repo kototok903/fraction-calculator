@@ -50,13 +50,15 @@ export function Display({
 
   return (
     <div className="relative py-2 rounded-lg border-2 shadow-md bg-linear-to-br from-display-bg-from to-display-bg-to border-display overflow-hidden">
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-display-fade-from to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-3 bg-linear-to-l from-display-fade-to to-transparent" />
       {memory && (
-        <div className="absolute z-1 bottom-0 left-0 text-sm text-nowrap px-2 pt-0.5 max-w-[50%] rounded-bl-md rounded-tr-lg text-ellipsis overflow-hidden bg-memory-badge text-memory-badge">
+        <div className="absolute bottom-0 left-0 leading-tight text-nowrap px-2 pt-0.5 max-w-[50%] rounded-bl-md rounded-tr-lg text-ellipsis overflow-hidden bg-memory-badge text-memory-badge">
           M {formatFraction(memory)}
         </div>
       )}
       <div className="relative">
-        <div className="flex flex-row-reverse items-center gap-2 text-4xl px-2 overflow-x-auto overflow-y-hidden scrollbar-hide">
+        <div className="flex flex-row-reverse items-center gap-2 text-4xl font-stretch-condensed px-2 overflow-x-auto overflow-y-hidden scrollbar-hide">
           {result ? (
             <>
               <span className="text-display">
@@ -84,11 +86,9 @@ export function Display({
           )}
         </div>
       </div>
-      <div className="text-right text-sm px-2 text-display-muted">
+      <div className="text-right text-lg leading-none px-2 text-display mt-1">
         {decimalResult ? `≈ ${decimalResult.toFixed(4)}` : "\u00A0"}
       </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-display-fade-from to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-3 bg-linear-to-l from-display-fade-to to-transparent" />
     </div>
   );
 }
@@ -109,12 +109,12 @@ export function DisplayFraction({
         (showZero &&
           fraction.numerator === 0 &&
           fraction.denominator === 0)) && (
-        <span className="text-4xl leading-tight">{fraction.whole}</span>
+        <span className="text-7xl">{fraction.whole}</span>
       )}
       {(fraction.numerator > 0 || fraction.denominator > 0) && (
-        <span className="text-xl leading-[1.1] flex flex-col items-center">
+        <span className="text-4xl leading-none flex flex-col items-center">
           <span>{fraction.numerator || "\u00A0"}</span>
-          <div className="w-full border-b" />
+          <div className="w-full border-b-2" />
           <span>{fraction.denominator || "\u00A0"}</span>
         </span>
       )}
