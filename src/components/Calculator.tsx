@@ -14,7 +14,7 @@ import { Display } from "@/components/Display";
 import { Keypad } from "@/components/Keypad";
 import { OpButtons } from "@/components/OpButtons";
 import { MemButtons } from "@/components/MemButtons";
-import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { Settings } from "@/components/Settings";
 
 const DEFAULT_FRACTION: Fraction = {
   sign: 1,
@@ -29,6 +29,7 @@ export function Calculator() {
   const [currOperand, setCurrOperand] = useState<Fraction>(DEFAULT_FRACTION);
   const [result, setResult] = useState<Fraction | null>(null);
   const [memory, setMemory] = useState<Fraction | null>(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   const handleClear = () => {
     const isCurrFractionDefault =
@@ -203,11 +204,21 @@ export function Calculator() {
   return (
     <div className="bg-calc px-3 pt-3 pb-4 md:rounded-xl shadow-2xl md:max-w-2xl w-full min-w-0">
       <div className="flex items-center justify-between mb-2">
+        <button
+          onClick={() => setShowSettings(true)}
+          className="w-8 h-8 rounded-full flex items-center justify-center text-lg
+            transition-transform hover:scale-110 active:scale-95 bg-theme-switcher"
+          title="Settings"
+        >
+          ⚙️
+        </button>
         <h1 className="text-xl font-bold text-title">
           FRACTION<span className="text-title-accent">MINUS</span>
         </h1>
-        <ThemeSwitcher />
+        <div className="w-8" /> {/* Spacer for alignment */}
       </div>
+
+      {showSettings && <Settings onClose={() => setShowSettings(false)} />}
 
       <Display
         prevOperand={prevOperand}
@@ -242,7 +253,7 @@ export function Calculator() {
             onInput={handleNumInput}
             onBackspace={handleNumBackspace}
           />
-          <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-divider shadow-[0_3px_0_0_var(--shadow-color-divider)]" />
+          <div className="md:hidden h-1.5 w-[calc(100%+1rem)] rounded bg-fraction-divider shadow-[0_3px_0_0_var(--shadow-color-fraction-divider)]" />
           <Keypad
             buttonVariant="fraction"
             onInput={handleDenInput}

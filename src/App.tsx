@@ -1,13 +1,13 @@
 import { Calculator } from "@/components/Calculator";
-import { ThemeProvider } from "@/contexts/ThemeProvider";
+import { SettingsProvider } from "@/contexts/settings/SettingsProvider";
 
 function App() {
   return (
-    <ThemeProvider>
+    <SettingsProvider>
       <div className="md:min-h-screen w-full h-full flex items-center justify-center">
         <Calculator />
       </div>
-    </ThemeProvider>
+    </SettingsProvider>
   );
 }
 

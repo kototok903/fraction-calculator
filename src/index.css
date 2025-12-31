@@ -211,8 +211,8 @@
   --text-color-memory-badge: var(--display-text);
 
   /* Divider */
-  --background-color-divider: var(--fraction-btn-bg);
-  --shadow-color-divider: var(--fraction-btn-shadow);
+  --background-color-fraction-divider: var(--fraction-btn-bg);
+  --shadow-color-fraction-divider: var(--fraction-btn-shadow);
 
   /* Theme switcher */
   --background-color-theme-switcher: var(--display-border);
