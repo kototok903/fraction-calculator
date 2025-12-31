@@ -230,7 +230,7 @@ export function Calculator() {
           ⚙️
         </FlatButton>
         <h1 className="text-xl font-bold text-title">
-          FRACTION<span className="text-title-accent">MINUS</span>
+          ENGINEERING<span className="text-title-accent">CALC</span>
         </h1>
         <div className="w-8" />
       </div>
