@@ -1,16 +1,19 @@
 # Fraction Calculator
 
-<img width="600" alt="CleanShot 2025-12-31 at 02 15 09@2x" src="https://github.com/user-attachments/assets/791ed1bc-e60c-487a-8852-36c7ff60b249" />
+<img width="600" alt="CleanShot 2025-12-31 at 02 23 45@2x" src="https://github.com/user-attachments/assets/f1d3499c-7649-44e5-944e-4595be0960c0" />
 
 A web-based calculator for mixed number fractions with dedicated keypads for whole numbers, numerators, and denominators.
 
 ## Features
 
+- Basic calculator functionality
 - 3 independent keypads (whole, numerator, denominator)
-- Basic operations: addition, subtraction, multiplication, division
 - Auto-simplifies results (e.g., 4/8 → 1/2)
-- Shows decimal equivalents
-- Toggle sign (+/−) and clear (C) buttons
+- Multiple color themes
+- Optional memory buttons
+- Denominator modes:
+  - Binary - preset power of 2 denominators, rounding to nearest power of 2
+  - Decimal - standard digit keypad 
 
 ## Tech Stack
 
