@@ -264,8 +264,10 @@
   background-color: var(--flat-btn-bg);
   color: var(--flat-btn-text);
 }
-.flat-btn-themed:hover {
-  background-color: var(--flat-btn-hover);
+@media (hover: hover) {
+  .flat-btn-themed:hover {
+    background-color: var(--flat-btn-hover);
+  }
 }
 
 .flat-btn-base {
@@ -285,8 +287,10 @@
   color: var(--calc-btn-text);
   box-shadow: 0 3px 0 0 var(--calc-btn-shadow);
 }
-.calc-btn-themed:hover {
-  background-color: var(--calc-btn-hover);
+@media (hover: hover) {
+  .calc-btn-themed:hover {
+    background-color: var(--calc-btn-hover);
+  }
 }
 .calc-btn-themed:active {
   box-shadow: 0 1px 0 0 var(--calc-btn-shadow);
