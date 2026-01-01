@@ -312,8 +312,8 @@ export function Calculator() {
             settings.denominatorMode === "binary" &&
               settings.binaryRoundingMode !== "off"
               ? settings.carpenterMode === "on"
-                ? "mr-10"
-                : "mr-12"
+                ? "mr-12"
+                : "mr-14"
               : ""
           )}
           title="Settings"
@@ -330,6 +330,7 @@ export function Calculator() {
             onSelect={(value) =>
               updateSettings({ binaryRoundingDenominator: value })
             }
+            roundingMode={settings.binaryRoundingMode}
             isCarpenterBinary={settings.carpenterMode === "on"}
           />
         ) : (
