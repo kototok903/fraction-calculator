@@ -162,23 +162,22 @@ export function Calculator() {
       return;
     }
 
-    // simplify current operand
+    // simplify/round current operand
     if (!isZero(currOperand)) {
       const simplifiedCurrOperand = simplifyProperFraction(currOperand);
       if (!areFractionsDeepEqual(simplifiedCurrOperand, currOperand)) {
         setResult(simplifiedCurrOperand);
-        if (shouldRound) {
-          const roundedSimplifiedCurrOperand = round(simplifiedCurrOperand);
-          if (
-            !areFractionsDeepEqual(
-              roundedSimplifiedCurrOperand,
-              simplifiedCurrOperand
-            )
-          ) {
-            setRoundedResult(roundedSimplifiedCurrOperand);
-          }
+      }
+      if (shouldRound) {
+        const roundedSimplifiedCurrOperand = round(simplifiedCurrOperand);
+        if (
+          !areFractionsDeepEqual(
+            roundedSimplifiedCurrOperand,
+            simplifiedCurrOperand
+          )
+        ) {
+          setRoundedResult(roundedSimplifiedCurrOperand);
         }
-        return;
       }
     }
   };
