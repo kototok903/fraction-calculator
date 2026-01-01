@@ -37,6 +37,7 @@ export function Calculator() {
   const [operator, setOperator] = useState<Operator | null>(null);
   const [currOperand, setCurrOperand] = useState<Fraction>(DEFAULT_FRACTION);
   const [result, setResult] = useState<Fraction | null>(null);
+  const [roundedResult, setRoundedResult] = useState<Fraction | null>(null);
   const [memory, setMemory] = useState<Fraction | null>(null);
   const [showSettings, setShowSettings] = useState(false);
 
@@ -44,7 +45,13 @@ export function Calculator() {
     currOperand,
     DEFAULT_FRACTION
   );
-  const isClearEntry = !result && !isCurrFractionDefault;
+  const isClearEntry = !result && !roundedResult && !isCurrFractionDefault;
+
+  const isRoundingEnabled =
+    settings.denominatorMode === "binary" &&
+    settings.binaryRoundingMode !== "off";
+  const shouldRound =
+    isRoundingEnabled && settings.binaryRoundingDenominator !== "off";
 
   const handleClear = () => {
     if (isClearEntry) {
@@ -54,21 +61,32 @@ export function Calculator() {
       setOperator(null);
       setCurrOperand(DEFAULT_FRACTION);
       setResult(null);
+      setRoundedResult(null);
     }
   };
 
   const clearFinishedCalculation = () => {
-    if (result) {
+    if (roundedResult || result) {
       setPrevOperand(null);
       setOperator(null);
-      setCurrOperand(result);
+      setCurrOperand(roundedResult ?? result!);
       setResult(null);
+      setRoundedResult(null);
+      return {
+        prevOperand: null,
+        operator: null,
+        currOperand: roundedResult ?? result!,
+        result: null,
+        roundedResult: null,
+      };
     }
+    return { prevOperand, operator, currOperand, result, roundedResult };
   };
 
   const handleOperation = (op: Operator) => {
-    clearFinishedCalculation();
+    const { prevOperand, operator, currOperand } = clearFinishedCalculation();
 
+    // change current operator
     if (isZero(currOperand)) {
       if (!prevOperand) {
         setPrevOperand(DEFAULT_FRACTION);
@@ -77,36 +95,56 @@ export function Calculator() {
       return;
     }
 
+    // perform current operation, set new operator
     if (prevOperand) {
       const clearedCurrOperand = clearIncompleteFraction(currOperand);
       setCurrOperand(clearedCurrOperand);
       const calcResult = calculate(prevOperand, operator!, clearedCurrOperand);
-      setPrevOperand(calcResult);
+      const roundedCalcResult = round(calcResult);
+      setPrevOperand(roundedCalcResult);
       setOperator(op);
       setCurrOperand(DEFAULT_FRACTION);
       return;
     }
 
-    setPrevOperand(currOperand);
+    // set new operator
+    const clearedCurrOperand = clearIncompleteFraction(currOperand);
+    setPrevOperand(clearedCurrOperand);
     setCurrOperand(DEFAULT_FRACTION);
     setOperator(op);
   };
 
   const handleEquals = () => {
-    if (result) {
+    if (roundedResult || result) {
+      // repeat current operation on result
       if (prevOperand) {
-        setPrevOperand(result);
-        const calcResult = calculate(result, operator!, currOperand);
+        setPrevOperand(roundedResult ?? result!);
+        const calcResult = calculate(
+          roundedResult ?? result!,
+          operator!,
+          currOperand
+        );
         setResult(calcResult);
-      } else {
-        setCurrOperand(result);
-        setResult(null);
+        if (shouldRound) {
+          const roundedCalcResult = round(calcResult);
+          if (!areFractionsDeepEqual(roundedCalcResult, calcResult)) {
+            setRoundedResult(roundedCalcResult);
+          }
+        }
+        return;
       }
+
+      // clear steps
+      setCurrOperand(roundedResult ?? result!);
+      setResult(null);
+      setRoundedResult(null);
       return;
     }
 
+    // perform current operation
     if (prevOperand) {
       let newCurrOperand: Fraction;
+      // if current operand is empty, reuse previous operand
       if (isZero(currOperand)) {
         newCurrOperand = prevOperand;
       } else {
@@ -115,23 +153,38 @@ export function Calculator() {
       setCurrOperand(newCurrOperand);
       const calcResult = calculate(prevOperand, operator!, newCurrOperand);
       setResult(calcResult);
+      if (shouldRound) {
+        const roundedCalcResult = round(calcResult);
+        if (!areFractionsDeepEqual(roundedCalcResult, calcResult)) {
+          setRoundedResult(roundedCalcResult);
+        }
+      }
       return;
     }
 
+    // simplify current operand
     if (!isZero(currOperand)) {
       const simplifiedCurrOperand = simplifyProperFraction(currOperand);
       if (!areFractionsDeepEqual(simplifiedCurrOperand, currOperand)) {
         setResult(simplifiedCurrOperand);
+        if (shouldRound) {
+          const roundedSimplifiedCurrOperand = round(simplifiedCurrOperand);
+          if (
+            !areFractionsDeepEqual(
+              roundedSimplifiedCurrOperand,
+              simplifiedCurrOperand
+            )
+          ) {
+            setRoundedResult(roundedSimplifiedCurrOperand);
+          }
+        }
         return;
       }
     }
   };
 
-  const roundIfNeeded = (frac: Fraction) => {
-    if (
-      settings.denominatorMode !== "binary" ||
-      settings.binaryRoundingMode === "off"
-    ) {
+  const round = (frac: Fraction) => {
+    if (!shouldRound) {
       return frac;
     }
     switch (settings.binaryRoundingMode) {
@@ -148,41 +201,36 @@ export function Calculator() {
           parseInt(settings.binaryRoundingDenominator)
         );
     }
+    return frac;
   };
 
   const calculate = (f1: Fraction, op: Operator, f2: Fraction) => {
-    let result: Fraction;
     switch (op) {
       case "+":
-        result = addFractions(f1, f2);
-        break;
+        return addFractions(f1, f2);
       case "-":
-        result = subtractFractions(f1, f2);
-        break;
+        return subtractFractions(f1, f2);
       case "*":
-        result = multiplyFractions(f1, f2);
-        break;
+        return multiplyFractions(f1, f2);
       case "/":
-        result = divideFractions(f1, f2);
-        break;
+        return divideFractions(f1, f2);
     }
-    return roundIfNeeded(result);
   };
 
   const handleToggleSign = () => {
-    clearFinishedCalculation();
+    const { currOperand } = clearFinishedCalculation();
     setCurrOperand({ ...currOperand, sign: (currOperand.sign * -1) as Sign });
   };
 
   const handleWholeInput = (digit: string) => {
-    clearFinishedCalculation();
+    const { currOperand } = clearFinishedCalculation();
     setCurrOperand({
       ...currOperand,
       whole: currOperand.whole * 10 + parseInt(digit),
     });
   };
   const handleWholeDelete = () => {
-    clearFinishedCalculation();
+    const { currOperand } = clearFinishedCalculation();
     setCurrOperand({
       ...currOperand,
       whole: Math.floor(currOperand.whole / 10),
@@ -190,14 +238,14 @@ export function Calculator() {
   };
 
   const handleNumInput = (digit: string) => {
-    clearFinishedCalculation();
+    const { currOperand } = clearFinishedCalculation();
     setCurrOperand({
       ...currOperand,
       numerator: currOperand.numerator * 10 + parseInt(digit),
     });
   };
   const handleNumDelete = () => {
-    clearFinishedCalculation();
+    const { currOperand } = clearFinishedCalculation();
     setCurrOperand({
       ...currOperand,
       numerator: Math.floor(currOperand.numerator / 10),
@@ -205,7 +253,7 @@ export function Calculator() {
   };
 
   const handleDenInput = (digit: string) => {
-    clearFinishedCalculation();
+    const { currOperand } = clearFinishedCalculation();
     if (settings.denominatorMode === "binary") {
       setCurrOperand({
         ...currOperand,
@@ -219,7 +267,7 @@ export function Calculator() {
     }
   };
   const handleDenDelete = () => {
-    clearFinishedCalculation();
+    const { currOperand } = clearFinishedCalculation();
     if (settings.denominatorMode === "binary") {
       setCurrOperand({
         ...currOperand,
@@ -296,6 +344,7 @@ export function Calculator() {
         operator={operator}
         currOperand={currOperand}
         result={result}
+        roundedResult={roundedResult}
         memory={memory}
       />
 

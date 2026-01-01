@@ -1,4 +1,4 @@
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect } from "react";
 import { SettingsContext } from "@/contexts/settings/SettingsContext";
 import {
   DEFAULT_SETTINGS,
@@ -24,7 +24,7 @@ function loadSettings(): Settings {
   }
 }
 
-export function SettingsProvider({ children }: { children: ReactNode }) {
+export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [settings, setSettings] = useState<Settings>(loadSettings);
 
   useEffect(() => {

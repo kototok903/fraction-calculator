@@ -1,9 +1,8 @@
 import { CalcButton, type CalcButtonVariant } from "@/components/CalcButton";
 import { cn } from "@/utils/utils";
-import type { ReactNode } from "react";
 import { DisplayFraction } from "@/components/DisplayFraction";
 
-const decimalButtons: { value: string; label: ReactNode }[] = [
+const decimalButtons: { value: string; label: React.ReactNode }[] = [
   { value: "7", label: "7" },
   { value: "8", label: "8" },
   { value: "9", label: "9" },
@@ -16,7 +15,7 @@ const decimalButtons: { value: string; label: ReactNode }[] = [
   { value: "0", label: "0" },
   { value: "delete", label: "⌫" },
 ];
-const binaryButtons: { value: string; label: ReactNode }[] = [
+const binaryButtons: { value: string; label: React.ReactNode }[] = [
   { value: "8", label: <DisplayFraction numerator="x" denominator="8" /> },
   { value: "4", label: <DisplayFraction numerator="x" denominator="4" /> },
   { value: "2", label: <DisplayFraction numerator="x" denominator="2" /> },
@@ -27,7 +26,7 @@ const binaryButtons: { value: string; label: ReactNode }[] = [
   { value: "128", label: <DisplayFraction numerator="x" denominator="128" /> },
   { value: "delete", label: "CD" },
 ];
-const carpenterBinaryButtons: { value: string; label: ReactNode }[] = [
+const carpenterBinaryButtons: { value: string; label: React.ReactNode }[] = [
   { value: "8", label: <DisplayFraction numerator="x" denominator="8" /> },
   { value: "4", label: <DisplayFraction numerator="x" denominator="4" /> },
   { value: "2", label: <DisplayFraction numerator="x" denominator="2" /> },
