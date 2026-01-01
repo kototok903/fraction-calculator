@@ -13,13 +13,21 @@ import {
 import { FlatButton } from "@/components/FlatButton";
 import { cn } from "@/utils/utils";
 import { DisplayFraction } from "@/components/DisplayFraction";
-import { FaCompactDisc, FaMoon, FaSun } from "react-icons/fa6";
+import {
+  FaArrowDownLong,
+  FaArrowsUpDown,
+  FaArrowUpLong,
+  FaCompactDisc,
+  FaMoon,
+  FaSun,
+} from "react-icons/fa6";
 
 interface SettingsOption<T extends string> {
   value: T;
   label: string;
   icon?: React.ReactNode;
   description?: React.ReactNode;
+  iconSide?: "top" | "left";
 }
 
 const THEME_OPTIONS: SettingsOption<ThemeName>[] = [
@@ -45,9 +53,24 @@ const DENOMINATOR_MODE_OPTIONS: SettingsOption<DenominatorMode>[] = [
 
 const BINARY_ROUNDING_MODE_OPTIONS: SettingsOption<BinaryRoundingMode>[] = [
   { value: "off", label: "Off" },
-  { value: "up", label: "Up" },
-  { value: "nearest", label: "Nearest" },
-  { value: "down", label: "Down" },
+  {
+    value: "up",
+    label: "Up",
+    icon: <FaArrowUpLong className="text-base" />,
+    iconSide: "left",
+  },
+  {
+    value: "nearest",
+    label: "Nearest",
+    icon: <FaArrowsUpDown className="text-base" />,
+    iconSide: "left",
+  },
+  {
+    value: "down",
+    label: "Down",
+    icon: <FaArrowDownLong className="text-base" />,
+    iconSide: "left",
+  },
 ];
 
 const CARPENTER_MODE_OPTIONS: SettingsOption<CarpenterMode>[] = [
@@ -199,23 +222,34 @@ function SettingsSection<T extends string>({
           optionsClassName
         )}
       >
-        {options.map(({ value, icon, label, description }) => (
-          <FlatButton
-            key={value}
-            onClick={() => onSelectOptions(value)}
-            className="flex flex-col items-center gap-1 py-2 px-3"
-            variant={selectedOption === value ? "selected" : "base"}
-            disabled={disabled}
-          >
-            {icon && <span className="text-2xl">{icon}</span>}
-            <span className={`text-${icon ? "sm" : "xl"}`}>{label}</span>
-            {description && (
-              <span className="text-sm font-medium leading-none">
-                {description}
-              </span>
-            )}
-          </FlatButton>
-        ))}
+        {options.map(
+          ({ value, icon, label, description, iconSide = "top" }) => (
+            <FlatButton
+              key={value}
+              onClick={() => onSelectOptions(value)}
+              className={cn(
+                "flex items-center gap-1 py-2 px-3",
+                iconSide === "top" ? "flex-col" : "flex-row"
+              )}
+              variant={selectedOption === value ? "selected" : "base"}
+              disabled={disabled}
+            >
+              {icon && <span className="text-2xl">{icon}</span>}
+              <div className="flex flex-col gap-1">
+                <span
+                  className={`text-${icon && iconSide === "top" ? "sm" : "xl"}`}
+                >
+                  {label}
+                </span>
+                {description && (
+                  <span className="text-sm font-medium leading-none">
+                    {description}
+                  </span>
+                )}
+              </div>
+            </FlatButton>
+          )
+        )}
       </div>
     </section>
   );
