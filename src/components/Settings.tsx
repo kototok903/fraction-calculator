@@ -13,6 +13,7 @@ import {
 import { FlatButton } from "@/components/FlatButton";
 import { cn } from "@/utils/utils";
 import { DisplayFraction } from "@/components/DisplayFraction";
+import { FaCompactDisc, FaMoon, FaSun } from "react-icons/fa6";
 
 interface SettingsOption<T extends string> {
   value: T;
@@ -22,9 +23,9 @@ interface SettingsOption<T extends string> {
 }
 
 const THEME_OPTIONS: SettingsOption<ThemeName>[] = [
-  { value: "light", icon: "☀️", label: "Light" },
-  { value: "dark", icon: "🌙", label: "Dark" },
-  { value: "retro", icon: "📺", label: "Retro" },
+  { value: "light", icon: <FaSun />, label: "Light" },
+  { value: "dark", icon: <FaMoon />, label: "Dark" },
+  { value: "retro", icon: <FaCompactDisc />, label: "Retro" },
 ];
 
 const DENOMINATOR_MODE_OPTIONS: SettingsOption<DenominatorMode>[] = [

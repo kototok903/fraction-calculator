@@ -22,6 +22,7 @@ import { FlatButton } from "@/components/FlatButton";
 import { useSettings } from "@/contexts/settings/useSettings";
 import { BinaryRoundingSwitch } from "@/components/BinaryRoundingSwitch";
 import { cn } from "@/utils/utils";
+import { FaGear } from "react-icons/fa6";
 
 const DEFAULT_FRACTION: Fraction = {
   sign: 1,
@@ -317,7 +318,7 @@ export function Calculator() {
           )}
           title="Settings"
         >
-          ⚙️
+          <FaGear />
         </FlatButton>
         <h1 className="text-xl font-bold font-stretch-condensed text-title min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">
           ENGI<span className="text-title-accent">CALC</span>
