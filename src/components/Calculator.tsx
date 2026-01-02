@@ -2,7 +2,7 @@ import { Display } from "@/components/Display";
 import { Keypad } from "@/components/Keypad";
 import { OpButtons } from "@/components/OpButtons";
 import { MemButtons } from "@/components/MemButtons";
-import { Settings } from "@/components/Settings";
+import { Settings } from "@/components/settings/Settings";
 import { FlatButton } from "@/components/ui/FlatButton";
 import { useSettings } from "@/contexts/settings/useSettings";
 import { BinaryRoundingSwitch } from "@/components/BinaryRoundingSwitch";
