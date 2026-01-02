@@ -1,0 +1,88 @@
+/* Flat Button Styles */
+
+.flat-btn-themed {
+  background-color: var(--flat-btn-bg);
+  color: var(--flat-btn-text);
+}
+@media (hover: hover) {
+  .flat-btn-themed:hover {
+    background-color: var(--flat-btn-hover);
+  }
+}
+
+.flat-btn-base {
+  --flat-btn-bg: var(--base-flat-btn-bg);
+  --flat-btn-hover: var(--base-flat-btn-hover);
+  --flat-btn-text: var(--base-flat-btn-text);
+}
+
+.flat-btn-selected {
+  --flat-btn-bg: var(--selected-flat-btn-bg);
+  --flat-btn-hover: var(--selected-flat-btn-hover);
+  --flat-btn-text: var(--selected-flat-btn-text);
+}
+
+/* Calculator Button Styles */
+
+.calc-btn-themed {
+  background-color: var(--calc-btn-bg);
+  color: var(--calc-btn-text);
+  box-shadow: 0 3px 0 0 var(--calc-btn-shadow);
+}
+@media (hover: hover) {
+  .calc-btn-themed:hover {
+    background-color: var(--calc-btn-hover);
+  }
+}
+.calc-btn-themed:active {
+  box-shadow: 0 1px 0 0 var(--calc-btn-shadow);
+}
+
+.calc-btn-digit {
+  --calc-btn-bg: var(--digit-calc-btn-bg);
+  --calc-btn-hover: var(--digit-calc-btn-hover);
+  --calc-btn-text: var(--digit-calc-btn-text);
+  --calc-btn-shadow: var(--digit-calc-btn-shadow);
+}
+.calc-btn-fraction {
+  --calc-btn-bg: var(--fraction-calc-btn-bg);
+  --calc-btn-hover: var(--fraction-calc-btn-hover);
+  --calc-btn-text: var(--fraction-calc-btn-text);
+  --calc-btn-shadow: var(--fraction-calc-btn-shadow);
+}
+.calc-btn-clear {
+  --calc-btn-bg: var(--clear-calc-btn-bg);
+  --calc-btn-hover: var(--clear-calc-btn-hover);
+  --calc-btn-text: var(--clear-calc-btn-text);
+  --calc-btn-shadow: var(--clear-calc-btn-shadow);
+}
+.calc-btn-toggle {
+  --calc-btn-bg: var(--toggle-sign-calc-btn-bg);
+  --calc-btn-hover: var(--toggle-sign-calc-btn-hover);
+  --calc-btn-text: var(--toggle-sign-calc-btn-text);
+  --calc-btn-shadow: var(--toggle-sign-calc-btn-shadow);
+}
+.calc-btn-memory {
+  --calc-btn-bg: var(--memory-calc-btn-bg);
+  --calc-btn-hover: var(--memory-calc-btn-hover);
+  --calc-btn-text: var(--memory-calc-btn-text);
+  --calc-btn-shadow: var(--memory-calc-btn-shadow);
+}
+.calc-btn-operator {
+  --calc-btn-bg: var(--operator-calc-btn-bg);
+  --calc-btn-hover: var(--operator-calc-btn-hover);
+  --calc-btn-text: var(--operator-calc-btn-text);
+  --calc-btn-shadow: var(--operator-calc-btn-shadow);
+}
+.calc-btn-operator-selected {
+  --calc-btn-bg: var(--operator-selected-calc-btn-bg);
+  --calc-btn-hover: var(--operator-selected-calc-btn-hover);
+  --calc-btn-text: var(--operator-selected-calc-btn-text);
+  --calc-btn-shadow: var(--operator-selected-calc-btn-shadow);
+}
+.calc-btn-equals {
+  --calc-btn-bg: var(--equals-calc-btn-bg);
+  --calc-btn-hover: var(--equals-calc-btn-hover);
+  --calc-btn-text: var(--equals-calc-btn-text);
+  --calc-btn-shadow: var(--equals-calc-btn-shadow);
+}

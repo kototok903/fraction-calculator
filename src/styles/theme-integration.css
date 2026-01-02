@@ -1,0 +1,33 @@
+/* Tailwind Theme Integration (enables autocomplete) */
+
+@theme inline {
+  /* Page */
+  --background-color-page-bg-from: var(--page-bg-from);
+  --background-color-page-bg-to: var(--page-bg-to);
+
+  /* Calculator */
+  --background-color-calc: var(--calc-bg);
+  --text-color-title: var(--title-text);
+  --text-color-title-muted: var(--title-muted);
+  --text-color-title-accent: var(--title-accent);
+
+  /* Display */
+  --background-color-display-bg-from: var(--display-bg-from);
+  --background-color-display-bg-to: var(--display-bg-to);
+  --border-color-display: var(--display-border);
+  --text-color-display: var(--display-text);
+  --text-color-display-muted: var(--display-text-muted);
+  --background-color-display-fade-from: var(--display-fade-from);
+  --background-color-display-fade-to: var(--display-fade-to);
+
+  /* Memory badge */
+  --background-color-memory-badge: var(--display-border);
+  --text-color-memory-badge: var(--display-text);
+
+  /* Divider */
+  --background-color-fraction-divider: var(--fraction-calc-btn-bg);
+  --shadow-color-fraction-divider: var(--fraction-calc-btn-shadow);
+
+  /* Settings */
+  --border-color-settings-divider: var(--title-muted);
+}
