@@ -1,4 +1,4 @@
-import { CalcButton, type CalcButtonVariant } from "@/components/CalcButton";
+import { CalcButton, type CalcButtonVariant } from "@/components/ui/CalcButton";
 import { cn } from "@/utils/utils";
 import { DisplayFraction } from "@/components/DisplayFraction";
 

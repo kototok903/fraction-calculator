@@ -18,6 +18,13 @@ export const OPERATOR_SYMBOLS: Record<Operator, string> = {
   "/": "÷",
 };
 
+export const DEFAULT_FRACTION: Fraction = {
+  sign: 1,
+  whole: 0,
+  numerator: 0,
+  denominator: 0,
+};
+
 /**
  * Calculate the Greatest Common Divisor using Euclidean algorithm
  */
@@ -166,6 +173,26 @@ export function divideFractions(f1: Fraction, f2: Fraction): Fraction {
 
   const simplified = simplify(num, den);
   return toProperFraction(simplified.num, simplified.den);
+}
+
+/**
+ * Perform an operation on two fractions
+ */
+export function performOperation(
+  f1: Fraction,
+  op: Operator,
+  f2: Fraction
+): Fraction {
+  switch (op) {
+    case "+":
+      return addFractions(f1, f2);
+    case "-":
+      return subtractFractions(f1, f2);
+    case "*":
+      return multiplyFractions(f1, f2);
+    case "/":
+      return divideFractions(f1, f2);
+  }
 }
 
 /**

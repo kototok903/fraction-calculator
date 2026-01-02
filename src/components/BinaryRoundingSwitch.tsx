@@ -1,4 +1,4 @@
-import { FlatButton } from "@/components/FlatButton";
+import { FlatButton } from "@/components/ui/FlatButton";
 import {
   BINARY_ROUNDING_DENOMINATORS,
   type BinaryRoundingDenominator,

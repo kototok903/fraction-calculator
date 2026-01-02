@@ -1,4 +1,4 @@
-import { CalcButton } from "@/components/CalcButton";
+import { CalcButton } from "@/components/ui/CalcButton";
 import {
   OPERATOR_SYMBOLS,
   OPERATOR_VALUES,

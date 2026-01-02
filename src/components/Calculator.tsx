@@ -1,306 +1,43 @@
-import { useState } from "react";
-import type { Fraction, Operator, Sign } from "@/utils/fractionUtils";
-import {
-  addFractions,
-  subtractFractions,
-  multiplyFractions,
-  divideFractions,
-  isZero,
-  clearIncompleteFraction,
-  simplifyProperFraction,
-  areFractionsDeepEqual,
-  ceilFraction,
-  roundFraction,
-  floorFraction,
-} from "@/utils/fractionUtils";
 import { Display } from "@/components/Display";
 import { Keypad } from "@/components/Keypad";
 import { OpButtons } from "@/components/OpButtons";
 import { MemButtons } from "@/components/MemButtons";
 import { Settings } from "@/components/Settings";
-import { FlatButton } from "@/components/FlatButton";
+import { FlatButton } from "@/components/ui/FlatButton";
 import { useSettings } from "@/contexts/settings/useSettings";
 import { BinaryRoundingSwitch } from "@/components/BinaryRoundingSwitch";
 import { cn } from "@/utils/utils";
 import { FaGear } from "react-icons/fa6";
-
-const DEFAULT_FRACTION: Fraction = {
-  sign: 1,
-  whole: 0,
-  numerator: 0,
-  denominator: 0,
-};
+import { useCalculator } from "@/hooks/useCalculator";
+import { useState } from "react";
 
 export function Calculator() {
-  const { settings, updateSettings } = useSettings();
-
-  const [prevOperand, setPrevOperand] = useState<Fraction | null>(null);
-  const [operator, setOperator] = useState<Operator | null>(null);
-  const [currOperand, setCurrOperand] = useState<Fraction>(DEFAULT_FRACTION);
-  const [result, setResult] = useState<Fraction | null>(null);
-  const [roundedResult, setRoundedResult] = useState<Fraction | null>(null);
-  const [memory, setMemory] = useState<Fraction | null>(null);
-  const [showSettings, setShowSettings] = useState(false);
-
-  const isCurrFractionDefault = areFractionsDeepEqual(
+  const {
+    prevOperand,
+    operator,
     currOperand,
-    DEFAULT_FRACTION
-  );
-  const isClearEntry = !result && !roundedResult && !isCurrFractionDefault;
+    result,
+    roundedResult,
+    memory,
+    isClearEntry,
+    handleClear,
+    handleOperation,
+    handleEquals,
+    handleToggleSign,
+    handleWholeInput,
+    handleWholeDelete,
+    handleNumInput,
+    handleNumDelete,
+    handleDenInput,
+    handleDenDelete,
+    handleClearMemory,
+    handleRecallMemory,
+    handleAddToMemory,
+    handleSubtractFromMemory,
+  } = useCalculator();
 
-  const isRoundingEnabled =
-    settings.denominatorMode === "binary" &&
-    settings.binaryRoundingMode !== "off";
-  const shouldRound =
-    isRoundingEnabled && settings.binaryRoundingDenominator !== "off";
-
-  const handleClear = () => {
-    if (isClearEntry) {
-      setCurrOperand(DEFAULT_FRACTION);
-    } else {
-      setPrevOperand(null);
-      setOperator(null);
-      setCurrOperand(DEFAULT_FRACTION);
-      setResult(null);
-      setRoundedResult(null);
-    }
-  };
-
-  const clearFinishedCalculation = () => {
-    if (roundedResult || result) {
-      setPrevOperand(null);
-      setOperator(null);
-      setCurrOperand(roundedResult ?? result!);
-      setResult(null);
-      setRoundedResult(null);
-      return {
-        prevOperand: null,
-        operator: null,
-        currOperand: roundedResult ?? result!,
-        result: null,
-        roundedResult: null,
-      };
-    }
-    return { prevOperand, operator, currOperand, result, roundedResult };
-  };
-
-  const handleOperation = (op: Operator) => {
-    const { prevOperand, operator, currOperand } = clearFinishedCalculation();
-
-    // change current operator
-    if (isZero(currOperand)) {
-      if (!prevOperand) {
-        setPrevOperand(DEFAULT_FRACTION);
-      }
-      setOperator(op);
-      return;
-    }
-
-    // perform current operation, set new operator
-    if (prevOperand) {
-      const clearedCurrOperand = clearIncompleteFraction(currOperand);
-      setCurrOperand(clearedCurrOperand);
-      const calcResult = calculate(prevOperand, operator!, clearedCurrOperand);
-      const roundedCalcResult = round(calcResult);
-      setPrevOperand(roundedCalcResult);
-      setOperator(op);
-      setCurrOperand(DEFAULT_FRACTION);
-      return;
-    }
-
-    // set new operator
-    const clearedCurrOperand = clearIncompleteFraction(currOperand);
-    setPrevOperand(clearedCurrOperand);
-    setCurrOperand(DEFAULT_FRACTION);
-    setOperator(op);
-  };
-
-  const handleEquals = () => {
-    if (roundedResult || result) {
-      // repeat current operation on result
-      if (prevOperand) {
-        setPrevOperand(roundedResult ?? result!);
-        const calcResult = calculate(
-          roundedResult ?? result!,
-          operator!,
-          currOperand
-        );
-        setResult(calcResult);
-        if (shouldRound) {
-          const roundedCalcResult = round(calcResult);
-          if (!areFractionsDeepEqual(roundedCalcResult, calcResult)) {
-            setRoundedResult(roundedCalcResult);
-          }
-        }
-        return;
-      }
-
-      // clear steps
-      setCurrOperand(roundedResult ?? result!);
-      setResult(null);
-      setRoundedResult(null);
-      return;
-    }
-
-    // perform current operation
-    if (prevOperand) {
-      let newCurrOperand: Fraction;
-      // if current operand is empty, reuse previous operand
-      if (isZero(currOperand)) {
-        newCurrOperand = prevOperand;
-      } else {
-        newCurrOperand = clearIncompleteFraction(currOperand);
-      }
-      setCurrOperand(newCurrOperand);
-      const calcResult = calculate(prevOperand, operator!, newCurrOperand);
-      setResult(calcResult);
-      if (shouldRound) {
-        const roundedCalcResult = round(calcResult);
-        if (!areFractionsDeepEqual(roundedCalcResult, calcResult)) {
-          setRoundedResult(roundedCalcResult);
-        }
-      }
-      return;
-    }
-
-    // simplify/round current operand
-    if (!isZero(currOperand)) {
-      const simplifiedCurrOperand = simplifyProperFraction(currOperand);
-      if (!areFractionsDeepEqual(simplifiedCurrOperand, currOperand)) {
-        setResult(simplifiedCurrOperand);
-      }
-      if (shouldRound) {
-        const roundedSimplifiedCurrOperand = round(simplifiedCurrOperand);
-        if (
-          !areFractionsDeepEqual(
-            roundedSimplifiedCurrOperand,
-            simplifiedCurrOperand
-          )
-        ) {
-          setRoundedResult(roundedSimplifiedCurrOperand);
-        }
-      }
-    }
-  };
-
-  const round = (frac: Fraction) => {
-    if (!shouldRound) {
-      return frac;
-    }
-    switch (settings.binaryRoundingMode) {
-      case "up":
-        return ceilFraction(frac, parseInt(settings.binaryRoundingDenominator));
-      case "nearest":
-        return roundFraction(
-          frac,
-          parseInt(settings.binaryRoundingDenominator)
-        );
-      case "down":
-        return floorFraction(
-          frac,
-          parseInt(settings.binaryRoundingDenominator)
-        );
-    }
-    return frac;
-  };
-
-  const calculate = (f1: Fraction, op: Operator, f2: Fraction) => {
-    switch (op) {
-      case "+":
-        return addFractions(f1, f2);
-      case "-":
-        return subtractFractions(f1, f2);
-      case "*":
-        return multiplyFractions(f1, f2);
-      case "/":
-        return divideFractions(f1, f2);
-    }
-  };
-
-  const handleToggleSign = () => {
-    const { currOperand } = clearFinishedCalculation();
-    setCurrOperand({ ...currOperand, sign: (currOperand.sign * -1) as Sign });
-  };
-
-  const handleWholeInput = (digit: string) => {
-    const { currOperand } = clearFinishedCalculation();
-    setCurrOperand({
-      ...currOperand,
-      whole: currOperand.whole * 10 + parseInt(digit),
-    });
-  };
-  const handleWholeDelete = () => {
-    const { currOperand } = clearFinishedCalculation();
-    setCurrOperand({
-      ...currOperand,
-      whole: Math.floor(currOperand.whole / 10),
-    });
-  };
-
-  const handleNumInput = (digit: string) => {
-    const { currOperand } = clearFinishedCalculation();
-    setCurrOperand({
-      ...currOperand,
-      numerator: currOperand.numerator * 10 + parseInt(digit),
-    });
-  };
-  const handleNumDelete = () => {
-    const { currOperand } = clearFinishedCalculation();
-    setCurrOperand({
-      ...currOperand,
-      numerator: Math.floor(currOperand.numerator / 10),
-    });
-  };
-
-  const handleDenInput = (digit: string) => {
-    const { currOperand } = clearFinishedCalculation();
-    if (settings.denominatorMode === "binary") {
-      setCurrOperand({
-        ...currOperand,
-        denominator: parseInt(digit),
-      });
-    } else {
-      setCurrOperand({
-        ...currOperand,
-        denominator: currOperand.denominator * 10 + parseInt(digit),
-      });
-    }
-  };
-  const handleDenDelete = () => {
-    const { currOperand } = clearFinishedCalculation();
-    if (settings.denominatorMode === "binary") {
-      setCurrOperand({
-        ...currOperand,
-        denominator: 0,
-      });
-    } else {
-      setCurrOperand({
-        ...currOperand,
-        denominator: Math.floor(currOperand.denominator / 10),
-      });
-    }
-  };
-
-  const handleClearMemory = () => {
-    setMemory(null);
-  };
-  const handleRecallMemory = () => {
-    if (memory) {
-      clearFinishedCalculation();
-      setCurrOperand(memory);
-    }
-  };
-  const handleAddToMemory = () => {
-    const newMemory = addFractions(memory ?? DEFAULT_FRACTION, currOperand);
-    setMemory(newMemory);
-  };
-  const handleSubtractFromMemory = () => {
-    const newMemory = subtractFractions(
-      memory ?? DEFAULT_FRACTION,
-      currOperand
-    );
-    setMemory(newMemory);
-  };
+  const { settings, updateSettings } = useSettings();
+  const [showSettings, setShowSettings] = useState(false);
 
   return (
     <div className="bg-calc px-3 pt-3 pb-4 md:rounded-xl shadow-2xl md:max-w-2xl w-full min-w-0">

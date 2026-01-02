@@ -246,18 +246,6 @@
   --border-color-settings-divider: var(--title-muted);
 }
 
-/* Utilities */
-
-@layer utilities {
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-}
-
 /* Button Styles */
 
 .flat-btn-themed {
@@ -343,6 +331,18 @@
   --calc-btn-hover: var(--equals-calc-btn-hover);
   --calc-btn-text: var(--equals-calc-btn-text);
   --calc-btn-shadow: var(--equals-calc-btn-shadow);
+}
+
+/* Utilities */
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Base Styles */
