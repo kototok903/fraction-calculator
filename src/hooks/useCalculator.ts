@@ -69,19 +69,19 @@ export function useCalculator() {
   );
   const isClearEntry = !result && !roundedResult && !isCurrFractionDefault;
 
-  const isRoundingEnabled =
+  const isRoundingSwitchEnabled =
     settings.denominatorMode === "binary" &&
     settings.binaryRoundingMode !== "off";
   const shouldRound =
-    isRoundingEnabled && settings.binaryRoundingDenominator !== "off";
+    isRoundingSwitchEnabled && settings.binaryRoundingDenominator !== "off";
 
   const clearFinishedCalculation = () => {
-    if (roundedResult || result) {
+    if (result) {
       const newState = {
         ...state,
         prevOperand: null,
         operator: null,
-        currOperand: roundedResult ?? result!,
+        currOperand: result,
         result: null,
         roundedResult: null,
       };
@@ -149,17 +149,13 @@ export function useCalculator() {
   };
 
   const handleEquals = () => {
-    if (roundedResult || result) {
+    if (result) {
       // repeat current operation on result
       if (prevOperand) {
-        const calcResult = performOperation(
-          roundedResult ?? result!,
-          operator!,
-          currOperand
-        );
+        const calcResult = performOperation(result, operator!, currOperand);
         const newState = {
           ...state,
-          prevOperand: roundedResult ?? result!,
+          prevOperand: result,
           result: calcResult,
         };
         if (shouldRound) {
@@ -175,7 +171,7 @@ export function useCalculator() {
       // clear steps
       setState({
         ...state,
-        currOperand: roundedResult ?? result!,
+        currOperand: result,
         result: null,
         roundedResult: null,
       });
@@ -326,7 +322,8 @@ export function useCalculator() {
         ...clearedState,
         currOperand: {
           ...clearedState.currOperand,
-          denominator: clearedState.currOperand.denominator * 10 + parseInt(digit),
+          denominator:
+            clearedState.currOperand.denominator * 10 + parseInt(digit),
         },
       });
     }

@@ -43,28 +43,33 @@ export function Display({
       parts.push(<span>=</span>);
       parts.push(<DisplayFraction fraction={result} size="lg" />);
     }
-    if (roundedResult) {
-      parts.push(<span>≈</span>);
-      parts.push(<DisplayFraction fraction={roundedResult} size="lg" />);
-    }
     return parts;
   };
-
   const expression = getExpression();
-  const decimalResult =
-    result || roundedResult
-      ? toDecimal(roundedResult ?? result!)
-      : prevOperand
-        ? toDecimal(prevOperand)
-        : isCompleteFraction(currOperand)
-          ? toDecimal(currOperand)
-          : null;
+
+  const decimalResult = result
+    ? toDecimal(result)
+    : prevOperand
+      ? toDecimal(prevOperand)
+      : isCompleteFraction(currOperand)
+        ? toDecimal(currOperand)
+        : null;
 
   return (
     <div className="relative pt-2 pb-1 rounded-lg border-2 shadow-md bg-linear-to-br from-display-bg-from to-display-bg-to border-display overflow-hidden">
       <div className="relative">
         <div className="flex flex-row-reverse items-center gap-2 text-4xl font-stretch-condensed px-2 overflow-x-auto overflow-y-hidden scrollbar-hide">
-          {result || roundedResult ? (
+          {roundedResult && (
+            <>
+              <DisplayFraction
+                fraction={roundedResult}
+                size="lg"
+                className="text-display"
+              />
+              <span className="text-display">≈</span>
+            </>
+          )}
+          {result ? (
             <>
               {expression
                 .slice()
