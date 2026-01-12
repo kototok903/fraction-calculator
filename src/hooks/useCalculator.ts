@@ -86,7 +86,6 @@ export function useCalculator() {
         roundedResult: null,
       };
       setState(newState);
-      console.log("clearFinishedCalculation", newState);
       return newState;
     }
     return { ...state };
@@ -108,12 +107,13 @@ export function useCalculator() {
   };
 
   const handleOperation = (op: Operator) => {
-    const { prevOperand, operator, currOperand } = clearFinishedCalculation();
+    const clearedState = clearFinishedCalculation();
+    const { prevOperand, operator, currOperand } = clearedState;
 
     // change current operator
     if (isZero(currOperand)) {
       setState({
-        ...state,
+        ...clearedState,
         operator: op,
         prevOperand: prevOperand ?? DEFAULT_FRACTION,
       });
@@ -130,7 +130,7 @@ export function useCalculator() {
       );
       const roundedCalcResult = round(calcResult);
       setState({
-        ...state,
+        ...clearedState,
         prevOperand: roundedCalcResult,
         operator: op,
         currOperand: DEFAULT_FRACTION,
@@ -141,7 +141,7 @@ export function useCalculator() {
     // set new operator
     const clearedCurrOperand = clearIncompleteFraction(currOperand);
     setState({
-      ...state,
+      ...clearedState,
       prevOperand: clearedCurrOperand,
       operator: op,
       currOperand: DEFAULT_FRACTION,
