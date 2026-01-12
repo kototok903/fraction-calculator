@@ -59,6 +59,15 @@ export function isValidMemoryMode(value: string): value is MemoryMode {
   return MEMORY_MODES.includes(value as MemoryMode);
 }
 
+export const EQUALS_REPEAT_MODES = ["off", "on"] as const;
+export type EqualsRepeatMode = (typeof EQUALS_REPEAT_MODES)[number];
+
+export function isValidEqualsRepeatMode(
+  value: string
+): value is EqualsRepeatMode {
+  return EQUALS_REPEAT_MODES.includes(value as EqualsRepeatMode);
+}
+
 export interface Settings {
   theme: ThemeName;
   denominatorMode: DenominatorMode;
@@ -66,6 +75,7 @@ export interface Settings {
   binaryRoundingDenominator: BinaryRoundingDenominator;
   carpenterMode: CarpenterMode;
   memoryMode: MemoryMode;
+  equalsRepeatMode: EqualsRepeatMode;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -75,6 +85,7 @@ export const DEFAULT_SETTINGS: Settings = {
   binaryRoundingDenominator: "off",
   carpenterMode: "off",
   memoryMode: "on",
+  equalsRepeatMode: "on",
 };
 
 export function validateSettings(settings: Partial<Settings>): Settings {
@@ -101,5 +112,8 @@ export function validateSettings(settings: Partial<Settings>): Settings {
     memoryMode: isValidMemoryMode(settings.memoryMode ?? "")
       ? settings.memoryMode!
       : DEFAULT_SETTINGS.memoryMode,
+    equalsRepeatMode: isValidEqualsRepeatMode(settings.equalsRepeatMode ?? "")
+      ? settings.equalsRepeatMode!
+      : DEFAULT_SETTINGS.equalsRepeatMode,
   };
 }

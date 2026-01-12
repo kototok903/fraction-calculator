@@ -10,6 +10,7 @@ import {
   BINARY_ROUNDING_MODE_OPTIONS,
   CARPENTER_MODE_OPTIONS,
   MEMORY_MODE_OPTIONS,
+  EQUALS_REPEAT_MODE_OPTIONS,
 } from "@/components/settings/settingsOptions";
 
 interface SettingsProps {
@@ -97,6 +98,15 @@ export function Settings({ onClose }: SettingsProps) {
             options={MEMORY_MODE_OPTIONS}
             selectedOption={settings.memoryMode}
             onSelectOptions={(value) => updateSettings({ memoryMode: value })}
+          />
+
+          <SettingsSection
+            title="Pressing Equals repeats operation"
+            options={EQUALS_REPEAT_MODE_OPTIONS}
+            selectedOption={settings.equalsRepeatMode}
+            onSelectOptions={(value) =>
+              updateSettings({ equalsRepeatMode: value })
+            }
           />
         </div>
 

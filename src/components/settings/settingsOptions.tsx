@@ -4,6 +4,7 @@ import {
   type ThemeName,
   type CarpenterMode,
   type BinaryRoundingMode,
+  type EqualsRepeatMode,
 } from "@/utils/settingsUtils";
 import { DisplayFraction } from "@/components/DisplayFraction";
 import {
@@ -74,6 +75,11 @@ export const CARPENTER_MODE_OPTIONS: SettingsOption<CarpenterMode>[] = [
 ];
 
 export const MEMORY_MODE_OPTIONS: SettingsOption<MemoryMode>[] = [
+  { value: "off", label: "Off" },
+  { value: "on", label: "On" },
+];
+
+export const EQUALS_REPEAT_MODE_OPTIONS: SettingsOption<EqualsRepeatMode>[] = [
   { value: "off", label: "Off" },
   { value: "on", label: "On" },
 ];

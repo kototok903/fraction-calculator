@@ -161,7 +161,7 @@ export function useCalculator() {
   const handleEquals = () => {
     if (result) {
       // repeat current operation on result
-      if (prevOperand) {
+      if (prevOperand && settings.equalsRepeatMode === "on") {
         const calcResult = performOperation(result, operator!, currOperand);
         const newState = {
           ...state,
@@ -179,12 +179,7 @@ export function useCalculator() {
       }
 
       // clear steps
-      setState({
-        ...state,
-        currOperand: result,
-        result: null,
-        roundedResult: null,
-      });
+      clearFinishedCalculation();
       return;
     }
 
