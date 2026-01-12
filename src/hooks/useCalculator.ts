@@ -112,6 +112,16 @@ export function useCalculator() {
 
     // change current operator
     if (isZero(currOperand)) {
+      if (op === operator) {
+        // delete current operator
+        setState({
+          ...clearedState,
+          prevOperand: null,
+          operator: null,
+          currOperand: prevOperand ?? DEFAULT_FRACTION,
+        });
+        return;
+      }
       setState({
         ...clearedState,
         operator: op,
