@@ -102,6 +102,7 @@ export function Settings({ onClose }: SettingsProps) {
 
           <SettingsSection
             title="Pressing Equals repeats operation"
+            description="1 + 2 = 3&emsp;→&emsp;Press&ensp;=&emsp;→&emsp;3 + 2 = 5"
             options={EQUALS_REPEAT_MODE_OPTIONS}
             selectedOption={settings.equalsRepeatMode}
             onSelectOptions={(value) =>

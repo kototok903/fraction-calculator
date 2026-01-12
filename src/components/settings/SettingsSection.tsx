@@ -13,6 +13,7 @@ interface SettingsSectionProps<
   T extends string,
 > extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
+  description?: string;
   options: SettingsOption<T>[];
   selectedOption: T;
   onSelectOptions: (value: T) => void;
@@ -23,6 +24,7 @@ interface SettingsSectionProps<
 
 export function SettingsSection<T extends string>({
   title,
+  description,
   options,
   selectedOption,
   onSelectOptions,
@@ -32,9 +34,14 @@ export function SettingsSection<T extends string>({
 }: SettingsSectionProps<T>) {
   return (
     <section {...props}>
-      <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide mb-2">
-        {title}
-      </h3>
+      <div className="flex flex-col gap-0.25 mb-2">
+        <h3 className="text-sm font-semibold text-title-muted uppercase tracking-wide">
+          {title}
+        </h3>
+        {description && (
+          <p className="text-sm text-title-muted">{description}</p>
+        )}
+      </div>
       <div
         className={cn(
           `grid grid-cols-${options.length} gap-2`,
