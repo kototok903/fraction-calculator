@@ -86,9 +86,10 @@ export function useCalculator() {
         roundedResult: null,
       };
       setState(newState);
+      console.log("clearFinishedCalculation", newState);
       return newState;
     }
-    return { prevOperand, operator, currOperand, result, roundedResult };
+    return { ...state };
   };
 
   const handleClear = () => {
@@ -269,83 +270,83 @@ export function useCalculator() {
   };
 
   const handleWholeInput = (digit: string) => {
-    const { currOperand } = clearFinishedCalculation();
+    const clearedState = clearFinishedCalculation();
     setState({
-      ...state,
+      ...clearedState,
       currOperand: {
-        ...currOperand,
-        whole: currOperand.whole * 10 + parseInt(digit),
+        ...clearedState.currOperand,
+        whole: clearedState.currOperand.whole * 10 + parseInt(digit),
       },
     });
   };
   const handleWholeDelete = () => {
-    const { currOperand } = clearFinishedCalculation();
+    const clearedState = clearFinishedCalculation();
     setState({
-      ...state,
+      ...clearedState,
       currOperand: {
-        ...currOperand,
-        whole: Math.floor(currOperand.whole / 10),
+        ...clearedState.currOperand,
+        whole: Math.floor(clearedState.currOperand.whole / 10),
       },
     });
   };
 
   const handleNumInput = (digit: string) => {
-    const { currOperand } = clearFinishedCalculation();
+    const clearedState = clearFinishedCalculation();
     setState({
-      ...state,
+      ...clearedState,
       currOperand: {
-        ...currOperand,
-        numerator: currOperand.numerator * 10 + parseInt(digit),
+        ...clearedState.currOperand,
+        numerator: clearedState.currOperand.numerator * 10 + parseInt(digit),
       },
     });
   };
   const handleNumDelete = () => {
-    const { currOperand } = clearFinishedCalculation();
+    const clearedState = clearFinishedCalculation();
     setState({
-      ...state,
+      ...clearedState,
       currOperand: {
-        ...currOperand,
-        numerator: Math.floor(currOperand.numerator / 10),
+        ...clearedState.currOperand,
+        numerator: Math.floor(clearedState.currOperand.numerator / 10),
       },
     });
   };
 
   const handleDenInput = (digit: string) => {
-    const { currOperand } = clearFinishedCalculation();
+    const clearedState = clearFinishedCalculation();
     if (settings.denominatorMode === "binary") {
       setState({
-        ...state,
+        ...clearedState,
         currOperand: {
-          ...currOperand,
+          ...clearedState.currOperand,
           denominator: parseInt(digit),
         },
       });
     } else {
       setState({
-        ...state,
+        ...clearedState,
         currOperand: {
-          ...currOperand,
-          denominator: currOperand.denominator * 10 + parseInt(digit),
+          ...clearedState.currOperand,
+          denominator: clearedState.currOperand.denominator * 10 + parseInt(digit),
         },
       });
     }
   };
   const handleDenDelete = () => {
-    const { currOperand } = clearFinishedCalculation();
+    const clearedState = clearFinishedCalculation();
     if (settings.denominatorMode === "binary") {
       setState({
-        ...state,
+        ...clearedState,
         currOperand: {
-          ...currOperand,
+          ...clearedState.currOperand,
           denominator: 0,
         },
       });
     } else {
       setState({
-        ...state,
+        ...clearedState,
         currOperand: {
-          ...currOperand,
-          denominator: Math.floor(currOperand.denominator / 10),
+          ...clearedState.currOperand,
+          denominator: Math.floor(clearedState.currOperand.denominator / 10),
         },
       });
     }
@@ -356,8 +357,8 @@ export function useCalculator() {
   };
   const handleRecallMemory = () => {
     if (memory) {
-      clearFinishedCalculation();
-      setState({ ...state, currOperand: memory });
+      const clearedState = clearFinishedCalculation();
+      setState({ ...clearedState, currOperand: memory });
     }
   };
   const handleAddToMemory = () => {
